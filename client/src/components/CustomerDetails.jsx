@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { FormControl, FormLabel } from '@mui/material'
-import NavBar from './NavBar'
+import NavBarMui from './NavBarMui'
 
 
 
@@ -96,7 +96,7 @@ const CustomerDetails = () => {
 
   return (
     <div>
-      <NavBar/>
+       <NavBarMui/>
         <div style={{marginLeft: 150, marginRight: 150}}>
       {/* UPDATE FORM FOR EXISTING CUSTOMER */}
     <h1>Update a Customer</h1>

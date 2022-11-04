@@ -9,8 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import NavBar from './NavBar'
+import NavBarMui from './NavBarMui'
 
 
 
@@ -40,7 +39,7 @@ const RepTable = () => {
 
   return (
     <div>
-      <NavBar/>
+       <NavBarMui/>
       <div style={{marginLeft: 150, marginRight: 150}}>
       <h1>List of Sales Representatives</h1>
       <div>

@@ -7,10 +7,7 @@ import Input from '@mui/material/Input';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import { FormControl } from '@mui/material';
-import { FormGroup } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
-import NavBar from './NavBar'
+import NavBarMui from './NavBarMui'
 import '../App.css';
 
 
@@ -56,7 +53,7 @@ const CreateRep = () => {
 
   return (
     <div >
-       <NavBar/>    
+        <NavBarMui/>   
        <div style={{marginLeft: 150, marginRight: 150}}>
       <h1 style={{textAlign: "Left"}}>Add a New Representative</h1>
       {/* REGISTRATION FORM FOR NEW REP */}

@@ -4,6 +4,7 @@ import AdminTable from './AdminTable'
 import Histogram from './Histogram'
 import NavBar from './NavBar'
 import { useNavigate} from 'react-router-dom'
+import NavBarMui from './NavBarMui'
 
 
 const Main = () => {
@@ -41,7 +42,7 @@ const Main = () => {
 
   return (
     <div>
-      <NavBar/>
+      <NavBarMui/>
       <div style={{marginLeft: 150, marginRight: 150}}>
       <AdminTable customers={customers} onDelete={filterList}/>
       <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>

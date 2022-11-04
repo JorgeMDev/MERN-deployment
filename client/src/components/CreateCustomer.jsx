@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import NavBar from './NavBar'
+import NavBarMui from './NavBarMui'
 import InputLabel from '@mui/material/InputLabel';
 
 const CreateCustomer = () => {
@@ -74,7 +74,7 @@ const CreateCustomer = () => {
 
   return (
     <div>
-           <NavBar/>   
+            <NavBarMui/> 
            <div  style={{marginLeft: 150, marginRight: 150}} >
     <h1>Add a New Customer</h1>
     <Button sx={{marginLeft:10}} size="small" variant='outlined' onClick={handleHome}>Back to Dashboard</Button>

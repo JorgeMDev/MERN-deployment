@@ -58,11 +58,12 @@ export default function LoginPage() {
     },[])}
 
     const handleSkip = (event) => {
+      event.preventDefault();
       setUser({
         email: "jorgemartinez1990@gmail.com",
          password: "19607061"
       })
-      event.preventDefault();
+      
       axios.post("http://localhost:8000/api/login", user, {withCredentials: true})
       .then(res=> navigate('/'))
       .catch(err => {

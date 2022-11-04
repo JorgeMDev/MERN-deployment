@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { FormControl, FormLabel, FormGroup, Checkbox } from '@mui/material'
-import NavBar from './NavBar'
+import NavBarMui from './NavBarMui'
 
 
 const RepDetails = () => {
@@ -90,7 +90,7 @@ const RepDetails = () => {
 
   return (
     <div>
-      <NavBar/>
+       <NavBarMui/>
       <div style={{marginLeft: 150, marginRight: 150}}>
       <h1>Update Representative</h1>
       <Button size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
