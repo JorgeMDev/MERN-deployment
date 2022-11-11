@@ -1,15 +1,14 @@
 
 import './App.css';
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import CreateCustomer from './components/CreateCustomer';
 import CreateRep from './components/CreateRep'
 import Main from './components/Main'
 import CustomerDetails from './components/CustomerDetails';
 import RepTable from './components/RepTable';
 import RepDetails from './components/RepDetails';
-import Button from '@mui/material/Button'
 import LoginPage from './components/LoginPage';
-import NavBar from './components/NavBar';
+
 
 
 function App() {

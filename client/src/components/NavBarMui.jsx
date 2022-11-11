@@ -11,15 +11,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import WaterDamageIcon from '@mui/icons-material/WaterDamage';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Customers', 'Sales Team', 'Installers','Inventory'];
+const settings = ['Profile', 'Dashboard', 'Logout'];
 
 function NavBarMui() {
+  const navigate = useNavigate()
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+ 
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -28,12 +31,36 @@ function NavBarMui() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
+    if (page === "Customers"){
+      navigate("/")
+    }
+    if (page === "Sales Team"){
+      navigate("/all/reps")
+    }
+    if (page === "Installers"){
+      alert("Section under construction")
+    }
+    if (page === "Inventory"){
+      alert('Section under construction')
+    }
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (page) => {
     setAnchorElUser(null);
+    if (page === "Customers"){
+      navigate("/")
+    }
+    if (page === "Sales Team"){
+      navigate("/all/reps")
+    }
+    if (page === "Installers"){
+      alert("Section under construction")
+    }
+    if (page === "Inventory"){
+      alert('Section under construction')
+    }
   };
 
   return (
@@ -89,7 +116,7 @@ function NavBarMui() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick= {() =>handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -118,7 +145,7 @@ function NavBarMui() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>handleCloseNavMenu(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
