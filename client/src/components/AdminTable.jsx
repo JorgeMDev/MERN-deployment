@@ -11,10 +11,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { darkScrollbar, TextField } from '@mui/material'
-import Card from '@mui/material/Card';
+
+import { TextField } from '@mui/material'
+
 
 
 const AdminTable = (props) => {
@@ -34,10 +33,6 @@ const AdminTable = (props) => {
 
   const handleNewCustomer = () => {
     navigate('/customer/new')
-  }
-
-  const handleNewRep = () => {
-    navigate('/rep/new')
   }
 
   const handleRepList = () => {
@@ -64,7 +59,7 @@ const AdminTable = (props) => {
 
       </div>
     <div style={{padding: 5}}>
-      <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button> <Button size="small" variant='outlined' onClick={handleNewRep}>Add New Rep</Button>  <Button  size="small" variant='outlined' onClick={handleRepList}>List of Reps</Button>
+      <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button>  <Button  size="small" variant='outlined' onClick={handleRepList}>List of Reps</Button>
     </div>
     <div style={{display:"flex", justifyContent: "space-around",padding: 5}}>
       <TextField margin='normal' type="text" label="Search" onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 

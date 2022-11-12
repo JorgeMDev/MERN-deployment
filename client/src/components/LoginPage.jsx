@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -63,17 +62,6 @@ export default function LoginPage() {
         email: "jorgemartinez1990@gmail.com",
          password: "19607061"
       })
-      
-      axios.post("http://localhost:8000/api/login", user, {withCredentials: true})
-      .then(res=> navigate('/'))
-      .catch(err => {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-       
-        setErrors('Invalid Email / Password')
-      },[])
-    
   };
 
   const changeHandler = (e) => {
@@ -97,7 +85,7 @@ export default function LoginPage() {
             alignItems: 'center',
           }}
         >
-            <img style={{width:400, marginBottom: 40}}  src={logo}></img>
+            <img style={{width:400, marginBottom: 40}} alt="logo" src={logo}></img>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -140,7 +128,7 @@ export default function LoginPage() {
             <Grid container>
               <Grid item>
                 <Button href="/" variant="contained" color="success" onClick={handleSkip}>
-                  {"Skip Authentication"}
+                  {"Demo Account"}
                 </Button>
               </Grid>
             </Grid>

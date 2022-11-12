@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import WaterDamageIcon from '@mui/icons-material/WaterDamage';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const pages = ['Customers', 'Sales Team', 'Installers','Inventory'];
 const settings = ['Profile', 'Dashboard', 'Logout'];
@@ -61,7 +62,15 @@ function NavBarMui() {
     if (page === "Inventory"){
       alert('Section under construction')
     }
+    if (page === 'Logout'){
+      axios.get('http://localhost:8000/api/logout', {withCredentials: true})
+    .then(response => {
+     console.log(response.data)
+     navigate('/login')})
+     .catch(err=>console.log(err.response))
+    }
   };
+
 
   return (
     <AppBar position="static">
@@ -176,7 +185,7 @@ function NavBarMui() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
