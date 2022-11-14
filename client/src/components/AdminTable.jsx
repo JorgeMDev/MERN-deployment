@@ -55,7 +55,7 @@ const AdminTable = (props) => {
 
   return (
    <div>
-      <h1>Admin Dashboard</h1>
+    
       <div>
 
       </div>
