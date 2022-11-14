@@ -75,7 +75,7 @@ const CreateCustomer = () => {
   return (
     <div>
             <NavBarMui/> 
-           <div  style={{marginLeft: 150, marginRight: 150}} >
+      <div>
     <h1>Add a New Customer</h1>
     <Button sx={{marginLeft:10}} size="small" variant='outlined' onClick={handleHome}>Back to Dashboard</Button>
     {/* REGISTRATION FORM FOR NEW REP */}

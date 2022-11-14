@@ -11,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box'
 
 import { TextField } from '@mui/material'
 
@@ -61,10 +62,10 @@ const AdminTable = (props) => {
     <div style={{padding: 5}}>
       <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button>  <Button  size="small" variant='outlined' onClick={handleRepList}>List of Reps</Button>
     </div>
-    <div style={{display:"flex", justifyContent: "space-around",padding: 5}}>
+    <Box style={{justifyContent: "space-around",padding: 5}}>
       <TextField margin='normal' type="text" label="Search" onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
       <h2 style={{marginTop: 30}}>Revenue: <span style={{color: "green"}}>{totalRev}</span></h2>
-    </div>
+    </Box>
 
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">

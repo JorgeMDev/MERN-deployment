@@ -41,7 +41,7 @@ const Main = () => {
   return (
     <div>
       <NavBarMui/>
-      <div style={{marginLeft: 150, marginRight: 150}}>
+      <div>
       <AdminTable customers={customers} onDelete={filterList}/>
       <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>
       </div>
