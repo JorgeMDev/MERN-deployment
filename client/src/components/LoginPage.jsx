@@ -113,10 +113,7 @@ export default function LoginPage() {
               autoComplete="current-password"
               onChange={changeHandler}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+        
             <Button
               type="submit"
               fullWidth
