@@ -83,7 +83,7 @@ export default function LoginPage() {
             alignItems: 'center',
           }}
         >
-            <img style={{width:400, marginBottom: 40}} alt="logo" src={logo}></img>
+            <img style={{width:300, marginBottom: 40}} alt="logo" src={logo}></img>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
