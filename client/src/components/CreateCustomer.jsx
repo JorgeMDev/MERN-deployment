@@ -81,7 +81,7 @@ const CreateCustomer = () => {
     {/* REGISTRATION FORM FOR NEW REP */}
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
     <form onSubmit={(e)=>handleSubmit(e,repId)}>
-    <Box sx={{ display: 'flex' , justifyContent: 'space-around', alignItems: 'center', width:600, marginTop: 7, marginBottom: 2, boxShadow: 1, borderRadius: 2, padding: 3}}>
+    <Box sx={{ display: 'flex' , justifyContent: 'space-around', alignItems: 'center', margin: "10%", boxShadow: 1, borderRadius: 2, padding: 3}}>
       
       <Box>
         <Box sx={{padding: 1}}>
@@ -160,13 +160,13 @@ const CreateCustomer = () => {
       
    
     </Box >
-    <Box sx={{marginBottom: 2}}>
+    <Box sx={{margin: '10%'}}>
     <FormLabel>Comments:</FormLabel>
         <TextField name='comments' value={comments} onChange={(e)=>setComments(e.target.value)} rows='4' cols='50'>
         </TextField>
         </Box>
       <Box>
-      <Button type="submit" size="small" variant='contained'>Add Customer</Button>
+      <Button type="submit" size="small" variant='contained' sx={{margin: "10%"}}>Add Customer</Button>
       </Box>
     </form>
       </Box>
