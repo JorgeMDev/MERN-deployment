@@ -2,10 +2,11 @@
 const express = require('express')
 const app = express()
 const cors = require('cors') 
-require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-const port = 8000
+// const port = 8000
+
+require('dotenv').config()
 
 
 // CONFIG mongoose
@@ -26,4 +27,9 @@ require('./routes/user.routes')(app)
 require('./routes/customer.routes')(app)
 require('./routes/rep.routes')(app)
 
-app.listen(port, () => console.log('Listening on port: 8000'));
+const serverPort = process.env.PORT || 3100
+app.listen(serverPort, () => {
+  console.log(`🚀 Server is listening on port: ${serverPort}`)
+})
+
+// app.listen(port, () => console.log('Listening on port: 8000'));
