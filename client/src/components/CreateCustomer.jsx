@@ -28,7 +28,7 @@ const CreateCustomer = () => {
   const [status, setStatus] = useState('')
   const [comments, setComments] = useState('')
   const [allReps, setAllReps] = useState([])
-  const [repId, SetRepId] = useState()
+  const [repId, SetRepId] = useState('')
 
 
   //variable to hanlde errors on validation
@@ -116,7 +116,7 @@ const CreateCustomer = () => {
         </Box>
         <Box sx={{padding: 1}}>
         <FormLabel >Office:</FormLabel>
-        <Select sx={{height:30, width: 100}} label="Choose Office:" value={office} onChange={(e)=>setOffice(e.target.value)}>
+        <Select sx={{height:30, width: 100}} label="Choose Office:"  value={office} onChange={(e)=>setOffice(e.target.value)}>
           <MenuItem value='VA'>Virginia</MenuItem>
           <MenuItem value='MD'>Maryland</MenuItem>
         </Select>
@@ -146,7 +146,7 @@ const CreateCustomer = () => {
         </Box>
           <Box sx={{padding: 1}}>
       <FormLabel>Representative:</FormLabel>
-      <Select sx={{height:30}} type='text' name='rep' value={repId} onChange={(e)=>SetRepId(e.target.value)}>
+      <Select sx={{height:30}} type='text' value={repId} onChange={(e)=>SetRepId(e.target.value)}>
       {
         allReps.map((eachRep,i)=>(
             <MenuItem key={i} value={eachRep._id}>{eachRep.firstName}  {eachRep.lastName}</MenuItem>

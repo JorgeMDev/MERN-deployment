@@ -36,13 +36,7 @@ const Main = () => {
     setCustomers(updatedList)
   }
 
-  //Calculations
-  //Calculate amount of total sales
-  let arrOfSales = repsWithCustomer.map((eachRep)=> eachRep.totalCustomers.length)
-  let totalSales = 0
-  for (let i = 0; i < arrOfSales.length; i++){
-      totalSales += arrOfSales[i]
-  }
+//Calculations
 
 //Calculate all de statuses  
   let arrOfStatus = customers.map((eachRCust)=> eachRCust.status)
@@ -65,8 +59,6 @@ const Main = () => {
       paid++
     }
   }
-
-
 
 
   return (
