@@ -96,7 +96,7 @@ const CustomerDetails = () => {
   return (
     <div>
        <NavBarMui/>
-        <div style={{marginLeft: 150, marginRight: 150}}>
+        <div style={{margin: "10%"}}>
       {/* UPDATE FORM FOR EXISTING CUSTOMER */}
     <h1>Update a Customer</h1>
     <Button size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>

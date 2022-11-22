@@ -54,12 +54,12 @@ const CreateRep = () => {
   return (
     <div >
         <NavBarMui/>   
-       <div style={{marginLeft: 150, marginRight: 150}}>
+       <div>
       <h1 style={{textAlign: "Left"}}>Add a New Representative</h1>
       {/* REGISTRATION FORM FOR NEW REP */}
       <Button sx={{marginLeft:"10%"}} size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
      
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: 550, marginLeft: "30%", marginTop: 40}}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', margin: "10%", marginTop: 40}}>
         <Box sx={{display:'flex', justifyContent: 'center', boxShadow: 3, padding: 5}}>
           <div>
           <div className='form-element'>
@@ -161,7 +161,7 @@ const CreateRep = () => {
           </div>
           </div>
           </Box>
-        <Button sx={{margin:4}} type="submit" size="small" variant='contained'>Add Representative</Button>  
+        <Button sx={{margin:4, maxWidth: 300}} type="submit" size="small" variant='contained'>Add Representative</Button>  
       </form>
         </div>
 
