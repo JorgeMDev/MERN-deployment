@@ -36,6 +36,36 @@ const Main = () => {
     setCustomers(updatedList)
   }
 
+  //Calculations
+  //Calculate amount of total sales
+  let arrOfSales = repsWithCustomer.map((eachRep)=> eachRep.totalCustomers.length)
+  let totalSales = 0
+  for (let i = 0; i < arrOfSales.length; i++){
+      totalSales += arrOfSales[i]
+  }
+
+//Calculate all de statuses  
+  let arrOfStatus = customers.map((eachRCust)=> eachRCust.status)
+  let sold = 0
+  let installed = 0
+  let contractSigned = 0
+  let paid = 0
+
+  for (let i = 0; i < arrOfStatus.length; i++){
+    if (arrOfStatus[i] === 'Sold'){
+      sold++
+    }
+    if (arrOfStatus[i] === 'Installed'){
+      installed++
+    }
+    if (arrOfStatus[i] === 'Contract signed'){
+      contractSigned++
+    }
+    if (arrOfStatus[i] === 'Paid'){
+      paid++
+    }
+  }
+
 
 
 
@@ -44,7 +74,7 @@ const Main = () => {
       <NavBarMui/>
       <h1>Admin Dashboard</h1>
       <div>
-      <Statuses/>
+      <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>
       <AdminTable customers={customers} onDelete={filterList}/>
       <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>
       </div>

@@ -10,7 +10,7 @@ import TaskIcon from '@mui/icons-material/Task';
 import HardwareIcon from '@mui/icons-material/Hardware';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
-const Statuses = () => {
+const Statuses = (props) => {
     
     const matches = useMediaQuery('(min-width:600px)')
     
@@ -24,7 +24,7 @@ const Statuses = () => {
             SALES
         </Typography>:<LocalOfferIcon sx={{color: 'blue'}}/>}
         <Typography sx={{textAlign: 'center' }} color="text.secondary">
-            4
+            {props.sold}
         </Typography>
         </CardContent>
         <CardActions>
@@ -38,7 +38,7 @@ const Statuses = () => {
             INSTALLATIONS
         </Typography>: <HardwareIcon sx={{color: 'brown'}}/>}
         <Typography sx={{textAlign: 'center'  }} color="text.secondary">
-            5
+            {props.installed}
         </Typography>
         </CardContent>
         <CardActions>
@@ -52,7 +52,7 @@ const Statuses = () => {
             VERIFICATIONS
         </Typography>:<TaskIcon sx={{color: 'purple'}}/>}
         <Typography sx={{textAlign: 'center'  }} color="text.secondary">
-            6
+            {props.contractSigned}
         </Typography>
         </CardContent>
         <CardActions>
@@ -66,7 +66,7 @@ const Statuses = () => {
             WAITING FOR PAYMENT
         </Typography>: <PaidIcon sx={{verticalAlign: 'center', color: 'green'}}/>}
         <Typography sx={{textAlign: 'center'  }} color="text.secondary">
-            3
+            {props.paid}
         </Typography>
       
         </CardContent>

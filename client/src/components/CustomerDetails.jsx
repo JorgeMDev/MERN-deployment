@@ -37,7 +37,7 @@ const CustomerDetails = () => {
   const [errors, setErrors] = useState([])
   //get all the customer info to populate forms
   useEffect(()=>{
-    axios.get(`http://localhost:8000/api/customer/${id}`)
+    axios.get(`http://localhost:8000/api/customer/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         setFirstName(response.data.firstName)

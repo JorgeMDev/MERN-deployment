@@ -40,13 +40,13 @@ const RepTable = () => {
   return (
     <div>
        <NavBarMui/>
-      <div style={{marginLeft: 150, marginRight: 150}}>
+      <div>
       <h1>List of Sales Representatives</h1>
       <div>
     <div>
     <Button size="small" variant='outlined'  onClick={handleNewRep}>Add New Rep</Button>   <Button size="small" variant='outlined' onClick={handleBack}>Back to Dashboard</Button> 
     </div>
-    <TableContainer sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer aria-label="simple table">
    <Table>
     <TableHead>
       <TableRow>
