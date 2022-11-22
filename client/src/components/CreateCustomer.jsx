@@ -77,7 +77,7 @@ const CreateCustomer = () => {
             <NavBarMui/> 
       <div>
     <h1>Add a New Customer</h1>
-    <Button sx={{marginLeft:10}} size="small" variant='outlined' onClick={handleHome}>Back to Dashboard</Button>
+    <Button sx={{marginLeft:1}} size="small" variant='outlined' onClick={handleHome}>Back to Dashboard</Button>
     {/* REGISTRATION FORM FOR NEW REP */}
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
     <form onSubmit={(e)=>handleSubmit(e,repId)}>
@@ -160,13 +160,13 @@ const CreateCustomer = () => {
       
    
     </Box >
-    <Box sx={{margin: '10%'}}>
+    <Box sx={{marginBottom: 1}}>
     <FormLabel>Comments:</FormLabel>
         <TextField name='comments' value={comments} onChange={(e)=>setComments(e.target.value)} rows='4' cols='50'>
         </TextField>
-        </Box>
-      <Box>
-      <Button type="submit" size="small" variant='contained' sx={{margin: "10%"}}>Add Customer</Button>
+    </Box>
+      <Box textAlign='center'>
+      <Button type="submit" size="small" variant='contained' sx={{marginBottom: 1}}>Add Customer</Button>
       </Box>
     </form>
       </Box>
