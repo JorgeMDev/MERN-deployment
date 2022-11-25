@@ -36,7 +36,7 @@ const CreateCustomer = () => {
 
   //I need to have all the sales reps to  assign the customer
   useEffect(()=>{
-    axios.get('http://localhost:8000/api/reps', {withCredentials: true})
+    axios.get('https://crm-production.up.railway.app/api/reps', {withCredentials: true})
         .then(response=>{
             console.log(response.data)
             setAllReps(response.data) 
@@ -50,7 +50,7 @@ const CreateCustomer = () => {
   const handleSubmit = (e, repId) => {
     e.preventDefault()
     
-    axios.post(`http://localhost:8000/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dob, doi, price, bank,approval, status, comments}, {withCredentials: true})
+    axios.post(`https://crm-production.up.railway.app/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dob, doi, price, bank,approval, status, comments}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')

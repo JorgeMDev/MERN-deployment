@@ -26,7 +26,7 @@ const AdminTable = (props) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleDelete = (deleteId) => {
-    axios.delete(`http://localhost:8000/api/customer/${deleteId}`, {withCredentials: true})
+    axios.delete(`https://crm-production.up.railway.app/api/customer/${deleteId}`, {withCredentials: true})
       .then(response=>{
         props.onDelete(deleteId)
       })
@@ -34,11 +34,11 @@ const AdminTable = (props) => {
   }
 
   const handleNewCustomer = () => {
-    navigate('/customer/new')
+    navigate('https://crm-production.up.railway.app/customer/new')
   }
 
   const handleRepList = () => {
-    navigate('/all/reps')
+    navigate('https://crm-production.up.railway.app/all/reps')
   }
 
   const keys = ['firstName', 'lastName','email', 'status','office'];

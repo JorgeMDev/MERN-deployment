@@ -13,14 +13,14 @@ const Main = () => {
   const [repsWithCustomer, setRepWithCustomer] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/api/customers/all', {withCredentials: true})
+    axios.get('https://crm-production.up.railway.app/api/customers/all', {withCredentials: true})
       .then(response=>{
         
         setCustomers(response.data)
       })
       .catch(err=>navigate("/login"))
 
-      axios.get('http://localhost:8000/api/rep/all/customers', {withCredentials: true})
+      axios.get('https://crm-production.up.railway.app/api/rep/all/customers', {withCredentials: true})
       .then(response=>{
   
         setRepWithCustomer(response.data)

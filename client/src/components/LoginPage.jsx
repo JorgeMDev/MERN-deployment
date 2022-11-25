@@ -44,8 +44,10 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8000/api/login", user, {withCredentials: true})
-    .then(res=> navigate('/'))
+    axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true})
+    .then(res=> {
+      // console.log(res)
+      navigate('/')})
     .catch(err => {
       console.log(err.response.data)
       console.log(err.response.status)
