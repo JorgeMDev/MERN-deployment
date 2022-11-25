@@ -59,6 +59,8 @@ module.exports.login = async(req, res)=>{
     res
         .cookie("usertoken", userToken, {httpOnly: true})
         .json({ msg: "success!" });  
+
+    console.log(req.cookies)
        
 }
 
