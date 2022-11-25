@@ -34,6 +34,7 @@ module.exports.index =(req, res)=>{
 
 module.exports.login = async(req, res)=>{
     const user = await User.findOne({ email: req.body.email });
+
  
     if(user === null) {
    
@@ -52,6 +53,8 @@ module.exports.login = async(req, res)=>{
     }
     //if password was correct
     const userToken = jwt.sign({id: user._id}, process.env.SECRET_KEY);
+
+    console.log(userToken)
     
     res
         .cookie("usertoken", userToken, {httpOnly: true})
