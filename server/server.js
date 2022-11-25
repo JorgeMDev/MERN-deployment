@@ -13,9 +13,14 @@ require('dotenv').config()
 require('./configs/mongoose.config')
 
 //having 2 localhost port to communicate
+// app.use(cors({
+//     credentials: true,
+//     origin: "http://localhost:3000"
+// })) 
+
 app.use(cors({
-    credentials: true,
-    origin: "http://localhost:3000"
+  credentials: true,
+  origin: "https://mern-deployment-five.vercel.app"
 })) 
 
 app.use(express.json())
