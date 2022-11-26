@@ -46,7 +46,7 @@ export default function LoginPage() {
     event.preventDefault();
     axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true})
     .then(res=> {
-      // console.log(res)
+      console.log(res)
       navigate('/')})
     .catch(err => {
       console.log(err.response.data)
