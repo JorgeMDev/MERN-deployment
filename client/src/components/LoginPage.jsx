@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   const newCookie = (event) => {
     event.preventDefault();
-    axios.post("https://crm-production.up.railway.app/api/cookie")
+    axios.get("https://crm-production.up.railway.app/api/cookie")
     .then(res=> {
       console.log(res)
       })
