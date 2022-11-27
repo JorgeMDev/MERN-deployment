@@ -41,6 +41,20 @@ export default function LoginPage() {
   //variable to hanlde errors on validation
   const [errors, setErrors] = useState("")
 
+  const newCookie = (event) => {
+    event.preventDefault();
+    axios.post("https://crm-production.up.railway.app/api/cookie")
+    .then(res=> {
+      console.log(res)
+      })
+    .catch(err => {
+      console.log(err.response.data)
+     
+    },[])}
+
+
+  
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -136,6 +150,9 @@ export default function LoginPage() {
              
         }
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Button href="/" variant="contained" color="success" onClick={newCookie}>
+                  {"Set new coookie"}
+                </Button>
       </Container>
    
     </ThemeProvider>

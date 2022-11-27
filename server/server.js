@@ -20,7 +20,8 @@ require('./configs/mongoose.config')
 
 app.use(cors({
   credentials: true,
-  origin: "https://mern-deployment-five.vercel.app"
+  origin: "https://mern-deployment-five.vercel.app",
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 })) 
 
 app.set("trust proxy", 1);
@@ -28,11 +29,6 @@ app.set("trust proxy", 1);
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true}));
-
-// app.use((req, res, next) => {
-//   res.set('Access-Control-Allow-Credentials', true)
-//   next();
-// })
 
 //Routes
 require('./routes/user.routes')(app)
