@@ -29,10 +29,10 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true}));
 
-app.use((req, res, next) => {
-  res.set('Access-Control-Allow-Credentials', true)
-  next();
-})
+// app.use((req, res, next) => {
+//   res.set('Access-Control-Allow-Credentials', true)
+//   next();
+// })
 
 //Routes
 require('./routes/user.routes')(app)
