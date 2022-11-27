@@ -29,6 +29,14 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true}));
 
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  next();
+})
+
 //Routes
 require('./routes/user.routes')(app)
 require('./routes/customer.routes')(app)
