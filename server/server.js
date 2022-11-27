@@ -1,9 +1,10 @@
 //IMPORT PACKAGES
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 const cors = require('cors') 
 const jwt = require('jsonwebtoken')
-const cookieParser = require('cookie-parser')
+
 // const port = 8000
 
 require('dotenv').config()
@@ -24,10 +25,10 @@ app.use(cors({
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 })) 
 
-app.set("trust proxy", 1);
 
-app.use(express.json())
 app.use(cookieParser())
+app.use(express.json())
+
 app.use(express.urlencoded({ extended: true}));
 
 //Routes
