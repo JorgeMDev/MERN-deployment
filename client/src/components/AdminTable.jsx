@@ -34,11 +34,11 @@ const AdminTable = (props) => {
   }
 
   const handleNewCustomer = () => {
-    navigate('https://crm-production.up.railway.app/customer/new')
+    navigate('/customer/new')
   }
 
   const handleRepList = () => {
-    navigate('https://crm-production.up.railway.app/all/reps')
+    navigate('/all/reps')
   }
 
   const keys = ['firstName', 'lastName','email', 'status','office'];
