@@ -38,7 +38,7 @@ const RepDetails = () => {
   //get all reps info
 
   useEffect(()=>{
-    axios.get(`/api/rep/${id}`, {withCredentials: true})
+    axios.get(`https://crm-production.up.railway.app/api/rep/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         setFirstName(response.data.firstName)
