@@ -28,7 +28,7 @@ const RepTable = () => {
   },[])
 
   const handleNewRep = () => {
-    navigate('https://crm-production.up.railway.app/rep/new')
+    navigate('/rep/new')
   }
 
   const handleBack = () => {

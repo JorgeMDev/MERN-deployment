@@ -150,9 +150,7 @@ export default function LoginPage() {
              
         }
         <Copyright sx={{ mt: 8, mb: 4 }} />
-        <Button href="/" variant="contained" color="success" onClick={newCookie}>
-                  {"Set new coookie"}
-                </Button>
+    
       </Container>
    
     </ThemeProvider>

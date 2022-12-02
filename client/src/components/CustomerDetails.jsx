@@ -55,6 +55,8 @@ const CustomerDetails = () => {
         setComments(response.data.comments)
         SetRepId(response.data.rep)
 
+        console.log(repId)
+
       })
       .catch(err=>{
         console.log(err.response)
