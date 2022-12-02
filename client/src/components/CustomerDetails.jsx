@@ -39,7 +39,7 @@ const CustomerDetails = () => {
   useEffect(()=>{
     axios.get(`https://crm-production.up.railway.app/api/customer/${id}`, {withCredentials: true})
       .then(response=>{
-        console.log(response.data)
+       
         setFirstName(response.data.firstName)
         setLastName(response.data.lastName)
         setEmail(response.data.email)
@@ -55,7 +55,6 @@ const CustomerDetails = () => {
         setComments(response.data.comments)
         SetRepId(response.data.rep)
 
-        console.log(repId)
 
       })
       .catch(err=>{
@@ -68,7 +67,7 @@ const CustomerDetails = () => {
         setErrors(errMsgArr)
       })
 
-      axios.get('/api/reps', {withCredentials: true})
+      axios.get('https://crm-production.up.railway.app/api/reps', {withCredentials: true})
       .then(response=>{
           console.log(response.data)
           setAllReps(response.data) 
