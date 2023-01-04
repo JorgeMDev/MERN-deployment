@@ -49,12 +49,6 @@ module.exports.deleteRep = (req, res) => {
         .catch(err => res.status(400).json(err))
 }
 
-//get all customers of a rep
-// module.exports.getAllCustomers = (req, res) => {
-//     Rep.findOne({_id : req.param.repId}).populate('totalCustomers')
-//         .then(foundRep=>res.json(foundRep))
-//         .catch(err=>res.status(400).json(err))
-// }
 
 
 //get all reps with customers info
