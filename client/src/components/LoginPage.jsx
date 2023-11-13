@@ -58,7 +58,10 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true})
+    axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true,  headers: {
+      'Access-Control-Allow-Origin': '*', 
+      'Content-Type': 'application/json'
+  }}) //testing headers
     .then(res=> {
       console.log(res)
       navigate('/')})
