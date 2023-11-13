@@ -54,7 +54,7 @@ const repSchema = new Schema({
     }, ethnicity: {
         type : String  //White, African American, Asian, Native American, Hispanic
     },isAdmin: {
-        type : Boolean  //True / False
+        type : Boolean  //True  False
     }, totalCustomers: [{
         type: Schema.Types.ObjectId,
         ref: 'Customer'
