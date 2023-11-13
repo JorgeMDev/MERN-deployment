@@ -58,7 +58,7 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true,  headers: {
+    axios.post(process.env.REACT_APP_API_URL + "/api/login", user, {withCredentials: true,  headers: {
       'Access-Control-Allow-Origin': '*', 
       'Content-Type': 'application/json'
   }}) // important to add headers for cors to work
