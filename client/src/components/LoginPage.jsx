@@ -61,8 +61,9 @@ export default function LoginPage() {
     axios.post("https://crm-production.up.railway.app/api/login", user, {withCredentials: true,  headers: {
       'Access-Control-Allow-Origin': '*', 
       'Content-Type': 'application/json'
-  }}) //testing headers
+  }}) // important to add headers for cors to work
     .then(res=> {
+      console.log(process.env.REACT_APP_API_URL)
       console.log(res)
       navigate('/')})
     .catch(err => {
