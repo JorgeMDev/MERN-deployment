@@ -33,6 +33,8 @@ module.exports.index =(req, res)=>{
 }
 
 module.exports.login = async(req, res)=>{
+    res.set('Access-Control-Allow-Origin', '*'); //CODIGO DE PRUEBA
+    res.send({ "msg": "This has CORS enabled 🎈" }) // CODIGO DE PRUEBA
     const user = await User.findOne({ email: req.body.email });
 
  
