@@ -37,7 +37,7 @@ const CreateRep = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axios.post('https://crm-production.up.railway.app/api/rep', {firstName, lastName, email, office, address, phone, dob, gender, maritalStatus, referral,education, ethnicity}, {withCredentials: true})
+    axios.post(process.env.REACT_APP_API_URL+ '/api/rep', {firstName, lastName, email, office, address, phone, dob, gender, maritalStatus, referral,education, ethnicity}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')

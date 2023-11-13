@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   const newCookie = (event) => {
     event.preventDefault();
-    axios.get("https://crm-production.up.railway.app/api/cookie")
+    axios.get(process.env.REACT_APP_API_URL + "/api/cookie")
     .then(res=> {
       console.log(res)
       })
@@ -63,7 +63,6 @@ export default function LoginPage() {
       'Content-Type': 'application/json'
   }}) // important to add headers for cors to work
     .then(res=> {
-      console.log('Probando enviromental vairables')
       console.log(res)
       navigate('/')})
     .catch(err => {

@@ -38,7 +38,7 @@ const RepDetails = () => {
   //get all reps info
 
   useEffect(()=>{
-    axios.get(`https://crm-production.up.railway.app/api/rep/${id}`, {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL+`/api/rep/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         setFirstName(response.data.firstName)
@@ -63,7 +63,7 @@ const RepDetails = () => {
     //call a put method to update rep
     const handleSubmit = (e) => {
       e.preventDefault()
-      axios.put(`https://crm-production.up.railway.app/api/rep/${id}`, {firstName, lastName, email, office, address, phone, dob, withCredentials:true})
+      axios.put(process.env.REACT_APP_API_URL + `/api/rep/${id}`, {firstName, lastName, email, office, address, phone, dob, withCredentials:true})
         .then(response=>{
           console.log(response.data)
           navigate('/')
@@ -76,7 +76,7 @@ const RepDetails = () => {
     }
 
     const handleDelete = (id) => {
-      axios.delete(`https://crm-production.up.railway.app/api/rep/${id}`, {withCredentials: true})
+      axios.delete(process.env.REACT_APP_API_URL+`/api/rep/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response)
         navigate('/')

@@ -20,7 +20,7 @@ const Registration = () => {
 
     const submitHandler = (e) =>{
         e.preventDefault()
-        axios.post(`http://localhost:8000/api/register`, user, {withCredentials:true})
+        axios.post(process.env.REACT_APP_API_URL + `/api/register`, user, {withCredentials:true})
             .then(res=>console.log(res.data))
             .catch(err => console.log(err.response))
     }

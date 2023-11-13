@@ -19,7 +19,7 @@ const RepTable = () => {
 
   //api call for all reps
   useEffect(()=>{
-    axios.get('https://crm-production.up.railway.app/api/reps', {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL+'/api/reps', {withCredentials: true})
         .then(response=>{
             console.log(response.data)
             setAllReps(response.data) 

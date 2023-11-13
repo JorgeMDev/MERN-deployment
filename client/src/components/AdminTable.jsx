@@ -26,7 +26,7 @@ const AdminTable = (props) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleDelete = (deleteId) => {
-    axios.delete(`https://crm-production.up.railway.app/api/customer/${deleteId}`, {withCredentials: true})
+    axios.delete(process.env.REACT_APP_API_URL + `/api/customer/${deleteId}`, {withCredentials: true})
       .then(response=>{
         props.onDelete(deleteId)
       })

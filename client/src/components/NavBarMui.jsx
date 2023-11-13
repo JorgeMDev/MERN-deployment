@@ -63,7 +63,7 @@ function NavBarMui() {
       alert('Section under construction')
     }
     if (page === 'Logout'){
-      axios.get('https://crm-production.up.railway.app/api/logout', {withCredentials: true})
+      axios.get(process.env.REACT_APP_API_URL+'/api/logout', {withCredentials: true})
     .then(response => {
      console.log(response.data)
      navigate('/login')})

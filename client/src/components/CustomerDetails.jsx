@@ -37,7 +37,7 @@ const CustomerDetails = () => {
   const [errors, setErrors] = useState([])
   //get all the customer info to populate forms
   useEffect(()=>{
-    axios.get(`https://crm-production.up.railway.app/api/customer/${id}`, {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL + `/api/customer/${id}`, {withCredentials: true})
       .then(response=>{
        
         setFirstName(response.data.firstName)
@@ -67,7 +67,7 @@ const CustomerDetails = () => {
         setErrors(errMsgArr)
       })
 
-      axios.get('https://crm-production.up.railway.app/api/reps', {withCredentials: true})
+      axios.get(process.env.REACT_APP_API_URL+'/api/reps', {withCredentials: true})
       .then(response=>{
           console.log(response.data)
           setAllReps(response.data) 
@@ -79,7 +79,7 @@ const CustomerDetails = () => {
   //call a put method to update customer
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.put(`https://crm-production.up.railway.app/api/customer/${id}`, {firstName, lastName, email, office, address, phone, dob, doi, price, bank,approval, status, comments, rep : repId}, {withCredentials: true})
+    axios.put(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {firstName, lastName, email, office, address, phone, dob, doi, price, bank,approval, status, comments, rep : repId}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
