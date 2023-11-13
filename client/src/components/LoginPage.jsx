@@ -63,7 +63,7 @@ export default function LoginPage() {
       'Content-Type': 'application/json'
   }}) // important to add headers for cors to work
     .then(res=> {
-      console.log(process.env.REACT_APP_API_URL)
+      console.log('Probando enviromental vairables')
       console.log(res)
       navigate('/')})
     .catch(err => {
