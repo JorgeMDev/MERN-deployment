@@ -14,16 +14,19 @@ require('dotenv').config()
 require('./configs/mongoose.config')
 
 //having 2 localhost port to communicate
-// app.use(cors({
-//     credentials: true,
-//     origin: "http://localhost:3000"
-// })) 
-
-app.use(cors({
-  credentials: true,
-  origin: "https://mern-deployment-five.vercel.app",
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+ app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000"
 })) 
+
+//CHANGE THIS BEFORE PUTTING IN PRODUCTION!
+//app.use(cors({
+ // credentials: true,
+ // origin: "https://mern-deployment-five.vercel.app",
+ // methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+//})) 
+
+
 
 
 app.use(cookieParser())

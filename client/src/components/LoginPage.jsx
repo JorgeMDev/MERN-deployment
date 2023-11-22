@@ -104,7 +104,7 @@ export default function LoginPage() {
         >
             <img style={{width:300, marginBottom: 40}} alt="logo" src={logo}></img>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in 
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField

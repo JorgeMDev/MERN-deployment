@@ -20,7 +20,7 @@ const CreateCustomer = () => {
   const [office, setOffice] = useState('')
   const [address, setAddress] = useState('')
   const [phone, setPhone] = useState(0)
-  const [dob, setDob] = useState('')
+  const [dos, setDos] = useState('')
   const [doi, setDoi] = useState('')
   const [price, setPrice] = useState(0)
   const [bank, setBank] = useState('')
@@ -29,6 +29,15 @@ const CreateCustomer = () => {
   const [comments, setComments] = useState('')
   const [allReps, setAllReps] = useState([])
   const [repId, SetRepId] = useState('')
+
+  const [creditScore, setCreditScore] = useState('')
+  const [installer, setInstaller] = useState('')
+
+  const [coapFirstName, setCoapFirstName] = useState('')
+  const [coapLastName, setCoapLastName] = useState('')
+  const [coapEmail, setCoapEmail] = useState('')
+  const [coapCreditScore, setCoapCreditScore] = useState('')
+  const [coapPhone, setCoapPhone] = useState(0)
 
 
   //variable to hanlde errors on validation
@@ -50,7 +59,7 @@ const CreateCustomer = () => {
   const handleSubmit = (e, repId) => {
     e.preventDefault()
     
-    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dob, doi, price, bank,approval, status, comments}, {withCredentials: true})
+    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
@@ -82,7 +91,6 @@ const CreateCustomer = () => {
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
     <form onSubmit={(e)=>handleSubmit(e,repId)}>
     <Box sx={{ display: 'flex' , justifyContent: 'space-around', alignItems: 'center', margin: "10%", boxShadow: 1, borderRadius: 2, padding: 3}}>
-      
       <Box>
         <Box sx={{padding: 1}}>
       <FormLabel>First name:</FormLabel>
@@ -105,8 +113,12 @@ const CreateCustomer = () => {
      <Input type='text' name='address' value={address}  onChange={(e)=>setAddress(e.target.value)}/>
      </Box>
      <Box sx={{padding: 1}}>
-     <FormLabel>DOB:</FormLabel>
-     <Input type='date' name='dob' value={dob}  onChange={(e)=>setDob(e.target.value)}/>
+     <FormLabel>Credit Score:</FormLabel>
+     <Input type='number' name='creditScore' value={creditScore}  onChange={(e)=>setCreditScore(e.target.value)}/>
+     </Box>
+     <Box sx={{padding: 1}}>
+     <FormLabel>Date of Sale:</FormLabel>
+     <Input type='date' name='dob' value={dos}  onChange={(e)=>setDos(e.target.value)}/>
      </Box>   
      </Box>
      <Box>
@@ -115,37 +127,75 @@ const CreateCustomer = () => {
         <Input type='date' name='doi' value={doi}  onChange={(e)=>setDoi(e.target.value)}/>
         </Box>
         <Box sx={{padding: 1}}>
+      <FormLabel>Installer:</FormLabel>
+      <Box><Input type='text' name='firstName' value={installer}  onChange={(e)=>setInstaller(e.target.value)}/></Box>
+      </Box> 
+        <Box sx={{padding: 1}}>
         <FormLabel >Office:</FormLabel>
-        <Select sx={{height:30, width: 100}} label="Choose Office:"  value={office} onChange={(e)=>setOffice(e.target.value)}>
+        <Box><Select sx={{height:30, width: 100}} label="Choose Office:"  value={office} onChange={(e)=>setOffice(e.target.value)}>
           <MenuItem value='VA'>Virginia</MenuItem>
           <MenuItem value='MD'>Maryland</MenuItem>
-        </Select>
+        </Select></Box>
         </Box> 
         <Box sx={{padding: 1}}>
      
         <FormLabel>Price:</FormLabel>
-        <Input type='number' name='price' value={price}  onChange={(e)=>setPrice(e.target.value)}/>
+        <Box><Input type='number' name='price' value={price}  onChange={(e)=>setPrice(e.target.value)}/></Box>
         </Box>
         <Box sx={{padding: 1}}>
         <FormLabel>Bank:</FormLabel>
-        <Input type='text' name='bank' value={bank}  onChange={(e)=>setBank(e.target.value)}/>
+        <Box><Input type='text' name='bank' value={bank}  onChange={(e)=>setBank(e.target.value)}/></Box>
         </Box>
         <Box sx={{padding: 1}}>
+     <FormLabel>Payments / Interest:</FormLabel>
+     <Input type='number' name='creditScore' value={coapCreditScore}  onChange={(e)=>setCoapCreditScore(e.target.value)}/>
+     </Box>
+        <Box sx={{padding: 1}}>
         <FormLabel>Approval:</FormLabel>
-        <Input type='number' name='approval' value={approval}  onChange={(e)=>setApproval(e.target.value)}/>
+        <Box><Input type='number' name='approval' value={approval}  onChange={(e)=>setApproval(e.target.value)}/></Box>
         </Box>
         <Box sx={{padding: 1}}>
         <InputLabel>Status:</InputLabel>
         <Select sx={{height:30, width: 100}} type='text' name='status' label="Status" value={status} onChange={(e)=>setStatus(e.target.value)}>
-          <MenuItem value='Sold'>Sold</MenuItem>
-          <MenuItem value='Installed'>Installed</MenuItem>
-          <MenuItem value='Contract signed'>Contract Signed</MenuItem>
+          <MenuItem value='Pending approval'>Pending Approval</MenuItem>
+          <MenuItem value='Pending install'>Pending Install</MenuItem>
+          <MenuItem value='Pending contract'>Pending contract</MenuItem>
+          <MenuItem value='Singing'>Singning</MenuItem>
+          <MenuItem value='In verification'>In Verification</MenuItem>
           <MenuItem value='Verified'>Verified</MenuItem>
           <MenuItem value='Paid'>Paid</MenuItem>
+          <MenuItem value='Cancelled'>Cancelled</MenuItem>
         </Select>
         </Box>
           <Box sx={{padding: 1}}>
-      <FormLabel>Representative:</FormLabel>
+    
+   
+      </Box>
+    
+      
+        </Box>
+        <Box >
+        <Box sx={{padding: 1}}>
+      <FormLabel>Coap First name:</FormLabel>
+      <Input type='text' name='firstName' value={coapFirstName}  onChange={(e)=>setCoapFirstName(e.target.value)}/>
+      </Box> 
+      <Box sx={{padding: 1}}>
+     <FormLabel>Coap Last name:</FormLabel>
+     <Input type='text' name='lastName' value={coapLastName}  onChange={(e)=>setCoapLastName(e.target.value)}/>
+     </Box> 
+      <Box sx={{padding: 1}}>
+     <FormLabel>Coap Phone number:</FormLabel>
+     <Input type='number' name='phone' value={coapPhone}  onChange={(e)=>setCoapPhone(e.target.value)}/>
+     </Box>
+     <Box sx={{padding: 1}}> 
+     <FormLabel >Coap Email:</FormLabel>
+     <Input type='text' name='email' value={coapEmail}  onChange={(e)=>setCoapEmail(e.target.value)}/>
+     </Box> 
+     <Box sx={{padding: 1}}>
+     <FormLabel>Coap Credit Score:</FormLabel>
+     <Input type='number' name='creditScore' value={coapCreditScore}  onChange={(e)=>setCoapCreditScore(e.target.value)}/>
+     </Box>
+     <FormLabel>Representative:</FormLabel>
       <Select sx={{height:30}} type='text' value={repId} onChange={(e)=>SetRepId(e.target.value)}>
       {
         allReps.map((eachRep,i)=>(
@@ -153,18 +203,17 @@ const CreateCustomer = () => {
         ))
       }
       </Select>
-      </Box>
-    
-      
-        </Box>
-      
+     
+     </Box>
    
     </Box >
+    
     <Box sx={{marginBottom: 1}}>
     <FormLabel>Comments:</FormLabel>
         <TextField name='comments' value={comments} onChange={(e)=>setComments(e.target.value)} rows='4' cols='50'>
         </TextField>
     </Box>
+    
       <Box textAlign='center'>
       <Button type="submit" size="small" variant='contained' sx={{marginBottom: 1}}>Add Customer</Button>
       </Box>

@@ -50,7 +50,7 @@ const customerSchema = new Schema({
       },
    office: { //MD //VA etc
       type : String,  
-      required : [true, 'Price is required']
+      required : [true, 'Office is required']
       },
    comments: {
    type : String  
