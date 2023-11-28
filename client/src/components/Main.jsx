@@ -11,6 +11,7 @@ const Main = () => {
   const navigate = useNavigate()
   const [customers, setCustomers] = useState([])
   const [repsWithCustomer, setRepWithCustomer] = useState([])
+  const [userRole, setUserRole] = useState('')
 
   useEffect(()=>{
     axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
@@ -24,6 +25,15 @@ const Main = () => {
       .then(response=>{
   
         setRepWithCustomer(response.data)
+      })
+      .catch(err=>console.log(err))
+
+      axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
+      .then(response=>{
+        console.log('Informacion de usuario')
+        console.log(response.data)
+  
+        setUserRole(response.data.role)
       })
       .catch(err=>console.log(err))
 
@@ -64,7 +74,7 @@ const Main = () => {
   return (
     <div>
       <NavBarMui/>
-      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard Role: {userRole}</h1>
       <div>
       <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>
       <AdminTable customers={customers} onDelete={filterList}/>
