@@ -67,15 +67,21 @@ const AdminTable = (props) => {
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
      <TableHead>
       <TableRow>
-        <TableCell>Customer name</TableCell>
-        <TableCell>Address</TableCell>
-        <TableCell>Phone</TableCell>
-        <TableCell>DOI</TableCell>
-        <TableCell>Price</TableCell>
-        <TableCell>Bank</TableCell>
-        <TableCell>Approval</TableCell>
-        <TableCell>Office</TableCell>
+        <TableCell>Date of Sale</TableCell>
+        <TableCell>Office</TableCell>   
         <TableCell>Rep</TableCell>
+        <TableCell>Customer name</TableCell>
+        <TableCell>Phone</TableCell>
+        <TableCell>Price</TableCell>
+        <TableCell>Score</TableCell>
+        <TableCell>Coap</TableCell>
+        <TableCell>Coap Phone</TableCell>
+        <TableCell>Address</TableCell>
+        <TableCell>Approval</TableCell>
+        <TableCell>Bank</TableCell>
+        <TableCell>Payments / Interest</TableCell>
+        <TableCell>DOI</TableCell> 
+        <TableCell>Installer</TableCell>
         <TableCell>Status</TableCell>
         <TableCell>Actions</TableCell>
         <TableCell>Comments</TableCell>
@@ -89,15 +95,21 @@ const AdminTable = (props) => {
         searchList.map((eachCust, i)=>{
           return (
             <TableRow key={i}>
-              <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
-              <TableCell>{eachCust.address}</TableCell>
-              <TableCell>{eachCust.phone}</TableCell>
-              <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
-              <TableCell>${eachCust.price}</TableCell>
-              <TableCell>{eachCust.bank}</TableCell>
-              <TableCell>{eachCust.approval}</TableCell>
+              <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
               <TableCell>{eachCust.rep.firstName} {eachCust.rep.lastName}</TableCell>
+              <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
+              <TableCell>{eachCust.phone}</TableCell>
+              <TableCell>${eachCust.price}</TableCell>
+              <TableCell>{eachCust.score}</TableCell>
+              <TableCell>{eachCust.coapFirstName} {eachCust.coapLastName}</TableCell>
+              <TableCell>{eachCust.CoapPhone}</TableCell>
+              <TableCell>{eachCust.address}</TableCell>
+              <TableCell>{eachCust.approval}</TableCell>
+              <TableCell>{eachCust.bank}</TableCell>
+              <TableCell>{eachCust.Payments}</TableCell>
+              <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
+              <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachCust._id)}>delete</Button></TableCell>
               <TableCell>{eachCust.comments}</TableCell>

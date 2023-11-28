@@ -24,11 +24,9 @@ const CreateRep = () => {
   const [address, setAddress] = useState('')
   const [phone, setPhone] = useState(0)
   const [dob, setDob] = useState('')
-  const [gender, setGender] = useState('')
-  const [maritalStatus, setMaritalStatus] = useState('')
+
   const [referral, setReferral] = useState('')
-  const [education, setEducation] = useState('')
-  const [ethnicity, setEthnicity] = useState('')
+  const [password, setPassword] = useState('')
 
 
 
@@ -37,7 +35,7 @@ const CreateRep = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axios.post(process.env.REACT_APP_API_URL+ '/api/rep', {firstName, lastName, email, office, address, phone, dob, gender, maritalStatus, referral,education, ethnicity}, {withCredentials: true})
+    axios.post(process.env.REACT_APP_API_URL+ '/api/rep', {firstName, lastName, email, office, address, phone, dob, password}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
@@ -69,7 +67,9 @@ const CreateRep = () => {
           
           <div className='form-element'>
           <FormLabel>Last name:</FormLabel>
+          <Box>
           <Input type='text' name='lastName' value={lastName}  onChange={(e)=>setLastName(e.target.value)}/>
+          </Box>
           </div>
 
           <div className='form-element'>
@@ -79,87 +79,59 @@ const CreateRep = () => {
 
           <div className='form-element'>
           <FormLabel>Email:</FormLabel>
+          <Box>
           <Input type='text' name='email' value={email}  onChange={(e)=>setEmail(e.target.value)}/>
+          </Box>
           </div>
 
           <div className='form-element'>
           <FormLabel>Address:</FormLabel>
+          <Box>
           <Input type='text' name='address' value={address}  onChange={(e)=>setAddress(e.target.value)}/>
+          </Box>
           </div>
 
-          <div className='form-element'>
-          <FormLabel>DOB:</FormLabel>
-          <Input type='date' name='dob' value={dob}  onChange={(e)=>setDob(e.target.value)}/>
-          </div>
+          
           </div>
   
 
 
           <div>
+        
           <div className='form-element'>
-          <FormLabel>Gender:</FormLabel>
-          <Select sx={{height:30}} type='text' name='gender' value={gender} onChange={(e)=>setGender(e.target.value)}>
-            <option hidden>Choose gender</option>
-            <MenuItem value='Male'>Male</MenuItem>
-            <MenuItem value='Female'>Female</MenuItem>
-            <MenuItem value='Other'>Other</MenuItem>
-          </Select>
+          <FormLabel>DOB:</FormLabel>
+          <Box>
+          <Input type='date' name='dob' value={dob}  onChange={(e)=>setDob(e.target.value)}/>
+          </Box>
           </div>
-
-
           <div className='form-element'>
-        <FormLabel>Marital Status:</FormLabel>
-          <Select sx={{height:30}} type='text' name='maritalstatus' value={maritalStatus} onChange={(e)=>setMaritalStatus(e.target.value)}>
-            <MenuItem hidden>Choose marital status:</MenuItem>
-            <MenuItem value='single'>Single</MenuItem>
-            <MenuItem value='married'>Married</MenuItem>
-            <MenuItem value='FormControlorced'>FormControlorced</MenuItem>
-            <MenuItem value='widowed'>Widowed</MenuItem>
-          </Select>
-          </div>
-
-          <div className='form-element'>
-          <FormLabel>Ethnicity:</FormLabel>
-          <Select sx={{height:30}} type='text' name='ethnicity' value={ethnicity} onChange={(e)=>setEthnicity(e.target.value)}>
-            <option hidden>Choose:</option>
-            <MenuItem value='white'>White</MenuItem>
-            <MenuItem value='africanameerican'>African American</MenuItem>
-            <MenuItem value='asian'>Asian</MenuItem>
-            <MenuItem value='hispanic'>Hispanic</MenuItem>
-          </Select>
-          </div>
-          
-      
-        {/* UNCOMMENT THIS WHEN LOGIN AUTH IS IMPLEMENTED<div>
-          <label>Password:</label>
+          <FormLabel>Password:</FormLabel>
+          <Box>
           <Input type='text' name='password' value={password}  onChange={(e)=>setPassword(e.target.value)}/>
-        </div> */}
+          </Box>
+          </div>
           <div className='form-element'>
-          <FormLabel>Referral:</FormLabel>
+          <FormLabel>Confirm Password:</FormLabel>
           <Input type='text' name='referral' value={referral}  onChange={(e)=>setReferral(e.target.value)}/>
           </div>
           <div className='form-element'>
-        <FormLabel>Education:</FormLabel>
-          <Select sx={{height:30}} type='text' name='education' value={education} onChange={(e)=>setEducation(e.target.value)}>
-            <option hidden>Choose education:</option>
-            <MenuItem value='highschool'>High School</MenuItem>
-            <MenuItem value='college'>College</MenuItem>
-            <MenuItem value='bachelor'>Bachelor's Degree</MenuItem>
-            <MenuItem value='master'>Master's Degree</MenuItem>
-            <MenuItem value='doctorate'>Doctorate</MenuItem>
-          </Select>
-       
-
-        </div>
-        <div className='form-element'>
           <FormLabel>Office</FormLabel>
-          <Select sx={{height:30}} type='text' name='office' value={office} onChange={(e)=>setOffice(e.target.value)}>
+          <Box>
+          <Select sx={{height:30, width:150}} type='text' name='office' value={office} onChange={(e)=>setOffice(e.target.value)}>
             <option hidden>Choose Office:</option>
             <MenuItem value='VA'>Virginia</MenuItem>
             <MenuItem value='MD'>Maryland</MenuItem>
           </Select>
+          </Box>
           </div>
-          </div>
+        </div> 
+        
+       
+       
+
+  
+        
+          
           </Box>
         <Button sx={{margin:4, maxWidth: 300}} type="submit" size="small" variant='contained'>Add Representative</Button>  
       </form>

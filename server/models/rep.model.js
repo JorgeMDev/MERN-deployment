@@ -46,14 +46,8 @@ const repSchema = new Schema({
         required : [true, 'Gender number is required']  //male, female, other
     }, maritalStatus: {
         type : String  //single, married, divorced, widow
-    }, referral: {
-        type : String,
-        required : [true, 'Referral is required']  //Family/Friend, Social Media, Craiglist, Indeed, Other
-    }, education: {
-        type : String  //Highschool / College / Associate Degree / Bachelor Degree / Master Degree / Phd
-    }, ethnicity: {
-        type : String  //White, African American, Asian, Native American, Hispanic
-    },isAdmin: {
+    }
+    ,isAdmin: {
         type : Boolean  //True  False.
     }, totalCustomers: [{
         type: Schema.Types.ObjectId,

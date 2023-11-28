@@ -28,7 +28,7 @@ const customerSchema = new Schema({
       required : [true, 'Phone number is required'],
       minlength: [10, 'Phone number must be at least 10 characters long']  
    },
-   dob: { //date of birth
+   dos: { //date of sale
       type : Date,
       required : [true, 'Date is required'],
    },
@@ -39,14 +39,25 @@ const customerSchema = new Schema({
    bank: { //AFI, CASTLE, CASH drodown
       type : String
    },
+   payments: { //115 13.99% etc
+      type : String
+   },
+   score: {
+      type : String,
+   },
    approval: { //percentage of approval
       type : Number
    },
    doi: { //date of installation
    type : Date
    },
+   installer: {
+      type: String,
+      required : [true, 'Installer name is required'], 
+      minlength: [3, 'First name must be at least 3 characters long']
+   },
    status: {
-      type : String  //sold, installed, contract signed, verified, complete
+      type : String  //Pending approval, Pending install, Pending contract , signing, in verification, verified, paid
       },
    office: { //MD //VA etc
       type : String,  
@@ -54,6 +65,21 @@ const customerSchema = new Schema({
       },
    comments: {
    type : String  
+   },
+   coapFirstName: {
+      type: String
+   },
+   coapLastName: {
+      type : String
+   },
+   coapPhone: {
+      type : Number  
+   },
+   coapEmail: {
+      type : String
+   },
+   coapCreditScore: {
+      type : Number
    },
    rep: {
       type: Schema.Types.ObjectId,

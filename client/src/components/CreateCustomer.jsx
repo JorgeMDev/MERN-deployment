@@ -39,6 +39,8 @@ const CreateCustomer = () => {
   const [coapCreditScore, setCoapCreditScore] = useState('')
   const [coapPhone, setCoapPhone] = useState(0)
 
+  const [paymentPlan, setPaymentPlan] = useState('')
+
 
   //variable to hanlde errors on validation
   const [errors, setErrors] = useState([])
@@ -59,7 +61,7 @@ const CreateCustomer = () => {
   const handleSubmit = (e, repId) => {
     e.preventDefault()
     
-    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer}, {withCredentials: true})
+    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
@@ -148,7 +150,7 @@ const CreateCustomer = () => {
         </Box>
         <Box sx={{padding: 1}}>
      <FormLabel>Payments / Interest:</FormLabel>
-     <Input type='number' name='creditScore' value={coapCreditScore}  onChange={(e)=>setCoapCreditScore(e.target.value)}/>
+     <Input type='string' name='creditScore' value={paymentPlan}  onChange={(e)=>setPaymentPlan(e.target.value)}/>
      </Box>
         <Box sx={{padding: 1}}>
         <FormLabel>Approval:</FormLabel>

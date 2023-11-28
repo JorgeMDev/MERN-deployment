@@ -15,7 +15,7 @@ import WaterDamageIcon from '@mui/icons-material/WaterDamage';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-const pages = ['Customers', 'Sales Team', 'Installers','Inventory'];
+const pages = ['Dashboard', 'Users','Inventory'];
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 function NavBarMui() {
