@@ -24,10 +24,15 @@ const CreateRep = () => {
   const [address, setAddress] = useState('')
   const [phone, setPhone] = useState(0)
   const [dob, setDob] = useState('')
+  const [role, setRole] = useState('')
 
-  const [referral, setReferral] = useState('')
+
+
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
+  const [errors, setErrors] = useState([])
 
 
   
@@ -35,12 +40,29 @@ const CreateRep = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axios.post(process.env.REACT_APP_API_URL+ '/api/rep', {firstName, lastName, email, office, address, phone, dob, password}, {withCredentials: true})
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords do not match!');
+    } else {
+      setPasswordError('');
+
+      axios.post(process.env.REACT_APP_API_URL+ '/api/register', {firstName, lastName, email, office, address, phone, dob, password, role}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
       })
-      .catch(err=>navigate("/login"))
+      .catch(err=>{
+        console.log(err.response)
+        const errorResposneDataErrors = err.response.data.errors
+        const errMsgArr = []
+        for (const eachKey in errorResposneDataErrors){
+          errMsgArr.push(errorResposneDataErrors[eachKey].message)
+        }
+        setErrors(errMsgArr)
+      })
+      
+    }
+
+   
       
   }
 
@@ -53,7 +75,7 @@ const CreateRep = () => {
     <div >
         <NavBarMui/>   
        <div>
-      <h1 style={{textAlign: "Left"}}>Add a New Representative</h1>
+      <h1 style={{textAlign: "Left"}}>Add a New User</h1>
       {/* REGISTRATION FORM FOR NEW REP */}
       <Button sx={{marginLeft:"10%"}} size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
      
@@ -107,12 +129,12 @@ const CreateRep = () => {
           <div className='form-element'>
           <FormLabel>Password:</FormLabel>
           <Box>
-          <Input type='text' name='password' value={password}  onChange={(e)=>setPassword(e.target.value)}/>
+          <Input type='password' name='password' value={password}  onChange={(e)=>setPassword(e.target.value)}/>
           </Box>
           </div>
           <div className='form-element'>
           <FormLabel>Confirm Password:</FormLabel>
-          <Input type='text' name='referral' value={referral}  onChange={(e)=>setReferral(e.target.value)}/>
+          <Input type='password' name='referral' value={confirmPassword}  onChange={(e)=>setConfirmPassword(e.target.value)}/>
           </div>
           <div className='form-element'>
           <FormLabel>Office</FormLabel>
@@ -121,6 +143,18 @@ const CreateRep = () => {
             <option hidden>Choose Office:</option>
             <MenuItem value='VA'>Virginia</MenuItem>
             <MenuItem value='MD'>Maryland</MenuItem>
+          </Select>
+          </Box>
+          </div>
+          <div className='form-element'>
+          <FormLabel>Role</FormLabel>
+          <Box>
+          <Select sx={{height:30, width:150}} type='text' name='office' value={role} onChange={(e)=>setRole(e.target.value)}>
+            <option hidden>Role:</option>
+            <MenuItem value='admin'>Admin</MenuItem>
+            <MenuItem value='manager'>Manager</MenuItem>
+            <MenuItem value='sales'>Sales</MenuItem>
+            <MenuItem value='installer'>Installer</MenuItem>
           </Select>
           </Box>
           </div>
@@ -133,9 +167,17 @@ const CreateRep = () => {
         
           
           </Box>
-        <Button sx={{margin:4, maxWidth: 300}} type="submit" size="small" variant='contained'>Add Representative</Button>  
+        <Button sx={{margin:4, maxWidth: 300}} type="submit" size="small" variant='contained'>Add User</Button>  
+        
       </form>
         </div>
+        {
+        errors.map((eachErr,i)=>(
+       
+          <p key={i} style={{color: "red"}}>{eachErr}</p>
+          
+        ))
+      }
 
     </div>
   )

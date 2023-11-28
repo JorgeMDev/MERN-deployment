@@ -44,7 +44,7 @@ const RepTable = () => {
       <h1>List of Sales Representatives</h1>
       <div>
     <div>
-    <Button size="small" variant='outlined'  onClick={handleNewRep}>Add New Rep</Button>   <Button size="small" variant='outlined' onClick={handleBack}>Back to Dashboard</Button> 
+    <Button size="small" variant='outlined'  onClick={handleNewRep}>Add New User</Button>   <Button size="small" variant='outlined' onClick={handleBack}>Back to Dashboard</Button> 
     </div>
     <TableContainer aria-label="simple table">
    <Table>

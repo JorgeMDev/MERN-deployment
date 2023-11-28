@@ -34,10 +34,10 @@ function NavBarMui() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    if (page === "Customers"){
+    if (page === "Dashboard"){
       navigate("/")
     }
-    if (page === "Sales Team"){
+    if (page === "Users"){
       navigate("/all/reps")
     }
     if (page === "Installers"){
