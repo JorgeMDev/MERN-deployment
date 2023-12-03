@@ -107,7 +107,7 @@ const AdminTable = (props) => {
               <TableCell>{eachCust.address}</TableCell>
               <TableCell>{eachCust.approval}</TableCell>
               <TableCell>{eachCust.bank}</TableCell>
-              <TableCell>{eachCust.Payments}</TableCell>
+              <TableCell>{eachCust.paymentPlan}</TableCell>
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>

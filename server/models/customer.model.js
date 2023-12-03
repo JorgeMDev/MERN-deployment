@@ -39,7 +39,7 @@ const customerSchema = new Schema({
    bank: { //AFI, CASTLE, CASH drodown
       type : String
    },
-   payments: { //115 13.99% etc
+   paymentPlan: { //115 13.99% etc
       type : String
    },
    score: {

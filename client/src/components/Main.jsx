@@ -16,6 +16,7 @@ const Main = () => {
   useEffect(()=>{
     axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
       .then(response=>{
+        console.log(response.data)
         
         setCustomers(response.data)
       })
@@ -30,7 +31,7 @@ const Main = () => {
 
       axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
       .then(response=>{
-        console.log('Informacion de usuario')
+        // console.log('Informacion de usuario')
         console.log(response.data)
   
         setUserRole(response.data.role)
