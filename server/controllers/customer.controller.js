@@ -1,6 +1,6 @@
 // option 1: exporting the whole file
 const Customer = require("../models/customer.model")
-const Rep = require("../models/rep.model")
+const User = require("../models/user.model")
 
 // option 2: exporting the whole file as an object, with key/value pair
 // const {Destination} = require("./../models/destination.model")
@@ -39,26 +39,56 @@ module.exports.oneCust = (req, res) => {
 
 // create customer + push that customer into a Rep model
 module.exports.addCust = async(req, res) => {
-   
-    try {
-        
-        //add a customer into Customer
-        const newCustomer = new Customer(req.body)
-        console.log(req.params.repId)
-        newCustomer.rep = req.params.repId
-        await newCustomer.save()
 
-        //pushing the newly added customer into Rep
-        const foundRep = await Rep.findOne({_id: req.params.repId})
-        foundRep.totalCustomers.push(newCustomer)
-        await foundRep.save()
+   try {
+     //check if rep exist
+     const userexist = await User.findOne({_id: req.params.repId})
+     if (!userexist) {
+        return res.status(404).json({ message: 'User not found' })
+     }
 
-        res.json(newCustomer) 
+     console.log(userexist)
+     //Create Customer
+     const newCustomer = new Customer(req.body)
+
+     newCustomer.user = req.params.repId
+
+     // Save the customer
+    await newCustomer.save();
+
+    res.status(201).json({ message: 'Customer created successfully', newCustomer });
+   }
+    catch (error) {
+        console.error('Error creating customer:', error.message);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
+   
+    // try {
         
-        catch(err){
-            res.status(400).json(err)
-        }
+    //     //add a customer into Customer
+    //     const newCustomer = new Customer(req.body)
+       
+       
+    //     newCustomer.user = req.params.repId
+    
+        
+    //     await newCustomer.save()
+       
+    //     //pushing the newly added customer into Rep
+    //     const foundRep = await User.findOne({_id: req.params.repId})
+
+        
+    //     console.log(foundRep)
+        
+    //     foundRep.totalCustomers.push(newCustomer)
+    //     await foundRep.save()
+
+    //     res.json(newCustomer) 
+    // }
+        
+    //     catch(err){
+    //         res.status(400).json(err)
+    //     }
     
 }
 
@@ -90,7 +120,7 @@ module.exports.deleteCust = (req, res) => {
 //get all customers with reps info
 module.exports.getCustomerwithRep = async(req, res) => {
     try{
-        const data = await Customer.find().populate({path: 'rep'})
+        const data = await Customer.find().populate({path: 'user'})
         res.status(200).json(data)
     } catch(err){
         res.status(400).json({success:false, message:err.message})

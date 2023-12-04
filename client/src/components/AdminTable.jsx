@@ -24,6 +24,8 @@ const AdminTable = (props) => {
   const navigate = useNavigate()
 
   const [searchInput, setSearchInput] = useState('');
+  
+ 
 
   const handleDelete = (deleteId) => {
     axios.delete(process.env.REACT_APP_API_URL + `/api/customer/${deleteId}`, {withCredentials: true})
@@ -41,14 +43,29 @@ const AdminTable = (props) => {
     navigate('/all/reps')
   }
 
+   
+
+
+ 
+   // Function to filter data by month
+
+   const handleFilterByMonth = (customers) => {
+    props.onFilterByMonth(customers)
+
+   }
+   
+
+  //block of code to filter by name, lastname, email. status, office
   const keys = ['firstName', 'lastName','email', 'status','office'];
 
   const search = (customersData) => {
     
     return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
   }
-  
   const searchList = search(props.customers)
+
+
+   
 
   let totalRevenue = 0
   props.customers.map((eachCust, i)=> totalRevenue+= eachCust.price)
@@ -61,6 +78,12 @@ const AdminTable = (props) => {
       <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
       <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button> 
       <Typography>Revenue: <span style={{color: "green"}}>{totalRev}</span></Typography>
+    </Box>
+    <Box>Quick filters:
+      <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month</Button>
+
+
+
     </Box>
 
     <TableContainer component={Paper}>
@@ -97,7 +120,7 @@ const AdminTable = (props) => {
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>{eachCust.rep.firstName} {eachCust.rep.lastName}</TableCell>
+              <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>

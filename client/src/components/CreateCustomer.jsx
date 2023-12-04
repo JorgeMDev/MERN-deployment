@@ -47,7 +47,7 @@ const CreateCustomer = () => {
 
   //I need to have all the sales reps to  assign the customer
   useEffect(()=>{
-    axios.get(process.env.REACT_APP_API_URL + '/api/reps', {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL + '/api/allUsers', {withCredentials: true})
         .then(response=>{
             console.log(response.data)
             setAllReps(response.data) 
@@ -60,6 +60,7 @@ const CreateCustomer = () => {
   //After submit, call e POST method to save info in database
   const handleSubmit = (e, repId) => {
     e.preventDefault()
+
     
     axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
       .then(response=>{

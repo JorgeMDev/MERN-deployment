@@ -12,17 +12,31 @@ const Main = () => {
   const [customers, setCustomers] = useState([])
   const [repsWithCustomer, setRepWithCustomer] = useState([])
   const [userRole, setUserRole] = useState('')
+  const [thisMonth, setThisMonth] = useState('')
 
   useEffect(()=>{
     axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
       .then(response=>{
-        console.log(response.data)
         
         setCustomers(response.data)
+
+         // Create a new Date object
+      const currentDate = new Date();
+
+      // Get the month (0-indexed, so we add 1 to get the correct month)
+      const month = currentDate.getMonth() + 1;
+
+      // Set the current month in the state
+      setThisMonth(month.toString());
+
+
       })
       .catch(err=>navigate("/login"))
 
-      axios.get(process.env.REACT_APP_API_URL+'/api/rep/all/customers', {withCredentials: true})
+
+      //retrieve customers with reps
+
+      axios.get(process.env.REACT_APP_API_URL+'/api/user/all/customers', {withCredentials: true})
       .then(response=>{
   
         setRepWithCustomer(response.data)
@@ -32,7 +46,7 @@ const Main = () => {
       axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
       .then(response=>{
         // console.log('Informacion de usuario')
-        console.log(response.data)
+        // console.log(response.data)
   
         setUserRole(response.data.role)
       })
@@ -45,6 +59,18 @@ const Main = () => {
   const filterList = (deleteId) =>{
     const updatedList = customers.filter((eachCust)=>deleteId!==eachCust._id)
     setCustomers(updatedList)
+  }
+
+  const filterByMonth = (customers) => {
+    const filteredBymonth = customers.filter(item => {
+     
+      const itemMonth = new Date(item.dos).getMonth() + 1; // month of sale of each customer (1-12)
+     
+      return itemMonth == thisMonth
+    });
+    setCustomers(filteredBymonth);
+
+
   }
 
 //Calculations
@@ -78,7 +104,7 @@ const Main = () => {
       <h1>Admin Dashboard Role: {userRole}</h1>
       <div>
       <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>
-      <AdminTable customers={customers} onDelete={filterList}/>
+      <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth}/>
       <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>
       </div>
     </div>

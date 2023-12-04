@@ -81,9 +81,9 @@ const customerSchema = new Schema({
    coapCreditScore: {
       type : Number
    },
-   rep: {
+   user: {
       type: Schema.Types.ObjectId,
-      ref: 'Rep',
+      ref: 'User',
       required: [true, 'Representative required']
    }
 },

@@ -76,8 +76,8 @@ export default function LoginPage() {
     const handleSkip = (event) => {
       event.preventDefault();
       setUser({
-        email: "admin",
-         password: "admin"
+        email: "jorgemartinez1990@gmail.com",
+         password: "19607061"
       })
   };
 

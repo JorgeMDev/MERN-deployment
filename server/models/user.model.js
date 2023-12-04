@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const {Schema} = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new Schema({
     firstName: {
       type: String,
       required: [true, "First name is required"]
@@ -45,7 +46,11 @@ const UserSchema = new mongoose.Schema({
   role: { // Admin , Manager, Sales or Installer
     type : String,
     required : [true, 'Role is requires']
-}
+},  
+  totalCustomers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Customer'
+}]
 
   }, {timestamps: true});
   
@@ -64,7 +69,7 @@ const UserSchema = new mongoose.Schema({
 //     next()
 // })
  //password hashing
-UserSchema.pre('save', function(next){
+userSchema.pre('save', function(next){
     bcrypt.hash(this.password, 10)
         .then(hash=>{
             this.password = hash
@@ -72,4 +77,6 @@ UserSchema.pre('save', function(next){
         })
 })
 
-  module.exports.User = mongoose.model('User', UserSchema);
+  const User = mongoose.model("User", userSchema)
+
+  module.exports = User;

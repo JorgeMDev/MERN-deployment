@@ -1,4 +1,4 @@
-const {User} = require("../models/user.model")
+const User = require("../models/user.model")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
@@ -75,4 +75,22 @@ module.exports.getUser = (req, res) =>{
     User.findOne({_id: decodedJwt.payload.id})
         .then(oneUser=>res.json(oneUser))
         .catch(err=>res.status(500).json(err))
+}
+
+// get all //this return an array of objects
+module.exports.allUsers = (req, res) => {
+    User.find()
+        .then(allUsers => res.json(allUsers))
+        .catch(err => res.status(400).json(err))
+}
+
+//get all users with customers info
+module.exports.getAllCustomers = async(req, res) => {
+    try{
+        const data = await User.find().populate({path: 'totalCustomers'})
+        res.status(200).json(data)
+    } catch(err){
+        res.status(400).json({success:false, message:err.message})
+    }
+    
 }
