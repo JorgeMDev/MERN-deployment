@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = require('mongoose');
+const Comment = require('./comment.model')
 
 
 const customerSchema = new Schema({
@@ -63,9 +64,7 @@ const customerSchema = new Schema({
       type : String,  
       required : [true, 'Office is required']
       },
-   comments: {
-   type : String  
-   },
+   comments: [Comment.schema],
    coapFirstName: {
       type: String
    },

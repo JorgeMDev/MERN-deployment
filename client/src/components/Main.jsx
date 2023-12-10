@@ -5,6 +5,7 @@ import Histogram from './Histogram'
 import { useNavigate } from 'react-router-dom'
 import NavBarMui from './NavBarMui'
 import Statuses from './Statuses'
+import VerificationTable from './VerificationTable'
 
 
 const Main = () => {
@@ -73,6 +74,9 @@ const Main = () => {
 
   }
 
+//Customers filtered by verification
+const verifList = customers.filter((eachCust)=>eachCust.status == 'verification')
+
 //Calculations
 
 //Calculate all de statuses  
@@ -101,11 +105,24 @@ const Main = () => {
   return (
     <div>
       <NavBarMui/>
+   
       <h1>Admin Dashboard Role: {userRole}</h1>
       <div>
-      <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>
-      <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth}/>
-      <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>
+     
+      {userRole === 'admin' && <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>}
+    
+      {userRole === 'admin' &&  <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth}/>}
+
+   
+     
+       {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>}
+      
+
+      
+      {userRole === 'verif' && <VerificationTable  customers={customers} verifList={verifList}/>}   
+
+
+    
       </div>
     </div>
   )

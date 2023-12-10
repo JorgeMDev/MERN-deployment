@@ -154,6 +154,7 @@ const CreateRep = () => {
             <MenuItem value='admin'>Admin</MenuItem>
             <MenuItem value='manager'>Manager</MenuItem>
             <MenuItem value='sales'>Sales</MenuItem>
+            <MenuItem value='verif'>Verification</MenuItem>
             <MenuItem value='installer'>Installer</MenuItem>
           </Select>
           </Box>

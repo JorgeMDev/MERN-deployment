@@ -43,7 +43,7 @@ const userSchema = new Schema({
       type : String,
       required : [true, 'Email is required']
   },
-  role: { // Admin , Manager, Sales or Installer
+  role: { // Admin , Verficaciones, Manager, Sales or Installer
     type : String,
     required : [true, 'Role is requires']
 },  

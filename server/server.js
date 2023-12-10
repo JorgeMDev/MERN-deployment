@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: true}));
 require('./routes/user.routes')(app)
 require('./routes/customer.routes')(app)
 require('./routes/rep.routes')(app)
+require('./routes/comment.routes')(app)
 
 const serverPort = process.env.PORT || 3100
 app.listen(serverPort, () => {

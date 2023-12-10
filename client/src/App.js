@@ -8,6 +8,7 @@ import CustomerDetails from './components/CustomerDetails';
 import RepTable from './components/RepTable';
 import RepDetails from './components/RepDetails';
 import LoginPage from './components/LoginPage';
+import ModalComment from './components/ModalComment'
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/all/reps' element={<RepTable/>}/>
         <Route path='/rep/new' element={<CreateRep/>}/>
         <Route path='/all/reps/rep/:id' element={<RepDetails/>}/>
+        <Route path='/comment/new/:customerid' element={<ModalComment/>}/>
       </Routes>
       </div>
       
