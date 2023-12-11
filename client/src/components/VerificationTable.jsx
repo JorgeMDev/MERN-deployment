@@ -160,7 +160,8 @@ const VerificationTable = (props) => {
                  {
               
                   comments.map((comment, i) =>(
-                    <li key={i}>{comment.text}</li>
+                
+                    <Textarea key={i} placeholder={comment.text} disabled sx={{ mb: 1 }} />    
 
                   ))
                   
