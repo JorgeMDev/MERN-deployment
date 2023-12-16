@@ -135,7 +135,7 @@ const AdminTable = (props) => {
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachCust._id)}>delete</Button></TableCell>
-              <TableCell>{eachCust.comments}</TableCell>
+              <TableCell>{eachCust.comments[eachCust.comments.length -1].text}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
           )

@@ -27,10 +27,15 @@ const VerificationTable = (props) => {
     const [lastName, setLastName] = useState('')
     const [office, setOffice] = useState('')
     const [comments, setComments] = useState([])
-    const [newComment, setNewComment] = useState('')
+    const [commentText, setCommentText] = useState('')
     const [custId, setCustId] = useState('')
 
     const navigate = useNavigate()
+
+    let newComment = ''
+
+    //Customers filtered by verification
+    const verifList = props.customers.filter((eachCust)=>eachCust.status == 'verification')
 
     const [open, setOpen] = useState(false);
 
@@ -62,10 +67,16 @@ const VerificationTable = (props) => {
 
     const handleNewComment = (e) => {
         e.preventDefault()
-      
+        console.log(newComment)
+
+        newComment = 'Verif: ' + commentText
+       
+
         axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
         .then(response=>{
           console.log(response.data)
+          setOpen(false);
+          props.onNewComment()
        
         })
         .catch(err=>console.log(err))
@@ -73,7 +84,13 @@ const VerificationTable = (props) => {
 
 
     const handleChange = (event) => {
-        setNewComment(event.target.value)
+      
+        setCommentText(event.target.value)
+
+       
+       
+        
+ 
     }
 
     const testApi = () => {
@@ -120,9 +137,10 @@ const VerificationTable = (props) => {
     
       
       {
-        props.verifList.map((eachCust, i)=>{
+        verifList.map((eachCust, i)=>{
           return (
             <TableRow key={i}>
+              <TableCell>{newComment}</TableCell>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
               <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
@@ -149,27 +167,26 @@ const VerificationTable = (props) => {
     </Table>
    </TableContainer>
 
-     <Button variant="outlined" onClick={testApi}>
-        Test Comment Route
-      </Button>
+  
       <Box >
       <Dialog open={open} onClose={handleClose}  >
-        <DialogTitle>{firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+
                  {
               
                   comments.map((comment, i) =>(
-                
-                    <Textarea key={i} placeholder={comment.text} disabled sx={{ mb: 1 }} />    
+
+                    <DialogContentText key={i}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}: {comment.text} </DialogContentText>
+           
 
                   ))
                   
                 }   
-          </DialogContentText>
+        
         </DialogContent>
 
-        <Textarea sx={{minWidth: 400, margin: 2}} minRows={2} value={newComment} onChange={handleChange} placeholder="Add comment here.."/>
+        <Textarea sx={{minWidth: 400, margin: 2}} minRows={2} onChange={handleChange} placeholder="Add comment here.."/>
         
         <Box sx={{maxWidth: 200}}>
         <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={handleNewComment}>

@@ -14,6 +14,7 @@ const Main = () => {
   const [repsWithCustomer, setRepWithCustomer] = useState([])
   const [userRole, setUserRole] = useState('')
   const [thisMonth, setThisMonth] = useState('')
+  
 
   useEffect(()=>{
     axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
@@ -74,8 +75,21 @@ const Main = () => {
 
   }
 
-//Customers filtered by verification
-const verifList = customers.filter((eachCust)=>eachCust.status == 'verification')
+//Function para agregar comentario nuevo
+const filterVerifList = () =>{
+  
+  axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
+  .then(response=>{
+    
+    setCustomers(response.data)
+
+
+  })
+  .catch(err=>navigate("/login"))
+  
+}
+
+
 
 //Calculations
 
@@ -119,7 +133,7 @@ const verifList = customers.filter((eachCust)=>eachCust.status == 'verification'
       
 
       
-      {userRole === 'verif' && <VerificationTable  customers={customers} verifList={verifList}/>}   
+      {userRole === 'verif' && <VerificationTable  customers={customers} onNewComment={filterVerifList}/>} 
 
 
     
