@@ -119,7 +119,7 @@ const VerificationTable = (props) => {
         <TableCell>Rep</TableCell>
         <TableCell>Customer name</TableCell>
         <TableCell>Phone</TableCell>
-        <TableCell>Price</TableCell>
+        {/* <TableCell>Price</TableCell>
         <TableCell>Coap</TableCell>
         <TableCell>Coap Phone</TableCell>
         <TableCell>Address</TableCell>
@@ -127,7 +127,7 @@ const VerificationTable = (props) => {
         <TableCell>Bank</TableCell>
         <TableCell>Payments / Interest</TableCell>
         <TableCell>DOI</TableCell> 
-        <TableCell>Installer</TableCell>
+        <TableCell>Installer</TableCell> */}
         <TableCell>Status</TableCell>
         <TableCell>Actions</TableCell>
         <TableCell>Latest Comment</TableCell>
@@ -146,7 +146,7 @@ const VerificationTable = (props) => {
               <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
               <TableCell>{eachCust.firstName} {eachCust.lastName}</TableCell>
               <TableCell>{eachCust.phone}</TableCell>
-              <TableCell>${eachCust.price}</TableCell>
+              {/* <TableCell>${eachCust.price}</TableCell>
               <TableCell>{eachCust.coapFirstName} {eachCust.coapLastName}</TableCell>
               <TableCell>{eachCust.CoapPhone}</TableCell>
               <TableCell>{eachCust.address}</TableCell>
@@ -154,7 +154,7 @@ const VerificationTable = (props) => {
               <TableCell>{eachCust.bank}</TableCell>
               <TableCell>{eachCust.paymentPlan}</TableCell>
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
-              <TableCell>{eachCust.installer}</TableCell>   
+              <TableCell>{eachCust.installer}</TableCell>    */}
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Add Comment</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>

@@ -15,14 +15,14 @@ import NavBarMui from './NavBarMui'
 
 const RepTable = () => {
   const navigate = useNavigate()
-  const [allReps, setAllReps] = useState([])
+  const [allUsers, setAllUsers] = useState([])
 
   //api call for all reps
   useEffect(()=>{
-    axios.get(process.env.REACT_APP_API_URL+'/api/reps', {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL+'/api/allUsers', {withCredentials: true})
         .then(response=>{
             console.log(response.data)
-            setAllReps(response.data) 
+            setAllUsers(response.data) 
         })
         .catch(err=>navigate("/login"))
   },[])
@@ -41,7 +41,7 @@ const RepTable = () => {
     <div>
        <NavBarMui/>
       <div>
-      <h1>List of Sales Representatives</h1>
+      <h1>List of Users</h1>
       <div>
     <div>
     <Button size="small" variant='outlined'  onClick={handleNewRep}>Add New User</Button>   <Button size="small" variant='outlined' onClick={handleBack}>Back to Dashboard</Button> 
@@ -50,24 +50,22 @@ const RepTable = () => {
    <Table>
     <TableHead>
       <TableRow>
-        <TableCell>Rep name</TableCell>
+        <TableCell>User name</TableCell>
         <TableCell>Phone</TableCell>
         <TableCell>Email</TableCell>
         <TableCell>Office</TableCell>
-        <TableCell>Total customers</TableCell>
         <TableCell>Date created</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {
-        allReps.map((eachRep, i)=>{
+        allUsers.map((eachRep, i)=>{
           return (
             <TableRow key={i}>
               <TableCell><Link to={`rep/${eachRep._id}`}>{eachRep.firstName} {eachRep.lastName}</Link></TableCell>
               <TableCell>{eachRep.phone}</TableCell>
               <TableCell>{eachRep.email}</TableCell>
               <TableCell>{eachRep.office}</TableCell>
-              <TableCell>{eachRep.totalCustomers.length}</TableCell>
               <TableCell>{moment(eachRep.createdAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
           )

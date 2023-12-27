@@ -99,7 +99,7 @@ const AdminTable = (props) => {
  
 
       <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month Sales</Button>
-      <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
+      <TextField margin='normal' type="text" label="Search" placeholder='name, office , status' size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
     </Box>
    
 

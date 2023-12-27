@@ -37,7 +37,7 @@ const RepView = (props) => {
 
 
     //Customers filtered by Rep
-    const repList = props.customers.filter((eachCust)=>eachCust.user.firstName == props.userFirstName)
+    const repList = props.customers.filter((eachCust)=>eachCust.user.firstName == props.userFirstName && eachCust.status == 'In verification')
 
     const [open, setOpen] = useState(false);
 
@@ -114,7 +114,7 @@ const RepView = (props) => {
     
     return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
   }
-  const searchList = search(props.customers)
+  const searchList = search(repList)
 
   let totalRevenue = 0
   repList.map((eachCust, i)=> totalRevenue+= eachCust.price)
@@ -125,8 +125,8 @@ const RepView = (props) => {
 
   return (
     <div>
-      <h1>Customers</h1>
-      <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
+      <h1>Customers in verification</h1>
+      {/* <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
     
     
     <Typography>Revenue: <span style={{color: "green"}}>{totalRev}</span></Typography>
@@ -134,7 +134,7 @@ const RepView = (props) => {
 
     <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month Sales</Button>
     <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
-  </Box>
+  </Box> */}
         <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
      <TableHead>
@@ -144,7 +144,7 @@ const RepView = (props) => {
         <TableCell>Rep</TableCell>
         <TableCell>Customer name</TableCell>
         <TableCell>Phone</TableCell>
-        <TableCell>Price</TableCell>
+        {/* <TableCell>Price</TableCell>
         <TableCell>Coap</TableCell>
         <TableCell>Coap Phone</TableCell>
         <TableCell>Address</TableCell>
@@ -152,7 +152,7 @@ const RepView = (props) => {
         <TableCell>Bank</TableCell>
         <TableCell>Payments / Interest</TableCell>
         <TableCell>DOI</TableCell> 
-        <TableCell>Installer</TableCell>
+        <TableCell>Installer</TableCell> */}
         <TableCell>Status</TableCell>
         <TableCell>Actions</TableCell>
         <TableCell>Latest Comment</TableCell>
@@ -171,7 +171,7 @@ const RepView = (props) => {
               <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
               <TableCell>{eachCust.firstName} {eachCust.lastName}</TableCell>
               <TableCell>{eachCust.phone}</TableCell>
-              <TableCell>${eachCust.price}</TableCell>
+              {/* <TableCell>${eachCust.price}</TableCell>
               <TableCell>{eachCust.coapFirstName} {eachCust.coapLastName}</TableCell>
               <TableCell>{eachCust.CoapPhone}</TableCell>
               <TableCell>{eachCust.address}</TableCell>
@@ -179,7 +179,7 @@ const RepView = (props) => {
               <TableCell>{eachCust.bank}</TableCell>
               <TableCell>{eachCust.paymentPlan}</TableCell>
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
-              <TableCell>{eachCust.installer}</TableCell>   
+              <TableCell>{eachCust.installer}</TableCell>    */}
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>View Comments</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>

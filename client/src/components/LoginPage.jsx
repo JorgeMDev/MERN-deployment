@@ -66,7 +66,7 @@ export default function LoginPage() {
 
       console.log(res)
       navigate('/')})
-      
+
     .catch(err => {
       console.log(err.response.data)
       console.log(err.response.status)
@@ -143,9 +143,9 @@ export default function LoginPage() {
             </Button>
             <Grid container>
               <Grid item>
-                <Button href="/" variant="contained" color="success" onClick={handleSkip}>
+                {/* <Button href="/" variant="contained" color="success" onClick={handleSkip}>
                   {"Demo Account"}
-                </Button>
+                </Button> */}
               </Grid>
             </Grid>
           </Box>
