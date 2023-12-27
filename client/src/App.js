@@ -9,6 +9,7 @@ import RepTable from './components/RepTable';
 import RepDetails from './components/RepDetails';
 import LoginPage from './components/LoginPage';
 import ModalComment from './components/ModalComment'
+import VerificationTable from './components/VerificationTable';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/rep/new' element={<CreateRep/>}/>
         <Route path='/all/reps/rep/:id' element={<RepDetails/>}/>
         <Route path='/comment/new/:customerid' element={<ModalComment/>}/>
+        <Route path='/verification' element={<VerificationTable/>}/>
       </Routes>
       </div>
       

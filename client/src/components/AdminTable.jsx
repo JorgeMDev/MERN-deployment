@@ -13,8 +13,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material'
+import TablePagination from '@mui/material/TablePagination';
+
 
 import { TextField } from '@mui/material'
+import VerificationTable from './VerificationTable'
 
 
 
@@ -24,6 +28,19 @@ const AdminTable = (props) => {
   const navigate = useNavigate()
 
   const [searchInput, setSearchInput] = useState('');
+
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
   
  
 
@@ -73,18 +90,18 @@ const AdminTable = (props) => {
 
   return (
    <div>
+     <h1>Sales Report</h1>
     
     <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
-      <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
+    
       <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button> 
       <Typography>Revenue: <span style={{color: "green"}}>{totalRev}</span></Typography>
+ 
+
+      <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month Sales</Button>
+      <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
     </Box>
-    <Box>Quick filters:
-      <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month</Button>
-
-
-
-    </Box>
+   
 
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -117,6 +134,7 @@ const AdminTable = (props) => {
       {
         searchList.map((eachCust, i)=>{
           return (
+        
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
@@ -135,7 +153,7 @@ const AdminTable = (props) => {
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachCust._id)}>delete</Button></TableCell>
-              <TableCell>{eachCust.comments[eachCust.comments.length -1].text}</TableCell>
+              <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
           )
@@ -143,7 +161,17 @@ const AdminTable = (props) => {
       } 
     </TableBody>
     </Table>
+    <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={searchList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
    </TableContainer>
+
     {/* <Box sx={{margin: 2}}>
    <Button size="small" variant='outlined'>This Week</Button> <Button size="small" variant='outlined'>This Month</Button> <Button size="small" variant='outlined'>This Year</Button> <Button size="small" variant='outlined'>2021</Button>
    </Box> */}

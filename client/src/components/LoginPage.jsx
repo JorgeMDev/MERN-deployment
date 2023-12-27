@@ -63,8 +63,10 @@ export default function LoginPage() {
       'Content-Type': 'application/json'
   }}) // important to add headers for cors to work
     .then(res=> {
+
       console.log(res)
       navigate('/')})
+      
     .catch(err => {
       console.log(err.response.data)
       console.log(err.response.status)

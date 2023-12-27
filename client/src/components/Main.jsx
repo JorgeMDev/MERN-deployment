@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import NavBarMui from './NavBarMui'
 import Statuses from './Statuses'
 import VerificationTable from './VerificationTable'
+import RepView from './RepView'
 
 
 const Main = () => {
@@ -14,6 +15,7 @@ const Main = () => {
   const [repsWithCustomer, setRepWithCustomer] = useState([])
   const [userRole, setUserRole] = useState('')
   const [thisMonth, setThisMonth] = useState('')
+  const [userFirstName, setUserFirstName] = useState('')
   
 
   useEffect(()=>{
@@ -49,7 +51,8 @@ const Main = () => {
       .then(response=>{
         // console.log('Informacion de usuario')
         // console.log(response.data)
-  
+        setUserFirstName(response.data.firstName)
+        console.log(response.data.firstName)
         setUserRole(response.data.role)
       })
       .catch(err=>console.log(err))
@@ -77,7 +80,7 @@ const Main = () => {
 
 //Function para agregar comentario nuevo
 const filterVerifList = () =>{
-  
+
   axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
   .then(response=>{
     
@@ -120,7 +123,7 @@ const filterVerifList = () =>{
     <div>
       <NavBarMui/>
    
-      <h1>Admin Dashboard Role: {userRole}</h1>
+      <h1>Sales Dashboard Role: {userRole}</h1>
       <div>
      
       {userRole === 'admin' && <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>}
@@ -129,11 +132,14 @@ const filterVerifList = () =>{
 
    
      
-       {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>}
+       {/* {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>} */}
       
 
       
       {userRole === 'verif' && <VerificationTable  customers={customers} onNewComment={filterVerifList}/>} 
+      {userRole === 'admin' && <VerificationTable  customers={customers} onNewComment={filterVerifList}/>} 
+
+      {userRole === 'sales' && <RepView  customers={customers}  userFirstName={userFirstName}/>} 
 
 
     

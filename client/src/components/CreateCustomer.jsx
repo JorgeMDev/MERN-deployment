@@ -164,7 +164,7 @@ const CreateCustomer = () => {
           <MenuItem value='Pending install'>Pending Install</MenuItem>
           <MenuItem value='Pending contract'>Pending contract</MenuItem>
           <MenuItem value='Singing'>Singning</MenuItem>
-          <MenuItem value='verification'>Verification</MenuItem>
+          <MenuItem value='In verification'>Verification</MenuItem>
           <MenuItem value='Verified'>Verified</MenuItem>
           <MenuItem value='Paid'>Paid</MenuItem>
           <MenuItem value='Cancelled'>Cancelled</MenuItem>

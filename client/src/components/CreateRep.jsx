@@ -70,7 +70,7 @@ const CreateRep = () => {
   const handleHome = () => {
     navigate('/')
   }
-
+    
   return (
     <div >
         <NavBarMui/>   

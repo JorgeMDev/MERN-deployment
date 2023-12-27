@@ -17,24 +17,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Textarea from '@mui/joy/Textarea';
+import { Typography } from '@mui/material'
+import TextField from '@mui/material/TextField'
 
-
-const VerificationTable = (props) => {
-
-
+const RepView = (props) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [office, setOffice] = useState('')
     const [comments, setComments] = useState([])
     const [commentText, setCommentText] = useState('')
     const [custId, setCustId] = useState('')
+    const [userEmail, SetUserEmail] = useState('')
+    const [searchInput, setSearchInput] = useState('');
 
     const navigate = useNavigate()
 
     let newComment = ''
 
-    //Customers filtered by verification
-    const verifList = props.customers.filter((eachCust)=>eachCust.status == 'In verification')
+
+
+    //Customers filtered by Rep
+    const repList = props.customers.filter((eachCust)=>eachCust.user.firstName == props.userFirstName)
 
     const [open, setOpen] = useState(false);
 
@@ -68,7 +71,7 @@ const VerificationTable = (props) => {
         e.preventDefault()
         console.log(newComment)
 
-        newComment = 'Verif: ' + commentText
+        newComment = 'Rep: ' + commentText
        
 
         axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
@@ -87,29 +90,51 @@ const VerificationTable = (props) => {
         setCommentText(event.target.value)
 
        
-       
         
  
-    }
-
-    const testApi = () => {
-      axios.get(process.env.REACT_APP_API_URL+'/api/test/comment', {withCredentials: true})
-        .then(response=>{
-        console.log(response.data)
-      })
-      .catch(err=>{
-        console.log(err.response)
-      })
-
     }
 
    
 
 
 
+ 
+   // Function to filter data by month
+
+   const handleFilterByMonth = (customers) => {
+    props.onFilterByMonth(customers)
+
+   }
+   
+
+  //block of code to filter by name, lastname, email. status, office
+  const keys = ['firstName', 'lastName','email', 'status','office'];
+
+  const search = (customersData) => {
+    
+    return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
+  }
+  const searchList = search(props.customers)
+
+  let totalRevenue = 0
+  repList.map((eachCust, i)=> totalRevenue+= eachCust.price)
+  let totalRev = totalRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
+
+
+
   return (
     <div>
-      <h1>Customers Verification Table</h1>
+      <h1>Customers</h1>
+      <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
+    
+    
+    <Typography>Revenue: <span style={{color: "green"}}>{totalRev}</span></Typography>
+
+
+    <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month Sales</Button>
+    <TextField margin='normal' type="text" label="Search" size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
+  </Box>
         <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
      <TableHead>
@@ -138,7 +163,7 @@ const VerificationTable = (props) => {
     
       
       {
-        verifList.map((eachCust, i)=>{
+        repList.map((eachCust, i)=>{
           return (
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
@@ -156,7 +181,7 @@ const VerificationTable = (props) => {
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
-              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Add Comment</Button></TableCell>
+              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>View Comments</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
@@ -208,4 +233,4 @@ const VerificationTable = (props) => {
   )
 }
 
-export default VerificationTable
+export default RepView

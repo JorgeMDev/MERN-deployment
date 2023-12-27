@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,6 +23,20 @@ function NavBarMui() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [userRole, setUserRole] = useState('')
+
+  useEffect(()=>{
+    
+      axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
+      .then(response=>{
+        // console.log('Informacion de usuario')
+        // console.log(response.data)
+  
+        setUserRole(response.data.role)
+      })
+      .catch(err=>console.log(err))
+
+  },[])
  
 
   const handleOpenNavMenu = (event) => {
@@ -37,7 +51,7 @@ function NavBarMui() {
     if (page === "Dashboard"){
       navigate("/")
     }
-    if (page === "Users"){
+    if (page === "Users" && userRole === 'admin'){
       navigate("/all/reps")
     }
     if (page === "Installers"){

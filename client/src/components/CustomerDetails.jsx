@@ -116,15 +116,16 @@ const CustomerDetails = () => {
 
 
   return (
-    <div>
+    <Box sx={{minHeight: '1000px'}}>
        <NavBarMui/>
-        <div style={{margin: "10%"}}>
+        <Box>
       {/* UPDATE FORM FOR EXISTING CUSTOMER */}
     <h1>Update a Customer</h1>
     <Button size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
-    <Box sx={{display: 'flex', justifyContent: 'center', alignContent: 'space-around'}}>
+    <Box sx={{display: 'flex', justifyContent: 'center'}}>
     <form onSubmit={(e)=>handleSubmit(e)}>
-    <Box sx={{ display: 'flex' , justifyContent: 'space-around', alignItems: 'center', margin: "10%", boxShadow: 1, borderRadius: 2, padding: 3}}>
+    <Box sx={{ display: 'flex' , justifyContent: 'space-around', alignItems: 'center', margin: "1%", boxShadow: 1, borderRadius: 2, padding: 3}}>
+
       <Box>
         <Box sx={{padding: 1}}>
       <FormLabel>First name:</FormLabel>
@@ -154,12 +155,13 @@ const CustomerDetails = () => {
      <FormLabel>Date of Sale:</FormLabel>
      <Input type='date' name='dob' value={dos}  onChange={(e)=>setDos(e.target.value)}/>
      </Box>   
-     </Box>
-     <Box>
-      <Box sx={{padding: 1}}>
+     <Box sx={{padding: 1}}>
         <FormLabel>Date of installation:</FormLabel>
         <Input type='date' name='doi' value={doi}  onChange={(e)=>setDoi(e.target.value)}/>
         </Box>
+     </Box>
+     <Box>
+     
         <Box sx={{padding: 1}}>
       <FormLabel>Installer:</FormLabel>
       <Box><Input type='text' name='firstName' value={installer}  onChange={(e)=>setInstaller(e.target.value)}/></Box>
@@ -239,16 +241,11 @@ const CustomerDetails = () => {
       </Select>
      
      </Box>
+     
    
     </Box >
     
-    <Box sx={{marginBottom: 1}}>
-    <FormLabel>Comments:</FormLabel>
-        <TextField name='comments' value={comments} onChange={(e)=>setComments(e.target.value)} rows='4' cols='50'>
-        </TextField>
-    </Box>
-    
-      <Button sx={{marginTop: 3, marginRight: 3}} type='submit' size="small" variant='contained'>Update Customer</Button>
+    <Button type='submit' size="small" variant='contained'>Update Customer</Button>
     </form>
     </Box>
       {/* SHOW ERRROR MESSAGE FOR VALIDATIONS */}
@@ -257,8 +254,8 @@ const CustomerDetails = () => {
           <p key={i} syle={{color: 'red'}}>{eachErr}</p>
         ))
       }
-      </div>
-  </div>
+      </Box>
+  </Box>
   )
 }
 
