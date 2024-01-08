@@ -92,18 +92,7 @@ const VerificationTable = (props) => {
  
     }
 
-    const testApi = () => {
-      axios.get(process.env.REACT_APP_API_URL+'/api/test/comment', {withCredentials: true})
-        .then(response=>{
-        console.log(response.data)
-      })
-      .catch(err=>{
-        console.log(err.response)
-      })
-
-    }
-
-   
+  
 
 
 

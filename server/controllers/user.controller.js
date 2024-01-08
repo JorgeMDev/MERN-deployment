@@ -94,3 +94,24 @@ module.exports.getAllCustomers = async(req, res) => {
     }
     
 }
+
+//update existing user
+module.exports.updateUser = async(req, res) => {
+    try {
+        const userId = req.params.id;
+        const updatedUserData = req.body;
+    
+        // Find the user by ID and update
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+    
+        if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
+        res.json(updatedUser);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+
+}

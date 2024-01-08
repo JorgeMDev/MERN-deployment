@@ -139,7 +139,7 @@ const filterVerifList = () =>{
       {userRole === 'verif' && <VerificationTable  customers={customers} onNewComment={filterVerifList}/>} 
       {userRole === 'admin' && <VerificationTable  customers={customers} onNewComment={filterVerifList}/>} 
 
-      {userRole === 'sales' && <RepView  customers={customers}  userFirstName={userFirstName}/>} 
+      {userRole === 'sales' && <RepView  customers={customers}  userFirstName={userFirstName} onNewComment={filterVerifList}/>} 
 
 
     

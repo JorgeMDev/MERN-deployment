@@ -29,6 +29,7 @@ const RepDetails = () => {
   const [education, setEducation] = useState('')
   const [ethnicity, setEthnicity] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
+  const [role, setRole] = useState('')
   const {id} = useParams()
 
   
@@ -38,7 +39,7 @@ const RepDetails = () => {
   //get all reps info
 
   useEffect(()=>{
-    axios.get(process.env.REACT_APP_API_URL+`/api/rep/${id}`, {withCredentials: true})
+    axios.get(process.env.REACT_APP_API_URL+`/api/user/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         setFirstName(response.data.firstName)
@@ -63,7 +64,7 @@ const RepDetails = () => {
     //call a put method to update rep
     const handleSubmit = (e) => {
       e.preventDefault()
-      axios.put(process.env.REACT_APP_API_URL + `/api/rep/${id}`, {firstName, lastName, email, office, address, phone, dob, withCredentials:true})
+      axios.put(process.env.REACT_APP_API_URL + `/api/user/${id}`, {firstName, lastName, email, office, address, phone, dob, withCredentials:true})
         .then(response=>{
           console.log(response.data)
           navigate('/')
@@ -76,7 +77,7 @@ const RepDetails = () => {
     }
 
     const handleDelete = (id) => {
-      axios.delete(process.env.REACT_APP_API_URL+`/api/rep/${id}`, {withCredentials: true})
+      axios.delete(process.env.REACT_APP_API_URL+`/api/user/${id}`, {withCredentials: true})
       .then(response=>{
         console.log(response)
         navigate('/')
@@ -92,7 +93,7 @@ const RepDetails = () => {
     <div>
        <NavBarMui/>
       <div style={{marginLeft: 150, marginRight: 150}}>
-      <h1>Update Representative</h1>
+      <h1>User Details</h1>
       <Button size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
       <Box sx={{display:'flex', justifyContent: 'center', boxShadow: 1, padding: 1, marginTop: 3}}>
       <form onSubmit={handleSubmit}>
@@ -127,15 +128,26 @@ const RepDetails = () => {
         </div> */}
         <FormControl>
           <FormLabel>Office</FormLabel>
-          <Select sx={{height:30}} type='text' name='office' value={office} onChange={(e)=>setOffice(e.target.value)}>
+          <Select sx={{height:30, marginTop: 2}} type='text' name='office' value={office} onChange={(e)=>setOffice(e.target.value)}>
             <option hidden>Choose Office:</option>
             <MenuItem value='VA'>Virginia</MenuItem>
             <MenuItem value='MD'>Maryland</MenuItem>
           </Select>
+          <FormLabel sx={{marginTop: 2}}>Role</FormLabel>
+          <Box >    
+          <Select sx={{height:30, width:150}} type='text' name='office' value={role} onChange={(e)=>setRole(e.target.value)}>
+            <option hidden>Role:</option>
+            <MenuItem value='admin'>Admin</MenuItem>
+            <MenuItem value='manager'>Manager</MenuItem>
+            <MenuItem value='sales'>Sales</MenuItem>
+            <MenuItem value='verif'>Verification</MenuItem>
+            <MenuItem value='installer'>Installer</MenuItem>
+          </Select>
+          </Box>
         </FormControl>
-        <Button sx={{margin:4}} type="submit" size="small" variant='contained'>Update Representative</Button>
+        <Button sx={{margin:4}} type="submit" size="small" variant='contained'>Update User</Button>
         </FormGroup>
-      <Button sx={{margin:4}} onClick={handleDelete} color="error" type="submit" size="small" variant='contained'>Delete Representative</Button>
+      <Button sx={{margin:4}} onClick={handleDelete} color="error" type="submit" size="small" variant='contained'>Delete User</Button>
       </form>
 
         {/* SHOW ERRROR MESSAGE FOR VALIDATIONS */}
