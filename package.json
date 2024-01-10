@@ -3,8 +3,8 @@
   "name": "Aquafeel CRM",
   "version": "1.0.0",
   "engines": {
-    "node": "20.x",
-    "npm": "10.x"
+    "node": "20.10.0",
+    "npm": "10.2.3"
   },
   "description": "Crm for Aquafeel",
   "main": "server.js",  
