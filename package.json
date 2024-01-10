@@ -20,8 +20,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "node server/server.js"
-    
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm install"
   }
   
   
