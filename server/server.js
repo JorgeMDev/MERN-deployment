@@ -15,8 +15,8 @@ require('./configs/mongoose.config')
 
 //having 2 localhost port to communicate
  app.use(cors({
-    credentials: true
-    // origin: "http://localhost:3000"
+    credentials: true,
+    origin: "http://localhost:3000"
 })) 
 
 //CHANGE THIS BEFORE PUTTING IN PRODUCTION!
