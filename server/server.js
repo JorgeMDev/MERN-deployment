@@ -4,8 +4,8 @@ const cookieParser = require('cookie-parser')
 const app = express()
 const cors = require('cors') 
 const jwt = require('jsonwebtoken')
-const path = require('path'); //added to test heroku deployment
-const publicPath = path.join(__dirname, '..', 'public'); //added to test heroku deployment
+// const path = require('path'); //added to test heroku deployment
+// const publicPath = path.join(__dirname, '..', 'public'); //added to test heroku deployment
 
 // const port = 8000
 
@@ -29,10 +29,10 @@ require('./configs/mongoose.config')
 //})) 
 
 //Added to test heroku deployment
-app.use(express.static(publicPath));  
-app.get('*', (req, res) => {
-   res.sendFile(path.join(publicPath, 'index.html'));
-});
+// app.use(express.static(publicPath));  
+// app.get('*', (req, res) => {
+//    res.sendFile(path.join(publicPath, 'index.html'));
+// });
 
 
 
