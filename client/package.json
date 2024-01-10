@@ -28,13 +28,13 @@
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
-
+  "proxy": "https://crm-production.up.railway.app",
   "scripts": {
     "start": "react-scripts start --disable-host-check",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-   
+    "eject": "react-scripts eject"
+
   },
   "eslintConfig": {
     "extends": [
