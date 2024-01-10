@@ -20,8 +20,11 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "start": "/client npm start"
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "heroku-postbuild": "npm run install-client && npm run build-client",
+    "start": "node server/server.js"
+    
   }
   
   
