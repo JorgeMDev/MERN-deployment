@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "build:digitalocean": "npm install --production=false && npm run build && npm ci"
+        
+      }
+
+}
