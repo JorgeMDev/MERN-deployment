@@ -1,6 +1,8 @@
 {
     "scripts": {
-        "build:digitalocean": "npm install --production=false && npm run build && npm ci"
+        "build:digitalocean": "npm install --production=false && npm run build && npm ci",
+        "start":"cd server && nodemon server.js"
+      
         
       }
 
