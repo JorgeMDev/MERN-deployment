@@ -2,9 +2,9 @@
   "name": "Aquafeel CRM",
   "version": "1.0.0",
   "description": "Crm for Aquafeel",
-  "main": "server.js",  
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js"  
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -15,6 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongoose": "^6.6.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "punycode": "^2.3.1"
   }
 }
