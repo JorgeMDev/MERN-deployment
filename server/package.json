@@ -16,6 +16,7 @@
     "moment": "^2.29.4",
     "mongoose": "^6.6.1",
     "nodemon": "^2.0.20",
-    "punycode": "^2.3.1"
+    "punycode": "^2.3.1",
+    "serve": "^14.2.1"
   }
 }
