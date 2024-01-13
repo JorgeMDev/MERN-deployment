@@ -24,7 +24,7 @@ require('./configs/mongoose.config')
 //CHANGE THIS BEFORE PUTTING IN PRODUCTION!
 app.use(cors({
  credentials: true,
- origin: "https://mern-deployment-five.vercel.app",
+ origin: process.env.FRONT_END,
  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 })) 
 
