@@ -24,8 +24,15 @@ require('./configs/mongoose.config')
 //CHANGE THIS BEFORE PUTTING IN PRODUCTION!
 app.use(cors({
  credentials: true,
+ Headers: true,
+ exposedHeaders: 'Set-Cookie',
  origin: process.env.FRONT_END,
- methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+ methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+ allowedHeaders: [
+  'Access-Control-Allow-Origin',
+  'Content-Type',
+  'Authorization'
+]
 })) 
 
 //Added to test heroku deployment
