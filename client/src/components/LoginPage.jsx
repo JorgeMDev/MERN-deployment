@@ -65,7 +65,7 @@ export default function LoginPage() {
     .then(res=> {
 
       console.log(res)
-      navigate('/test')})
+      navigate('/')})
 
     .catch(err => {
       console.log(err.response.data)
