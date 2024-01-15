@@ -21,7 +21,7 @@ module.exports.register = (req, res)=>{
 //Test cookie
 module.exports.cookie =(req, res)=>{
     res
-        .cookie("testkey","testvalue", {httpOnly:true})
+        .cookie("testkey","testvalue", {httpOnly: true, sameSite: 'None', secure: true})
         .json("success")
 }
 
