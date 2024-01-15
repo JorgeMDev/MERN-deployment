@@ -47,17 +47,17 @@ const Main = () => {
       })
       .catch(err=>console.log(err))
 
-  //     axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
-  //     .then(response=>{
-  //       // console.log('Informacion de usuario')
-  //       // console.log(response.data)
-  //       setUserFirstName(response.data.firstName)
-  //       console.log(response.data.firstName)
-  //       setUserRole(response.data.role)
-  //     })
-  //     .catch(err=>console.log(err))
+      // axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
+      // .then(response=>{
+      //   // console.log('Informacion de usuario')
+      //   // console.log(response.data)
+      //   setUserFirstName(response.data.firstName)
+      //   console.log(response.data.firstName)
+      //   setUserRole(response.data.role)
+      // })
+      // .catch(err=>console.log(err))
 
-  // },[])
+  },[])
 
 
   //update list after delete
