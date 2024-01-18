@@ -138,7 +138,7 @@ const AdminTable = (props) => {
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
+              <TableCell>{eachCust.user.firstName ? eachCust.user.firstName : '' } {eachCust.user.lastName ? eachCust.user.lastName : '' }</TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>
