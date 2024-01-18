@@ -78,6 +78,15 @@ const CreateRep = () => {
       <h1 style={{textAlign: "Left"}}>Add a New User</h1>
       {/* REGISTRATION FORM FOR NEW REP */}
       <Button sx={{marginLeft:"10%"}} size="small" variant='outlined' onClick={handleHome}>back to Dashboard</Button>
+      {
+        errors.map((eachErr,i)=>(
+       
+          <p key={i} style={{color: "red"}}>{eachErr}</p>
+          
+        ))
+      }
+
+      
      
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', margin: "10%", marginTop: 40}}>
         <Box sx={{display:'flex', justifyContent: 'center', boxShadow: 3, padding: 5}}>
