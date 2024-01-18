@@ -37,10 +37,11 @@ module.exports.login = async(req, res)=>{
     const user = await User.findOne({ email: req.body.email });
 
     console.log('entre al login route')
+    console.log(user)
 
  
     if(user === null) {
-   
+        console.log('user == null')
         return res.sendStatus(400)
     }
     //if we made it this far, we found a user with this email address
