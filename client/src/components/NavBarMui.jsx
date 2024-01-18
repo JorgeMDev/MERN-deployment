@@ -52,7 +52,7 @@ function NavBarMui() {
       navigate("/")
     }
     if (page === "Users" && userRole === 'admin'){
-      navigate("/all/reps")
+      navigate("/all/users")
     }
     if (page === "Installers"){
       alert("Section under construction")

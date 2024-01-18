@@ -35,6 +35,20 @@ const RepTable = () => {
     navigate('/')
   }
 
+  const handleDelete = (deleteId) => {
+    axios.delete(process.env.REACT_APP_API_URL + `/api/user/${deleteId}`, {withCredentials: true})
+      .then(response=>{
+        alert('User deleted')
+      })
+      .catch(err=>console.log(err))
+  }
+
+  const handleEdit = (editId) => {
+   
+    navigate(`user/${editId}`)
+
+  }
+
 
 
   return (
@@ -54,6 +68,7 @@ const RepTable = () => {
         <TableCell>Phone</TableCell>
         <TableCell>Email</TableCell>
         <TableCell>Office</TableCell>
+        <TableCell>Action</TableCell>
         <TableCell>Date created</TableCell>
       </TableRow>
     </TableHead>
@@ -62,10 +77,11 @@ const RepTable = () => {
         allUsers.map((eachRep, i)=>{
           return (
             <TableRow key={i}>
-              <TableCell><Link to={`rep/${eachRep._id}`}>{eachRep.firstName} {eachRep.lastName}</Link></TableCell>
+              <TableCell><Link to={`user/${eachRep._id}`}>{eachRep.firstName} {eachRep.lastName}</Link></TableCell>
               <TableCell>{eachRep.phone}</TableCell>
               <TableCell>{eachRep.email}</TableCell>
               <TableCell>{eachRep.office}</TableCell>
+              <TableCell><Button sx={{marginRight: 1}} size="small" variant='contained' onClick={()=>handleEdit(eachRep._id)}>Edit</Button><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachRep._id)}>delete</Button></TableCell>
               <TableCell>{moment(eachRep.createdAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
           )

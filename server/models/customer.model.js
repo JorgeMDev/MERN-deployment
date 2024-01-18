@@ -16,8 +16,7 @@ const customerSchema = new Schema({
    },
    email: {
       type : String,
-      required : [true, 'Email is required'],
-      minlength: [6, 'Email must be at least 6 characters long']  
+
    },
    address: {
       type : String,
