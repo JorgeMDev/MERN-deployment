@@ -36,6 +36,8 @@ module.exports.login = async(req, res)=>{
 
     const user = await User.findOne({ email: req.body.email });
 
+    console.log('entre al login route')
+
  
     if(user === null) {
    
