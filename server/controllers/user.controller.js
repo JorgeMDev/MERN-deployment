@@ -47,6 +47,7 @@ module.exports.login = async(req, res)=>{
  
     if(!correctPassword) {
         //password wasnt a match
+        console.log('incorrect passsword')
         
         // res.sendStatus(400)
         res.status(400)
