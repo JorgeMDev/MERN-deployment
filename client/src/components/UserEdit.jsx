@@ -36,8 +36,6 @@ const UserEdit = () => {
         setOffice(response.data.office)
         setAddress(response.data.address)
         setPhone(response.data.phone)
-
-      
         setRole(response.data.role)
         setDob(moment(response.data.dob).format("YYYY-MM-DD"))
       })

@@ -43,8 +43,10 @@ module.exports.login = async(req, res)=>{
     }
     //if we made it this far, we found a user with this email address
     //compare passwords
+   
+
     const correctPassword = await bcrypt.compare(req.body.password, user.password);
- 
+    console.log(correctPassword)
     if(!correctPassword) {
         //password wasnt a match
         console.log('incorrect passsword')
@@ -119,8 +121,11 @@ module.exports.updateUser = async(req, res) => {
     //   }
 
       // Hash and update the new password
-      const hashedNewPassword = await bcrypt.hash(password, 10);
-      user.password = hashedNewPassword;
+
+    //   const hashedNewPassword = await bcrypt.hash(password, 10);
+      user.password = password;
+      console.log(password)
+    //   console.log(hashedNewPassword)
     }
 
     // Update other user information
@@ -131,6 +136,8 @@ module.exports.updateUser = async(req, res) => {
     user.address = address || user.address;
     user.phone = phone || user.phone;
     user.dob = dob || user.dob;
+
+    console.log(user)
 
     // Save the updated user
     await user.save();
