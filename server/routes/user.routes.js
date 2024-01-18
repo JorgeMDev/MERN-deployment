@@ -7,7 +7,7 @@ module.exports = app =>{
     app.post(`/api/register`, UserController.register)
     app.post(`/api/login`, UserController.login)
     app.get(`/api/logout`, UserController.logout)
-    app.get(`/api/getUser`, UserController.getUser)
+    app.get(`/api/getUser`, authenticate, UserController.getUser)
     app.put("/api/user/:id", authenticate, UserController.updateUser)
     app.get("/api/user/all/customers", authenticate, UserController.getAllCustomers) //get all reps with customers
 }
