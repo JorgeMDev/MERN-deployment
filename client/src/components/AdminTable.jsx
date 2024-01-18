@@ -129,6 +129,8 @@ const AdminTable = (props) => {
       </TableRow>
     </TableHead>
     <TableBody>
+
+      {console.log(searchList)}
     
       
       {
@@ -138,7 +140,7 @@ const AdminTable = (props) => {
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>{eachCust.user.firstName ? eachCust.user.firstName : '' } {eachCust.user.lastName ? eachCust.user.lastName : '' }</TableCell>
+              <TableCell>  <span style={{ color: eachCust.user ? 'black' : 'red' }}>{eachCust.user ? eachCust.user.firstName ? eachCust.user.firstName : 'no usar assigend' : 'no user assigned'} {eachCust.user && eachCust.user.lastName ? eachCust.user.lastName : ''}</span></TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>
