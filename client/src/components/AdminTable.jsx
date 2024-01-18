@@ -15,6 +15,12 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material'
 import TablePagination from '@mui/material/TablePagination';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Textarea from '@mui/joy/Textarea';
 
 
 import { TextField } from '@mui/material'
@@ -23,6 +29,14 @@ import VerificationTable from './VerificationTable'
 
 
 const AdminTable = (props) => {
+
+  //modal variables
+  const [open, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState('')
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [office, setOffice] = useState('')
 
 
   const navigate = useNavigate()
@@ -48,6 +62,8 @@ const AdminTable = (props) => {
     axios.delete(process.env.REACT_APP_API_URL + `/api/customer/${deleteId}`, {withCredentials: true})
       .then(response=>{
         props.onDelete(deleteId)
+        setOpen(false);
+        alert('Succseful delete')
       })
       .catch(err=>console.log(err))
   }
@@ -59,6 +75,8 @@ const AdminTable = (props) => {
   const handleRepList = () => {
     navigate('/all/reps')
   }
+
+ 
 
    
 
@@ -80,6 +98,31 @@ const AdminTable = (props) => {
     return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
   }
   const searchList = search(props.customers)
+
+
+//open modal
+  const handleOpen = (id) => {
+    axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
+        .then(response=>{
+        console.log(response.data)
+        setFirstName(response.data.firstName)
+        setLastName(response.data.lastName)
+        setOffice(response.data.office)
+        setDeleteId(id)
+    
+      })
+      .catch(err=>{
+        console.log(err.response)
+      })
+
+  
+
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
 
 
    
@@ -154,7 +197,7 @@ const AdminTable = (props) => {
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
-              <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachCust._id)}>delete</Button></TableCell>
+              <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleOpen(eachCust._id)}>delete</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
@@ -174,9 +217,34 @@ const AdminTable = (props) => {
       />
    </TableContainer>
 
-    {/* <Box sx={{margin: 2}}>
-   <Button size="small" variant='outlined'>This Week</Button> <Button size="small" variant='outlined'>This Month</Button> <Button size="small" variant='outlined'>This Year</Button> <Button size="small" variant='outlined'>2021</Button>
-   </Box> */}
+   <Box >
+      <Dialog open={open} onClose={handleClose}  >
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogContent>
+
+                    <DialogContentText>Are you sure you want to delete this customer? </DialogContentText>
+           
+        </DialogContent>
+        
+        <Box sx={{maxWidth: 200}}>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleDelete(deleteId)}>
+        Yes
+        </Button>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleClose()}>
+        No
+        </Button>
+        </Box>
+
+
+
+
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Box>
    </div> 
   )
 }

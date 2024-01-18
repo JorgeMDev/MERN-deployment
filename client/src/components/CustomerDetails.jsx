@@ -103,6 +103,7 @@ const CustomerDetails = () => {
     axios.put(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan, user : userId}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
+        alert('Update Succesful')
         navigate('/')
       })
       .catch(err=>console.log(err))
