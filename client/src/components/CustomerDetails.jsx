@@ -30,8 +30,8 @@ const CustomerDetails = () => {
   const [approval, setApproval] = useState()
   const [status, setStatus] = useState('')
   const [comments, setComments] = useState([])
-  const [repId, SetRepId] = useState('')
-  const [allReps, setAllReps] = useState([])
+  const [userId, SetUserId] = useState('')
+  const [allUsers, setAllUsers] = useState([])
   const {id} = useParams()
 
   const [creditScore, setCreditScore] = useState('')
@@ -73,7 +73,7 @@ const CustomerDetails = () => {
         setCoapEmail(response.data.coapEmail)
         setInstaller(response.data.installer)
         setPaymentPlan(response.data.paymentPlan)
-        SetRepId(response.data.rep)
+        SetUserId(response.data.user)
 
 
 
@@ -88,10 +88,10 @@ const CustomerDetails = () => {
         setErrors(errMsgArr)
       })
 
-      axios.get(process.env.REACT_APP_API_URL+'/api/reps', {withCredentials: true})
+      axios.get(process.env.REACT_APP_API_URL+'/api/allUsers', {withCredentials: true})
       .then(response=>{
           console.log(response.data)
-          setAllReps(response.data) 
+          setAllUsers(response.data) 
       })
       .catch(err=>navigate("/login"))
 
@@ -100,7 +100,7 @@ const CustomerDetails = () => {
   //call a put method to update customer
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.put(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan, rep : repId}, {withCredentials: true})
+    axios.put(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, comments, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan, user : userId}, {withCredentials: true})
       .then(response=>{
         console.log(response.data)
         navigate('/')
@@ -232,10 +232,10 @@ const CustomerDetails = () => {
      <Input type='number' name='creditScore' value={coapCreditScore}  onChange={(e)=>setCoapCreditScore(e.target.value)}/>
      </Box>
      <FormLabel>Representative:</FormLabel>
-      <Select sx={{height:30}} type='text' value={repId} onChange={(e)=>SetRepId(e.target.value)}>
+      <Select sx={{height:30}} type='text' value={userId} onChange={(e)=>SetUserId(e.target.value)}>
       {
-        allReps.map((eachRep,i)=>(
-            <MenuItem key={i} value={eachRep._id}>{eachRep.firstName}  {eachRep.lastName}</MenuItem>
+        allUsers.map((eachUser,i)=>(
+            <MenuItem key={i} value={eachUser._id}>{eachUser.firstName}  {eachUser.lastName}</MenuItem>
         ))
       }
       </Select>
