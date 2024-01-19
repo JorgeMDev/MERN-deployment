@@ -117,14 +117,14 @@ const handleClose = () => {
   setOpen(false);
 };
   
-
+  //Revenue 
   let totalRevenue = 0
   props.customers.map((eachCust, i)=> totalRevenue+= eachCust.price)
   let totalRev = totalRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 
   return (
    <div>
-     <h1>Sales Report</h1>
+     <h1 style={{textAlign: 'center'}}>Sales Report</h1>
     
     <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
     
