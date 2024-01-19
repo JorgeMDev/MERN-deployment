@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,28 +10,111 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'Date of Sale', label: 'Date of Sale', minWidth: 170 },
+  { id: 'Office', label: 'Office', minWidth: 100 },
   {
-    id: 'population',
-    label: 'Population',
+    id: 'Rep',
+    label: 'Rep',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'Customer name',
+    label: 'Customer name',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'density',
-    label: 'Density',
+    id: 'phone',
+    label: 'Phone',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'price',
+    label: 'Price',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'score',
+    label: 'Score',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'coap',
+    label: 'Coap',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'coap phone',
+    label: 'Coap Phone',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'address',
+    label: 'Address',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'aproval',
+    label: 'Aproval',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'bank',
+    label: 'Bank',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'payment',
+    label: 'Payments / Interest',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'DOI',
+    label: 'DOI',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'installet',
+    label: 'Installer',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'status',
+    label: 'Status',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'action',
+    label: 'Actions',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'Comment',
+    label: 'Comment',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'updated',
+    label: 'Updated at',
+    minWidth: 170,
+    align: 'right'
   },
 ];
 
@@ -57,9 +141,25 @@ const rows = [
   createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
+
+
+
+
+
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const [list, setList] = useState([])
+
+
+  useEffect(()=>{
+    axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
+    .then((response)=>{
+      setList(response.data)
+      console.log(response.data)
+    })
+  },[])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -88,8 +188,8 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {list
+              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -97,9 +197,10 @@ export default function StickyHeadTable() {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
+                            
+                            {column.format && typeof value === 'number'
+                              ? column.format(value)
+                              : value}
                         </TableCell>
                       );
                     })}
@@ -112,7 +213,7 @@ export default function StickyHeadTable() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={list.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

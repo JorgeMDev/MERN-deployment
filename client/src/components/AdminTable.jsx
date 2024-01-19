@@ -24,8 +24,6 @@ import Textarea from '@mui/joy/Textarea';
 
 
 import { TextField } from '@mui/material'
-import VerificationTable from './VerificationTable'
-import '../App.css';
 
 
 
@@ -138,10 +136,10 @@ const handleClose = () => {
       <TextField margin='normal' type="text" label="Search" placeholder='name, office , status' size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
     </Box>
    
-
-    <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 650}} >
-     <TableHead  sx={{ backgroundColor: '#f0f0f0', position: 'sticky', top: 0, zIndex: 1 }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <TableContainer sx={{ maxHeight: 840 }} >
+    <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table" >
+     <TableHead>
       <TableRow>
         <TableCell>Date of Sale</TableCell>
         <TableCell>Office</TableCell>   
@@ -166,7 +164,7 @@ const handleClose = () => {
     </TableHead>
     <TableBody>
 
-      {console.log(searchList)}
+
     
       
       {
@@ -209,6 +207,7 @@ const handleClose = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
    </TableContainer>
+   </Paper>
 
    <Box >
       <Dialog open={open} onClose={handleClose}  >

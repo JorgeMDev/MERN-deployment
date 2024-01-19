@@ -22,6 +22,7 @@ import Textarea from '@mui/joy/Textarea';
 const VerificationTable = (props) => {
 
 
+
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [office, setOffice] = useState('')
@@ -66,9 +67,9 @@ const VerificationTable = (props) => {
 
     const handleNewComment = (e) => {
         e.preventDefault()
-        console.log(newComment)
+       
 
-        newComment = 'Verif: ' + commentText
+        newComment = props.userRole + ': '+ commentText
        
 
         axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
@@ -99,8 +100,9 @@ const VerificationTable = (props) => {
   return (
     <div>
       <h1>Customers Verification Table</h1>
-        <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 840 }} >
+    <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table">
      <TableHead>
       <TableRow>
         <TableCell sx={{minWidth: 70}}>Date of Sale</TableCell>
@@ -155,6 +157,7 @@ const VerificationTable = (props) => {
     </TableBody>
     </Table>
    </TableContainer>
+   </Paper>
 
   
       <Box >
