@@ -25,6 +25,7 @@ import Textarea from '@mui/joy/Textarea';
 
 import { TextField } from '@mui/material'
 import VerificationTable from './VerificationTable'
+import '../App.css';
 
 
 
@@ -75,12 +76,6 @@ const AdminTable = (props) => {
   const handleRepList = () => {
     navigate('/all/reps')
   }
-
- 
-
-   
-
-
  
    // Function to filter data by month
 
@@ -123,9 +118,7 @@ const AdminTable = (props) => {
 const handleClose = () => {
   setOpen(false);
 };
-
-
-   
+  
 
   let totalRevenue = 0
   props.customers.map((eachCust, i)=> totalRevenue+= eachCust.price)
@@ -147,8 +140,8 @@ const handleClose = () => {
    
 
     <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-     <TableHead>
+    <Table sx={{ minWidth: 650}} >
+     <TableHead  sx={{ backgroundColor: '#f0f0f0', position: 'sticky', top: 0, zIndex: 1 }}>
       <TableRow>
         <TableCell>Date of Sale</TableCell>
         <TableCell>Office</TableCell>   
@@ -183,7 +176,7 @@ const handleClose = () => {
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>  <span style={{ color: eachCust.user ? 'black' : 'red' }}>{eachCust.user ? eachCust.user.firstName ? eachCust.user.firstName : 'no usar assigend' : 'no user assigned'} {eachCust.user && eachCust.user.lastName ? eachCust.user.lastName : ''}</span></TableCell>
+              <TableCell> <span style={{ color: eachCust.user ? 'black' : 'red' }}>{eachCust.user ? eachCust.user.firstName ? eachCust.user.firstName : 'no usar assigend' : 'no user assigned'} {eachCust.user && eachCust.user.lastName ? eachCust.user.lastName : ''}</span></TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>

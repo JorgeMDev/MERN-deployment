@@ -11,7 +11,7 @@ import LoginPage from './components/LoginPage';
 import ModalComment from './components/ModalComment'
 import VerificationTable from './components/VerificationTable';
 import UserEdit from './components/UserEdit';
-
+import TestTable from './components/TestTable';
 
 
 function App() {
@@ -30,6 +30,8 @@ function App() {
         <Route path='/all/users/user/:id' element={<UserEdit/>}/>
         <Route path='/comment/new/:customerid' element={<ModalComment/>}/>
         <Route path='/verification' element={<VerificationTable/>}/>
+        <Route path='/test' element={<TestTable/>}/>
+
   
       </Routes>
       </div>
