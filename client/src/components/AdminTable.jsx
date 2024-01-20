@@ -77,13 +77,44 @@ const AdminTable = (props) => {
  
    // Function to filter data by month
 
-   const handleFilterByMonth = (customers) => {
-    props.onFilterByMonth(customers)
+  //  const handleFilterByMonth = (customers) => {
+  //   props.onFilterByMonth(customers)
 
-   }
+  //  }
    
+   //filter logic
+  
+    const [filters, setFilters] = useState({ rep: '', status: '', office: '' });
+    const [filteredData, setFilteredData] = useState(props.customers);
 
-  //block of code to filter by name, lastname, email. status, office
+    console.log(filteredData)
+  
+    const handleFilterChange = (key, value) => {
+      setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
+    };
+  
+    const applyFilters = () => {
+      const filtered = searchList.filter((item) => {
+        return Object.keys(filters).every((key) => {
+          const filterValue = filters[key].toLowerCase();
+
+          return (
+            (key === 'rep' &&
+              item.user &&
+              (String(item.user.firstName).toLowerCase().includes(filterValue) ||
+                String(item.user.lastName).toLowerCase().includes(filterValue))) ||
+            (key === 'office' && String(item[key]).toLowerCase().includes(filterValue)) ||
+            (key !== 'rep' && key !== 'office' && String(item[key]).toLowerCase().includes(filterValue))
+          );
+        });
+      });
+      setFilteredData(filtered);
+    };
+
+ 
+    
+
+  //SEARCH FUNCTION block of code to filter by name, lastname, email. status, office
   const keys = ['firstName', 'lastName','email', 'status','office'];
 
   const search = (customersData) => {
@@ -117,10 +148,27 @@ const handleClose = () => {
   setOpen(false);
 };
   
-  //Revenue 
-  let totalRevenue = 0
-  props.customers.map((eachCust, i)=> totalRevenue+= eachCust.price)
-  let totalRev = totalRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
+  // Create an object to store total revenue per office
+let officeRevenueMap = {};
+
+// Iterate through customers and calculate total revenue per office
+filteredData.forEach((eachCust) => {
+  const office = eachCust.office;
+  const revenue = eachCust.price;
+
+  // Initialize total revenue for the office if not present
+  if (!officeRevenueMap[office]) {
+    officeRevenueMap[office] = 0;
+  }
+
+  // Update total revenue for the office
+  officeRevenueMap[office] += revenue;
+});
+
+// Now, officeRevenueMap contains the total revenue for each office
+console.log(officeRevenueMap);
+
 
   return (
    <div>
@@ -129,12 +177,50 @@ const handleClose = () => {
     <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
     
       <Button size="small" onClick={handleNewCustomer} variant='outlined'>Add New Customer</Button> 
-      <Typography>Revenue: <span style={{color: "green"}}>{totalRev}</span></Typography>
- 
+  
 
-      <Button size="small" onClick={()=>handleFilterByMonth(searchList)} variant='outlined'>This Month Sales</Button>
-      <TextField margin='normal' type="text" label="Search" placeholder='name, office , status' size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} /> 
+      <Box sx={{marginBottom: 3}}>
+      {/* Render a table or any other UI component to display office revenues */}
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Office</TableCell>
+            <TableCell>Total Revenue</TableCell>
+          </TableRow>
+        </TableHead>
+        <tbody>
+          {Object.entries(officeRevenueMap).map(([office, revenue]) => (
+            <TableRow key={office}>
+              <td>{office}</td>
+              <td>${revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
     </Box>
+ 
+{/* 
+      <Button size="small" onClick={()=>handleFilterByMonth(filteredData)} variant='outlined'>This Month Sales</Button> */}
+      {/* <TextField margin='normal' type="text" label="Search" placeholder='name, office , status' size='small' onChange={(e)=> setSearchInput(e.target.value)} value={searchInput} />  */}
+    
+     
+    </Box>
+    <TextField
+        label="Rep"
+        value={filters.rep}
+        onChange={(e) => handleFilterChange('rep', e.target.value)}
+      />
+      <TextField
+        label="Status"
+        value={filters.status}
+        onChange={(e) => handleFilterChange('status', e.target.value)}
+      />
+      <TextField
+        label="Office"
+        value={filters.office}
+        onChange={(e) => handleFilterChange('office', e.target.value)}
+      />
+      <Button onClick={applyFilters}>Apply Filters</Button>
    
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
     <TableContainer sx={{ maxHeight: 840 }} >
@@ -168,7 +254,7 @@ const handleClose = () => {
     
       
       {
-        searchList.map((eachCust, i)=>{
+        filteredData.map((eachCust, i)=>{
           return (
         
             <TableRow key={i}>
