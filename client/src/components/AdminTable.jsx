@@ -188,14 +188,14 @@ console.log(officeRevenueMap);
             <TableCell>Total Revenue</TableCell>
           </TableRow>
         </TableHead>
-        <tbody>
+        <TableBody>
           {Object.entries(officeRevenueMap).map(([office, revenue]) => (
             <TableRow key={office}>
-              <td>{office}</td>
-              <td>${revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+              <TableCell>{office}</TableCell>
+              <TableCell>${revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</TableCell>
             </TableRow>
           ))}
-        </tbody>
+        </TableBody>
       </Table>
     </Box>
  
