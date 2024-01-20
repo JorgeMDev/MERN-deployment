@@ -7,6 +7,7 @@ import NavBarMui from './NavBarMui'
 import Statuses from './Statuses'
 import VerificationTable from './VerificationTable'
 import RepView from './RepView'
+import RepSalesTable from './RepSalesTable'
 
 
 const Main = () => {
@@ -16,6 +17,8 @@ const Main = () => {
   const [userRole, setUserRole] = useState('')
   const [thisMonth, setThisMonth] = useState('')
   const [userFirstName, setUserFirstName] = useState('')
+  const [userLastName, setUserLastName] = useState('')
+  const [userId, setUserId] = useState('')
   
 
   useEffect(()=>{
@@ -51,10 +54,13 @@ const Main = () => {
 
       axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
       .then(response=>{
-        // console.log('Informacion de usuario')
-        // console.log(response.data)
+       
+
+        setUserId(response.data._id)
+     
         setUserFirstName(response.data.firstName)
-        console.log(response.data.firstName)
+        setUserLastName(response.data.lastName)
+       
         setUserRole(response.data.role)
       })
       .catch(err=>console.log(err))
@@ -94,6 +100,9 @@ const filterVerifList = () =>{
   
 }
 
+//Customers del rep loggeado
+const customersRep = customers.filter(eachCust => eachCust.user && eachCust.user._id === userId);
+
 
 
 //Calculations
@@ -125,23 +134,22 @@ const filterVerifList = () =>{
     <div>
       <NavBarMui/>
    
-      <h1>Sales Dashboard Role: {userRole}</h1>
+      <h1>Sales Dashboard - {userFirstName} {userLastName}</h1>
       <div className='bodyDiv'>
      
       {userRole === 'admin' && <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>}
     
       {userRole === 'admin' &&  <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth}/>}
-
-   
-     
+    
        {/* {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>} */}
-      
-
-      
-      {userRole === 'verif' && <VerificationTable  userRole={userRole} customers={customers} onNewComment={filterVerifList}/>} 
+           
       {userRole === 'admin' && <VerificationTable userRole={userRole}  customers={customers} onNewComment={filterVerifList}/>} 
 
-      {userRole === 'sales' && <RepView  customers={customers}  userFirstName={userFirstName} onNewComment={filterVerifList}/>} 
+      {userRole === 'verif' && <VerificationTable  userRole={userRole} customers={customers} onNewComment={filterVerifList}/>} 
+
+      {userRole === 'sales' && <RepSalesTable  userId={userId} customersRep={customersRep} userRole={userRole}  userFirstName={userFirstName} />} 
+
+      {userRole === 'sales' && <RepView  userId={userId} customers={customers} userRole={userRole}  userFirstName={userFirstName} onNewComment={filterVerifList}/>} 
 
 
     
