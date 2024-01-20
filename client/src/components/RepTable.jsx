@@ -82,7 +82,7 @@ const RepTable = () => {
               <TableCell>{eachRep.phone}</TableCell>
               <TableCell>{eachRep.email}</TableCell>
               <TableCell>{eachRep.office}</TableCell>
-              <TableCell>{moment(eachRep.createdAt).format('MM/DD/YYYY')}</TableCell>
+              <TableCell>{moment(eachRep.dob).format('MM/DD/YYYY')}</TableCell>
               <TableCell><Button sx={{marginRight: 1}} size="small" variant='contained' onClick={()=>handleEdit(eachRep._id)}>Edit</Button><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachRep._id)}>delete</Button></TableCell>
               <TableCell>{moment(eachRep.createdAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
