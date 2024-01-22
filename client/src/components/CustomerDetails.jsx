@@ -192,7 +192,7 @@ const CustomerDetails = () => {
                     <MenuItem value='Pending approval'>Pending Approval</MenuItem>
                     <MenuItem value='Pending install'>Pending Install</MenuItem>
                     <MenuItem value='Pending contract'>Pending contract</MenuItem>
-                    <MenuItem value='Singing'>Signning</MenuItem>
+                    <MenuItem value='Signing'>Signing</MenuItem>
                     <MenuItem value='In verification'>In Verification</MenuItem>
                     <MenuItem value='Verified'>Verified</MenuItem>
                     <MenuItem value='Paid'>Paid</MenuItem>

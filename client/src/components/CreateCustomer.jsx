@@ -64,7 +64,7 @@ const CreateCustomer = () => {
     
     axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
       .then(response=>{
-        console.log(response.data)
+        alert('Customer added successfully')
         navigate('/')
       })
       .catch(err=>{
@@ -163,11 +163,12 @@ const CreateCustomer = () => {
           <MenuItem value='Pending approval'>Pending Approval</MenuItem>
           <MenuItem value='Pending install'>Pending Install</MenuItem>
           <MenuItem value='Pending contract'>Pending contract</MenuItem>
-          <MenuItem value='Singing'>Singning</MenuItem>
+          <MenuItem value='Signing'>Signing</MenuItem>
           <MenuItem value='In verification'>Verification</MenuItem>
           <MenuItem value='Verified'>Verified</MenuItem>
           <MenuItem value='Paid'>Paid</MenuItem>
           <MenuItem value='Cancelled'>Cancelled</MenuItem>
+          <MenuItem value='Declined'>Declined</MenuItem>
         </Select>
         </Box>
           <Box sx={{padding: 1}}>
