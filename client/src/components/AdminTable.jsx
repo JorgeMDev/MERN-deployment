@@ -87,7 +87,7 @@ const AdminTable = (props) => {
     const [filters, setFilters] = useState({ rep: '', status: '', office: '' });
     const [filteredData, setFilteredData] = useState(props.customers);
 
-    console.log(filteredData)
+  
   
     const handleFilterChange = (key, value) => {
       setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
@@ -128,7 +128,7 @@ const AdminTable = (props) => {
   const handleOpen = (id) => {
     axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
         .then(response=>{
-        console.log(response.data)
+
         setFirstName(response.data.firstName)
         setLastName(response.data.lastName)
         setOffice(response.data.office)
@@ -167,7 +167,7 @@ filteredData.forEach((eachCust) => {
 });
 
 // Now, officeRevenueMap contains the total revenue for each office
-console.log(officeRevenueMap);
+
 
 
   return (
@@ -254,7 +254,7 @@ console.log(officeRevenueMap);
     
       
       {
-        filteredData.map((eachCust, i)=>{
+        filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((eachCust, i) =>{
           return (
         
             <TableRow key={i}>
@@ -286,7 +286,7 @@ console.log(officeRevenueMap);
     <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={searchList.length}
+        count={filteredData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
