@@ -58,6 +58,8 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+
     axios.post(process.env.REACT_APP_API_URL + "/api/login", user, {withCredentials: true,  headers: {
       'Access-Control-Allow-Origin': '*', 
       'Content-Type': 'application/json'
@@ -117,7 +119,7 @@ export default function LoginPage() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              value={user.email}
+              value={user.email.originalString.toLowerCase()}
               autoFocus
             onChange={changeHandler}/>
             <TextField
