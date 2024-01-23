@@ -21,6 +21,54 @@ import Textarea from '@mui/joy/Textarea';
 
 const SigningTable = (props) => {
 
+    //modal variables
+  const [open, setOpen] = useState(false);
+  const [updateId, setUpdateId] = useState('')
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [office, setOffice] = useState('')
+  
+
+
+
+
+  //open modal
+  const handleOpen = (id) => {
+    axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
+        .then(response=>{
+        console.log(response.data)
+        setFirstName(response.data.firstName)
+        setLastName(response.data.lastName)
+        setOffice(response.data.office)
+        setUpdateId(id)
+    
+      })
+      .catch(err=>{
+        console.log(err.response)
+      })
+
+  
+
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+//update customer
+const handleUpdate = (updateId) => {
+    axios.put(process.env.REACT_APP_API_URL + `/api/customer/${updateId}`, {status : 'In verification'}, { withCredentials: true })
+      .then(response => {
+        console.log(response.data);
+        handleClose();
+        alert('Update Successful');
+        navigate('/')
+       
+      })
+      .catch(err => console.log(err));
+  }
 
 
 
@@ -103,7 +151,7 @@ const SigningTable = (props) => {
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>    */}
               <TableCell>{eachCust.status}</TableCell>
-              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleStatus(eachCust._id)}>not working yet</Button></TableCell>
+              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Mark as Signed</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
@@ -114,6 +162,36 @@ const SigningTable = (props) => {
     </Table>
    </TableContainer>
    </Paper>
+
+   <Box >
+      <Dialog open={open} onClose={handleClose}  >
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogContent>
+
+                    <DialogContentText>Do you want to put this customer 'in verification'? </DialogContentText>
+           
+        </DialogContent>
+        
+        <Box sx={{maxWidth: 200}}>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleUpdate(updateId)}>
+        Yes
+        </Button>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleClose()}>
+        No
+        </Button>
+        </Box>
+
+
+
+
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Box>
+   
     </div>
   )
 }
