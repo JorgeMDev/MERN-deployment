@@ -34,9 +34,9 @@ module.exports.index =(req, res)=>{
 
 module.exports.login = async(req, res)=>{
 
-    console.log(req.body.email)
+    useremail = req.body.email.toLowerCase()
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: useremail });
 
     console.log('entre al login route')
     console.log(user)
