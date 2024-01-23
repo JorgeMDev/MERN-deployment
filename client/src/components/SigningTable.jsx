@@ -19,79 +19,33 @@ import DialogActions from '@mui/material/DialogActions';
 import Textarea from '@mui/joy/Textarea';
 
 
-const VerificationTable = (props) => {
+const SigningTable = (props) => {
 
 
 
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [office, setOffice] = useState('')
-    const [comments, setComments] = useState([])
-    const [commentText, setCommentText] = useState('')
-    const [custId, setCustId] = useState('')
 
     const navigate = useNavigate()
 
     let newComment = ''
 
     //Customers filtered by verification
-    const verifList = props.customers.filter((eachCust)=>eachCust.status == 'In verification')
+    const verifList = props.customers.filter((eachCust)=>eachCust.status == 'Signing')
 
-    const [open, setOpen] = useState(false);
+    const handleStatus = (id) => {
+        alert('Contract Signed! Client goes to verification!')
+        
 
-    const handleOpen = (id) => {
+
+    }
 
 
-        axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
-        .then(response=>{
-        console.log(response.data)
-        setFirstName(response.data.firstName)
-        setLastName(response.data.lastName)
-        setOffice(response.data.office)
-        setComments(response.data.comments)
-        setCustId(id)
-    
-      })
-      .catch(err=>{
-        console.log(err.response)
-      })
+   
 
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+   
     
    
 
-    const handleNewComment = (e) => {
-        e.preventDefault()
-       
-
-        newComment = props.userRole + ': '+ commentText
-       
-
-        axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
-        .then(response=>{
-          console.log(response.data)
-          setOpen(false);
-          props.onNewComment()
-       
-        })
-        .catch(err=>console.log(err))
-    }
-
-
-    const handleChange = (event) => {
-      
-        setCommentText(event.target.value)
-
-       
-       
-        
- 
-    }
+   
 
   
 
@@ -99,7 +53,7 @@ const VerificationTable = (props) => {
 
   return (
     <div>
-      <h1>Customers Verification Table</h1>
+      <h1>Customers Signing Table</h1>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 840 }} >
     <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table">
@@ -111,8 +65,6 @@ const VerificationTable = (props) => {
         <TableCell>Customer name</TableCell>
         <TableCell>Phone</TableCell>
         <TableCell>Bank</TableCell>
-       
-
         {/* <TableCell>Price</TableCell>
         <TableCell>Coap</TableCell>
         <TableCell>Coap Phone</TableCell>
@@ -151,7 +103,7 @@ const VerificationTable = (props) => {
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>    */}
               <TableCell>{eachCust.status}</TableCell>
-              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Add Comment</Button></TableCell>
+              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleStatus(eachCust._id)}>not working yet</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
@@ -162,46 +114,8 @@ const VerificationTable = (props) => {
     </Table>
    </TableContainer>
    </Paper>
-
-  
-      <Box >
-      <Dialog open={open} onClose={handleClose}  >
-        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
-        <DialogContent>
-
-                 {
-              
-                  comments.map((comment, i) =>(
-
-                    <DialogContentText key={i}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}: {comment.text} </DialogContentText>
-           
-
-                  ))
-                  
-                }   
-        
-        </DialogContent>
-
-        <Textarea sx={{minWidth: 400, margin: 2}} minRows={2} onChange={handleChange} placeholder="Add comment here.."/>
-        
-        <Box sx={{maxWidth: 200}}>
-        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={handleNewComment}>
-        Add Comment
-        </Button>
-        </Box>
-
-
-
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-      </Box>
     </div>
   )
 }
 
-export default VerificationTable
+export default SigningTable
