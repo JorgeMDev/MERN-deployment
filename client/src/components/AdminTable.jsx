@@ -209,16 +209,19 @@ filteredData.forEach((eachCust) => {
         label="Rep"
         value={filters.rep}
         onChange={(e) => handleFilterChange('rep', e.target.value)}
+        sx={{marginRight: 2}}
       />
       <TextField
         label="Status"
         value={filters.status}
         onChange={(e) => handleFilterChange('status', e.target.value)}
+        sx={{marginRight: 2}}
       />
       <TextField
         label="Office"
         value={filters.office}
         onChange={(e) => handleFilterChange('office', e.target.value)}
+        sx={{marginRight: 2, maxWidth: 100}}
       />
       <Button onClick={applyFilters}>Apply Filters</Button>
    

@@ -102,7 +102,7 @@ const RepSalesTable = (props) => {
         label="Address"
         value={addressFilter}
         onChange={(e) => setAddressFilter(e.target.value)}
-        sx={{marginRight: 2}}
+        sx={{marginRight: 2,maxWidth: 100}}
       />
 
       {/* Apply Filter button */}
