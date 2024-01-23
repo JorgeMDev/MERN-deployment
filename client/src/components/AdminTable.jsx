@@ -271,7 +271,7 @@ console.log(officeRevenueMap);
               <TableCell>{eachCust.approval}</TableCell>
               <TableCell>{eachCust.bank}</TableCell>
               <TableCell>{eachCust.paymentPlan}</TableCell>
-              <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
+              <TableCell>{eachCust.doi ? moment(eachCust.doi).format('MMM DD, YY') : 'Pending'}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>   
               <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleOpen(eachCust._id)}>delete</Button></TableCell>

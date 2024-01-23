@@ -30,7 +30,7 @@ const customerSchema = new Schema({
    },
    dos: { //date of sale
       type : Date,
-      required : [true, 'Date is required'],
+      required : [true, 'Date of sale is required'],
    },
    price: {
       type : Number,

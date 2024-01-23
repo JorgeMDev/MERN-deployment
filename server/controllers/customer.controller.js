@@ -60,7 +60,7 @@ module.exports.addCust = async(req, res) => {
    }
     catch (error) {
         console.error('Error creating customer:', error.message);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(400).json(error);
     }
    
     // try {
