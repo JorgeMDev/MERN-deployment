@@ -9,6 +9,7 @@ import VerificationTable from './VerificationTable'
 import RepView from './RepView'
 import RepSalesTable from './RepSalesTable'
 import SigningTable from './SigningTable'
+import TestTable from './TestTable'
 
 
 const Main = () => {
@@ -144,9 +145,9 @@ const customersRep = customers.filter(eachCust => eachCust.user && eachCust.user
     
        {/* {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>} */}
            
-      {userRole === 'admin' && <VerificationTable userRole={userRole}  customers={customers} onNewComment={filterVerifList}/>} 
+      {userRole === 'admin' && <VerificationTable userRole={userRole}  customers={customers} onNewComment={filterVerifList}/>}
 
-
+    
       {userRole === 'verif' && <SigningTable  userRole={userRole} customers={customers} onUpdate={filterList}/>} 
 
       {userRole === 'verif' && <VerificationTable  userRole={userRole} customers={customers} onNewComment={filterVerifList}/>} 

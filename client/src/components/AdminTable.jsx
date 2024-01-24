@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -110,6 +110,11 @@ const AdminTable = (props) => {
       });
       setFilteredData(filtered);
     };
+
+    useEffect(() => {
+      // Apply filters when the component mounts
+      applyFilters();
+    }, []); // Empty dependency array ensures the effect runs only once after the initial render
 
  
     

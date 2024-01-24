@@ -17,18 +17,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Textarea from '@mui/joy/Textarea';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 
-const VerificationTable = (props) => {
+const TestTable = (props) => {
+
+  console.log(props.customers)
 
 
-
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [office, setOffice] = useState('')
-    const [comments, setComments] = useState([])
-    const [commentText, setCommentText] = useState('')
-    const [custId, setCustId] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [office, setOffice] = useState('');
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
+  const [custId, setCustId] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [filterRep, setFilterRep] = useState('');
+  const [filterOffice, setFilterOffice] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
     const navigate = useNavigate()
 
@@ -36,6 +45,18 @@ const VerificationTable = (props) => {
 
     //Customers filtered by verification
     const verifList = props.customers.filter((eachCust)=>eachCust.status == 'In verification')
+
+    // Apply additional filters
+    const filteredList = verifList
+    .filter((cust) => (!filterRep || (cust.user && `${cust.user.firstName} ${cust.user.lastName}`.toLowerCase().includes(filterRep.toLowerCase()))))
+    .filter((cust) => (!filterOffice || cust.office === filterOffice))
+   
+    .filter((cust) => {
+      const searchKeys = ['firstName', 'lastName', 'office', 'user.firstName', 'user.lastName'];
+      return searchKeys.some(
+        (key) => cust[key]?.toLowerCase().includes(searchInput.toLowerCase()) || filterRep === searchInput
+      );
+    });
 
     const [open, setOpen] = useState(false);
 
@@ -86,10 +107,6 @@ const VerificationTable = (props) => {
     const handleChange = (event) => {
       
         setCommentText(event.target.value)
-
-       
-       
-        
  
     }
 
@@ -100,6 +117,48 @@ const VerificationTable = (props) => {
   return (
     <div>
       <h1>Customers Verification Table</h1>
+      <InputLabel>Filter by Office</InputLabel>
+     <Select
+    margin="normal"
+    label="Filter by Office"
+    size="small"
+    placeholder='Office'
+    onChange={(e) => setFilterOffice(e.target.value)}
+    value={filterOffice}
+    sx={{marginRight: 5, width: 100}}
+>
+    <MenuItem value="">All</MenuItem>
+    <MenuItem value="MD">MD</MenuItem>
+    <MenuItem value="VA">VA</MenuItem>
+      </Select>
+
+      <TextField
+        margin="normal"
+        type="text"
+        label="Search Customer"
+        placeholder="Customer Name"
+        size="small"
+        onChange={(e) => setSearchInput(e.target.value)}
+        value={searchInput}
+        sx={{margin: 1}}
+      />
+      <TextField
+        margin="normal"
+        type="text"
+        label="Filter by Rep"
+        placeholder="Rep Name"
+        size="small"
+        onChange={(e) => setFilterRep(e.target.value)}
+        value={filterRep}
+        sx={{margin: 1}}
+      />
+  
+      
+    
+    
+   
+          
+           
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 840 }} >
     <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table">
@@ -111,8 +170,6 @@ const VerificationTable = (props) => {
         <TableCell>Customer name</TableCell>
         <TableCell>Phone</TableCell>
         <TableCell>Bank</TableCell>
-       
-
         {/* <TableCell>Price</TableCell>
         <TableCell>Coap</TableCell>
         <TableCell>Coap Phone</TableCell>
@@ -130,9 +187,9 @@ const VerificationTable = (props) => {
     </TableHead>
     <TableBody>
     
-      
+  
       {
-        verifList.map((eachCust, i)=>{
+        filteredList.map((eachCust, i)=>{
           return (
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
@@ -204,4 +261,4 @@ const VerificationTable = (props) => {
   )
 }
 
-export default VerificationTable
+export default TestTable

@@ -1,224 +1,250 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
-import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
+import Button from '@mui/material/Button'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-
-const columns = [
-  { id: 'Date of Sale', label: 'Date of Sale', minWidth: 170 },
-  { id: 'Office', label: 'Office', minWidth: 100 },
-  {
-    id: 'Rep',
-    label: 'Rep',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'Customer name',
-    label: 'Customer name',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'phone',
-    label: 'Phone',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'price',
-    label: 'Price',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'score',
-    label: 'Score',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'coap',
-    label: 'Coap',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'coap phone',
-    label: 'Coap Phone',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'address',
-    label: 'Address',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'aproval',
-    label: 'Aproval',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'bank',
-    label: 'Bank',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'payment',
-    label: 'Payments / Interest',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'DOI',
-    label: 'DOI',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'installet',
-    label: 'Installer',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'status',
-    label: 'Status',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'action',
-    label: 'Actions',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'Comment',
-    label: 'Comment',
-    minWidth: 170,
-    align: 'right'
-  },
-  {
-    id: 'updated',
-    label: 'Updated at',
-    minWidth: 170,
-    align: 'right'
-  },
-];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box'
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Textarea from '@mui/joy/Textarea';
+import TextField from '@mui/material/TextField';
 
 
+const TestTable = (props) => {
+
+  console.log(props.customers)
 
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [office, setOffice] = useState('');
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
+  const [custId, setCustId] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [filterRep, setFilterRep] = useState('');
+  const [filterOffice, setFilterOffice] = useState('');
+  const [filterDate, setFilterDate] = useState('');
+
+    const navigate = useNavigate()
+
+    let newComment = ''
+
+    //Customers filtered by verification
+    const verifList = props.customers.filter((eachCust)=>eachCust.status == 'In verification')
+
+    // Apply additional filters
+    const filteredList = verifList
+    .filter((cust) => (!filterRep || (cust.user && `${cust.user.firstName} ${cust.user.lastName}`.toLowerCase().includes(filterRep.toLowerCase()))))
+    .filter((cust) => (!filterOffice || cust.office === filterOffice))
+   
+    .filter((cust) => {
+      const searchKeys = ['firstName', 'lastName', 'office', 'user.firstName', 'user.lastName'];
+      return searchKeys.some(
+        (key) => cust[key]?.toLowerCase().includes(searchInput.toLowerCase()) || filterRep === searchInput
+      );
+    });
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = (id) => {
 
 
-export default function StickyHeadTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+        axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
+        .then(response=>{
+        console.log(response.data)
+        setFirstName(response.data.firstName)
+        setLastName(response.data.lastName)
+        setOffice(response.data.office)
+        setComments(response.data.comments)
+        setCustId(id)
+    
+      })
+      .catch(err=>{
+        console.log(err.response)
+      })
 
-  const [list, setList] = useState([])
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    
+   
+
+    const handleNewComment = (e) => {
+        e.preventDefault()
+       
+
+        newComment = props.userRole + ': '+ commentText
+       
+
+        axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
+        .then(response=>{
+          console.log(response.data)
+          setOpen(false);
+          props.onNewComment()
+       
+        })
+        .catch(err=>console.log(err))
+    }
 
 
-  useEffect(()=>{
-    axios.get(process.env.REACT_APP_API_URL+'/api/customers/all', {withCredentials: true})
-    .then((response)=>{
-      setList(response.data)
-      console.log(response.data)
-    })
-  },[])
+    const handleChange = (event) => {
+      
+        setCommentText(event.target.value)
+ 
+    }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {list
-              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                            
-                            {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={list.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+    <div>
+      <h1>Customers Verification Table</h1>
+
+      <TextField
+        margin="normal"
+        type="text"
+        label="Search Customer"
+        placeholder="Customer Name"
+        size="small"
+        onChange={(e) => setSearchInput(e.target.value)}
+        value={searchInput}
       />
-    </Paper>
-  );
+      <TextField
+        margin="normal"
+        type="text"
+        label="Filter by Rep"
+        placeholder="Rep Name"
+        size="small"
+        onChange={(e) => setFilterRep(e.target.value)}
+        value={filterRep}
+      />
+      <TextField
+        margin="normal"
+        type="text"
+        label="Filter by Office"
+        placeholder="Office"
+        size="small"
+        onChange={(e) => setFilterOffice(e.target.value)}
+        value={filterOffice}
+      />
+   
+          
+           
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 840 }} >
+    <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table">
+     <TableHead>
+      <TableRow>
+        <TableCell sx={{minWidth: 70}}>Date of Sale</TableCell>
+        <TableCell>Office</TableCell>   
+        <TableCell>Rep</TableCell>
+        <TableCell>Customer name</TableCell>
+        <TableCell>Phone</TableCell>
+        <TableCell>Bank</TableCell>
+        {/* <TableCell>Price</TableCell>
+        <TableCell>Coap</TableCell>
+        <TableCell>Coap Phone</TableCell>
+        <TableCell>Address</TableCell>
+        <TableCell>Approval</TableCell>
+        <TableCell>Bank</TableCell>
+        <TableCell>Payments / Interest</TableCell>
+        <TableCell>DOI</TableCell> 
+        <TableCell>Installer</TableCell> */}
+        <TableCell>Status</TableCell>
+        <TableCell>Actions</TableCell>
+        <TableCell>Latest Comment</TableCell>
+        <TableCell>Updated at</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+    
+  
+      {
+        filteredList.map((eachCust, i)=>{
+          return (
+            <TableRow key={i}>
+              <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
+              <TableCell>{eachCust.office}</TableCell>
+              <TableCell>  <span style={{ color: eachCust.user ? 'black' : 'red' }}>{eachCust.user ? eachCust.user.firstName ? eachCust.user.firstName : 'no user assigend' : 'no user assigned'} {eachCust.user && eachCust.user.lastName ? eachCust.user.lastName : ''}</span></TableCell>
+              <TableCell>{eachCust.firstName} {eachCust.lastName}</TableCell>
+              <TableCell>{eachCust.phone}</TableCell>
+              <TableCell>{eachCust.bank}</TableCell>
+              {/* <TableCell>${eachCust.price}</TableCell>
+              <TableCell>{eachCust.coapFirstName} {eachCust.coapLastName}</TableCell>
+              <TableCell>{eachCust.CoapPhone}</TableCell>
+              <TableCell>{eachCust.address}</TableCell>
+              <TableCell>{eachCust.approval}</TableCell>
+              <TableCell>{eachCust.bank}</TableCell>
+              <TableCell>{eachCust.paymentPlan}</TableCell>
+              <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
+              <TableCell>{eachCust.installer}</TableCell>    */}
+              <TableCell>{eachCust.status}</TableCell>
+              <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Add Comment</Button></TableCell>
+              <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
+              <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
+            </TableRow>
+          )
+        })
+      } 
+    </TableBody>
+    </Table>
+   </TableContainer>
+   </Paper>
+
+  
+      <Box >
+      <Dialog open={open} onClose={handleClose}  >
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogContent>
+
+                 {
+              
+                  comments.map((comment, i) =>(
+
+                    <DialogContentText key={i}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}: {comment.text} </DialogContentText>
+           
+
+                  ))
+                  
+                }   
+        
+        </DialogContent>
+
+        <Textarea sx={{minWidth: 400, margin: 2}} minRows={2} onChange={handleChange} placeholder="Add comment here.."/>
+        
+        <Box sx={{maxWidth: 200}}>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={handleNewComment}>
+        Add Comment
+        </Button>
+        </Box>
+
+
+
+
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Box>
+    </div>
+  )
 }
+
+export default TestTable

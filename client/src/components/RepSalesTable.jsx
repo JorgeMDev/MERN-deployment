@@ -27,6 +27,11 @@ const RepSalesTable = (props) => {
     setFilteredData(filtered);
   };
 
+  useEffect(() => {
+    // Apply filters when the component mounts
+    applyFilters();
+  }, []); // Empty dependency array ensures the effect runs only once after the initial render
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
