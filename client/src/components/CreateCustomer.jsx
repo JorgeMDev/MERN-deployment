@@ -49,7 +49,7 @@ const CreateCustomer = () => {
   useEffect(()=>{
     axios.get(process.env.REACT_APP_API_URL + '/api/allUsers', {withCredentials: true})
         .then(response=>{
-            console.log(response.data)
+      
             setAllReps(response.data) 
         })
         .catch(err=>console.log(err))
@@ -61,8 +61,10 @@ const CreateCustomer = () => {
   const handleSubmit = (e, repId) => {
     e.preventDefault()
 
-    
-    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi, price, bank,approval, status, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
+    const updatedDoi = doi === null ? '' : doi
+   
+   
+    axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi: updatedDoi, price, bank,approval, status, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
       .then(response=>{
         alert('Customer added successfully')
         navigate('/')
@@ -127,7 +129,7 @@ const CreateCustomer = () => {
      <Box>
       <Box sx={{padding: 1}}>
         <FormLabel>Date of installation:</FormLabel>
-        <Input type='date' name='doi' value={doi}  onChange={(e)=>setDoi(e.target.value)}/>
+        <Input type='date' name='doi' value={doi ? doi : ''}  onChange={(e)=>setDoi(e.target.value)}/>
         </Box>
         <Box sx={{padding: 1}}>
       <FormLabel>Installer:</FormLabel>

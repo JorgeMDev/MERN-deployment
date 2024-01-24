@@ -77,7 +77,7 @@ const customerSchema = new Schema({
       type : String
    },
    coapCreditScore: {
-      type : Number
+      type : String
    },
    user: {
       type: Schema.Types.ObjectId,

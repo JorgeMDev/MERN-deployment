@@ -32,7 +32,7 @@ const CustomerDetails = () => {
     coapEmail: '',
     coapCreditScore: '',
     coapPhone: 0,
-    userId: '',
+    user: '',
     creditScore: '',
     dos: '',
     installer: '',
@@ -54,6 +54,7 @@ const CustomerDetails = () => {
     
     axios.get(process.env.REACT_APP_API_URL + `/api/customer/${id}`, { withCredentials: true })
       .then(response => {
+        console.log(response.data)
         setFormData({
           firstName: response.data.firstName,
           lastName: response.data.lastName,
@@ -61,7 +62,7 @@ const CustomerDetails = () => {
           office: response.data.office,
           address: response.data.address,
           phone: response.data.phone,
-          doi: moment(response.data.doi).format('YYYY-MM-DD'),
+          doi: response.data.doi !== null ? moment(response.data.doi).format('YYYY-MM-DD') : '', // Check for null and set an empty string,
           price: response.data.price,
           bank: response.data.bank,
           approval: response.data.approval,
@@ -72,7 +73,7 @@ const CustomerDetails = () => {
           coapEmail: response.data.coapEmail,
           coapCreditScore: response.data.coapCreditScore,
           coapPhone: response.data.coapPhone,
-          userId: response.data.user,
+          user: response.data.user,
           creditScore: response.data.creditScore,
           dos: moment(response.data.dos).format('YYYY-MM-DD'),
           installer: response.data.installer,
@@ -154,7 +155,7 @@ const CustomerDetails = () => {
                 </Box>
                 <Box sx={{ padding: 1 }}>
                   <FormLabel>Date of installation:</FormLabel>
-                  <Input type='date' name='doi' value={formData.doi} onChange={(e) => setFormData({ ...formData, doi: e.target.value })} />
+                  <Input type='date' name='doi' value={formData.doi ? formData.doi : ''} onChange={(e) => setFormData({ ...formData, doi: e.target.value })} />
                 </Box>
               </Box>
               {/* Other Sections */}
@@ -226,8 +227,8 @@ const CustomerDetails = () => {
                 <Select
                   sx={{ height: 30 }}
                   type='text'
-                  value={formData.userId}
-                  onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
+                  value={formData.user}
+                  onChange={(e) => setFormData({ ...formData, user: e.target.value })}
                 >
                   {allUsers
                     .sort((a, b) => a.firstName.localeCompare(b.firstName))

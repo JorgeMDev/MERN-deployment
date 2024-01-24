@@ -93,18 +93,68 @@ module.exports.addCust = async(req, res) => {
 }
 
 // update -- getOne + create
-module.exports.updateCust = (req, res) => {
-    const paramsId = req.params.id
-    const updatedCust = req.body
-    Customer.findOneAndUpdate(
-        {_id: paramsId}, // criteria
-        updatedCust, // update info
-        {new: true, runValidators: true}
-        // new : true --> return the updated object 
-        // runValidation --> to run validations
-    )
-        .then(updatedCust => res.json(updatedCust))
-        .catch(err => res.status(400).json(err))
+module.exports.updateCust = async(req, res) => {
+    // console.log('Updating customer info')
+    // console.log(req.body)
+    // console.log(req.params.id)
+
+    // const paramsId = req.params.id
+    // const updatedCust = req.body
+    // Customer.findOneAndUpdate(
+    //     {_id: paramsId}, // criteria
+    //     updatedCust, // update info
+    //     {new: true, runValidators: true}
+    //     // new : true --> return the updated object 
+    //     // runValidation --> to run validations
+    // )
+    //     .then(updatedCust => res.json(updatedCust))
+    //     .catch(err => res.status(400).json(err))
+
+        const customerId = req.params.id;
+
+        try {
+          // Find the customer by ID
+          const customer = await Customer.findById(customerId);
+      
+          if (!customer) {
+            return res.status(404).json({ error: 'Customer not found' });
+          }
+      
+          // Update customer fields based on request body
+          customer.firstName = req.body.firstName || customer.firstName;
+          customer.lastName = req.body.lastName || customer.lastName;
+          customer.email = req.body.email || customer.email;
+          customer.address = req.body.address || customer.address;
+          customer.phone = req.body.phone || customer.phone;
+          customer.dos = req.body.dos || customer.dos;
+          customer.price = req.body.price || customer.price;
+          customer.bank = req.body.bank || customer.bank;
+          customer.paymentPlan = req.body.paymentPlan || customer.paymentPlan;
+          customer.score = req.body.score || customer.score;
+          customer.approval = req.body.approval || customer.approval;
+          customer.doi = req.body.doi || customer.doi;
+          customer.installer = req.body.installer || customer.installer;
+          customer.status = req.body.status || customer.status;
+          customer.office = req.body.office || customer.office;
+          customer.user = req.body.user || customer.user;
+
+          customer.coapFirstName = req.body.coapFirstName || customer.coapFirstName;
+          customer.coapLastName = req.body.coapLastName || customer.coapLastName;
+          customer.coapEmail = req.body.coapEmail || customer.coapEmail;
+          customer.coapAddress = req.body.coapAddress || customer.coapAddress;
+          customer.coapPhone = req.body.coapPhone || customer.coapPhone;
+          customer.coapCreditScore = req.body.coapCreditScore || customer.coapCreditScore;
+
+          // Add other fields here based on your schema
+      
+          // Save the updated customer
+          const updatedCustomer = await customer.save();
+      
+          res.status(200).json(updatedCustomer);
+        } catch (error) {
+          console.error('Error updating customer:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
  
 
 }
