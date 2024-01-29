@@ -21,6 +21,7 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import TablePagination from '@mui/material/TablePagination';
 
 
 const TestTable = (props) => {
@@ -38,6 +39,18 @@ const TestTable = (props) => {
   const [filterRep, setFilterRep] = useState('');
   const [filterOffice, setFilterOffice] = useState('');
   const [filterDate, setFilterDate] = useState('');
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
     const navigate = useNavigate()
 
@@ -189,7 +202,7 @@ const TestTable = (props) => {
     
   
       {
-        filteredList.map((eachCust, i)=>{
+        filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((eachCust, i) =>{
           return (
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
@@ -217,6 +230,15 @@ const TestTable = (props) => {
       } 
     </TableBody>
     </Table>
+    <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
    </TableContainer>
    </Paper>
 
@@ -230,7 +252,7 @@ const TestTable = (props) => {
               
                   comments.map((comment, i) =>(
 
-                    <DialogContentText key={i}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}: {comment.text} </DialogContentText>
+                    <DialogContentText key={i}><span style={{fontWeight: 'bold'}}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}</span>, {comment.text} </DialogContentText>
            
 
                   ))
