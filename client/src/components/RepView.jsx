@@ -34,10 +34,10 @@ const RepView = (props) => {
 
     let newComment = ''
 
-
+    console.log(props.customers)
 
     //Customers filtered by Rep
-    const repList = props.customers.filter((eachCust)=>eachCust.user.firstName == props.userFirstName && eachCust.status == 'In verification')
+    const repList = props.customers.filter((eachCust)=>eachCust.user._id == props.userId && eachCust.status == 'In verification')
 
     const [open, setOpen] = useState(false);
 
