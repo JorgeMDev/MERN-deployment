@@ -21,6 +21,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 import { TextField } from '@mui/material'
@@ -65,7 +67,7 @@ const AdminTable = (props) => {
       .then(response=>{
         props.onDelete(deleteId)
         setOpen(false);
-        alert('Succseful delete')
+        alert('Customer deleted successfully!')
       })
       .catch(err=>console.log(err))
   }

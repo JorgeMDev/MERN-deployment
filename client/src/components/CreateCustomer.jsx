@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import NavBarMui from './NavBarMui'
 import InputLabel from '@mui/material/InputLabel';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 const CreateCustomer = () => {
     //Delcaring all states needed in the form
@@ -66,7 +68,7 @@ const CreateCustomer = () => {
    
     axios.post(process.env.REACT_APP_API_URL + `/api/customer/${repId}`, {firstName, lastName, email, office, address, phone, dos, doi: updatedDoi, price, bank,approval, status, coapPhone,coapCreditScore,coapEmail,coapFirstName, coapLastName, creditScore,installer, paymentPlan}, {withCredentials: true})
       .then(response=>{
-        alert('Customer added successfully')
+       alert('Customer created successfully!')
         navigate('/')
       })
       .catch(err=>{

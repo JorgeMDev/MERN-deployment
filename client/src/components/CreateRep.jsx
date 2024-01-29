@@ -9,7 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import NavBarMui from './NavBarMui'
 import '../App.css';
-
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 
@@ -47,7 +48,9 @@ const CreateRep = () => {
 
       axios.post(process.env.REACT_APP_API_URL+ '/api/register', {firstName, lastName, email, office, address, phone, dob, password, role}, {withCredentials: true})
       .then(response=>{
-        console.log(response.data)
+        console.log(response.data);
+          alert('User created successfully!')
+        
         navigate('/')
       })
       .catch(err=>{

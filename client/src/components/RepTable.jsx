@@ -20,6 +20,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
+import { Alert } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 const RepTable = () => {
@@ -99,7 +103,8 @@ const handleClose = () => {
   const handleDelete = (deleteId) => {
     axios.delete(process.env.REACT_APP_API_URL + `/api/user/${deleteId}`, {withCredentials: true})
       .then(response=>{
-        alert('User deleted')
+        handleClose();
+       alert('User deleted successfully')
       })
       .catch(err=>console.log(err))
   }
