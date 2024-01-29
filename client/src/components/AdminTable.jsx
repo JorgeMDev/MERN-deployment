@@ -20,7 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import Textarea from '@mui/joy/Textarea';
+import TableSortLabel from '@mui/material/TableSortLabel';
 
 
 import { TextField } from '@mui/material'
@@ -36,6 +36,9 @@ const AdminTable = (props) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [office, setOffice] = useState('')
+
+  const [orderBy, setOrderBy] = useState('dos');
+  const [order, setOrder] = useState('asc');
 
 
   const navigate = useNavigate()
@@ -74,15 +77,7 @@ const AdminTable = (props) => {
   const handleRepList = () => {
     navigate('/all/reps')
   }
- 
-   // Function to filter data by month
 
-  //  const handleFilterByMonth = (customers) => {
-  //   props.onFilterByMonth(customers)
-
-  //  }
-   
-   //filter logic
   
     const [filters, setFilters] = useState({ rep: '', status: '', office: '' });
     const [filteredData, setFilteredData] = useState(props.customers);
@@ -111,10 +106,20 @@ const AdminTable = (props) => {
       setFilteredData(filtered);
     };
 
-    useEffect(() => {
-      // Apply filters when the component mounts
-      applyFilters();
-    }, []); // Empty dependency array ensures the effect runs only once after the initial render
+
+    const handleRequestSort = (property) => {
+      const isAsc = orderBy === property && order === 'asc';
+      setOrder(isAsc ? 'desc' : 'asc');
+      setOrderBy(property);
+    };
+  
+    const sortByDate = (a, b) => {
+      const dateA = new Date(a.dos);
+      const dateB = new Date(b.dos);
+      return order === 'asc' ? dateA - dateB : dateB - dateA;
+    };
+
+    const sortedData = filteredData.sort(sortByDate);
 
  
     
@@ -235,7 +240,14 @@ filteredData.forEach((eachCust) => {
     <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table" >
      <TableHead>
       <TableRow>
-        <TableCell>Date of Sale</TableCell>
+      <TableSortLabel
+            sx={{ padding: 3}}
+                active={orderBy === 'dos'}
+                direction={order}
+                onClick={() => handleRequestSort('dos')}
+              >
+                Date of Sale
+        </TableSortLabel>
         <TableCell>Office</TableCell>   
         <TableCell>Rep</TableCell>
         <TableCell>Customer name</TableCell>
