@@ -241,12 +241,12 @@ filteredData.forEach((eachCust) => {
      <TableHead>
       <TableRow>
       <TableSortLabel
-            sx={{ padding: 3}}
+            sx={{ padding: 3, borderBottom: '1px solid gray', minHeight: 81 }}
                 active={orderBy === 'dos'}
                 direction={order}
                 onClick={() => handleRequestSort('dos')}
               >
-                Date of Sale
+                DOS
         </TableSortLabel>
         <TableCell>Office</TableCell>   
         <TableCell>Rep</TableCell>
