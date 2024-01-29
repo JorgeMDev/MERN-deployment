@@ -13,17 +13,58 @@ import NavBarMui from './NavBarMui'
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';  
 import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Box from '@mui/material/Box';
 
 
 const RepTable = () => {
   const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([])
 
+    //modal variables
+    const [open, setOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState('')
+
+
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [office, setOffice] = useState('')
+
   const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+
+    //open modal
+  const handleOpen = (id) => {
+    axios.get(process.env.REACT_APP_API_URL+`/api/user/${id}`, {withCredentials: true})
+        .then(response=>{
+
+        setFirstName(response.data.firstName)
+        setLastName(response.data.lastName)
+        setOffice(response.data.office)
+        setDeleteId(id)
+    
+      })
+      .catch(err=>{
+        console.log(err.response)
+      })
+
+  
+
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+  
 
 
   
@@ -136,7 +177,7 @@ const RepTable = () => {
               <TableCell>{eachRep.email}</TableCell>
               <TableCell>{eachRep.office}</TableCell>
               <TableCell>{moment(eachRep.dob).format('MM/DD/YYYY')}</TableCell>
-              <TableCell><Button sx={{marginRight: 1}} size="small" variant='contained' onClick={()=>handleEdit(eachRep._id)}>Edit</Button><Button size="small" variant='contained' color="error" onClick={()=>handleDelete(eachRep._id)}>delete</Button></TableCell>
+              <TableCell><Button sx={{marginRight: 1}} size="small" variant='contained' onClick={()=>handleEdit(eachRep._id)}>Edit</Button><Button size="small" variant='contained' color="error" onClick={()=>handleOpen(eachRep._id)}>delete</Button></TableCell>
               <TableCell>{moment(eachRep.createdAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
           )
@@ -155,6 +196,35 @@ const RepTable = () => {
       />
    </TableContainer>
    </Paper>
+
+   <Box >
+      <Dialog open={open} onClose={handleClose}  >
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogContent>
+
+                    <DialogContentText>Are you sure you want to delete this user? </DialogContentText>
+           
+        </DialogContent>
+        
+        <Box sx={{maxWidth: 200}}>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleDelete(deleteId)}>
+        Yes
+        </Button>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleClose()}>
+        No
+        </Button>
+        </Box>
+
+
+
+
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Box>
    </div>
 
    </div> 
