@@ -197,6 +197,7 @@ const CustomerDetails = () => {
                     <MenuItem value='In verification'>In Verification</MenuItem>
                     <MenuItem value='Verified'>Verified</MenuItem>
                     <MenuItem value='Paid'>Paid</MenuItem>
+                    <MenuItem value='Declined'>Declined</MenuItem>
                     <MenuItem value='Cancelled'>Cancelled</MenuItem>
                   </Select>
                 </Box>
