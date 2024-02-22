@@ -219,7 +219,10 @@ filteredList.forEach((eachCust) => {
 });
 
 // Now, officeRevenueMap contains the total revenue for each office
- 
+
+
+
+
 
 
   return (
@@ -323,9 +326,7 @@ filteredList.forEach((eachCust) => {
           <MenuItem value='Declined'>Declined</MenuItem>
       </Select>
       </Box>
-
-
-
+    
    
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
     <TableContainer sx={{ maxHeight: 840 }} >
