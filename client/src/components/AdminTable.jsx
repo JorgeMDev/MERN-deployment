@@ -91,6 +91,14 @@ const AdminTable = (props) => {
     navigate('/all/reps')
   }
 
+  const handlePayments = () => {
+    navigate('/payments')
+  }
+
+  const handlePerformance = () => {
+    navigate('/performance')
+  }
+
 
     const filteredData = props.customers
 
@@ -217,8 +225,8 @@ filteredList.forEach((eachCust) => {
   return (
    <div>
     <h1>Quicklinks</h1>
-    <Button sx={{marginRight: 2}} size="small" onClick={handleNewCustomer} variant='outlined'>Verified Customers</Button>
-    <Button size="small" onClick={handleNewCustomer} variant='outlined'>Sales Performance (by rep)</Button>
+    <Button sx={{marginRight: 2}} size="small" onClick={handlePayments} variant='outlined'>Verified Customers</Button>
+    <Button size="small" onClick={handlePerformance} variant='outlined'>Sales Performance (by rep)</Button>
 
     
 
