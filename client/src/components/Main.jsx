@@ -139,9 +139,9 @@ const customersRep = customers.filter(eachCust => eachCust.user && eachCust.user
       <h1>Sales Dashboard - {userFirstName} {userLastName}</h1>
       <div className='bodyDiv'>
      
-      {userRole === 'admin' && <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>}
+      {/* {userRole === 'admin' && <Statuses sold={sold} installed={installed} contractSigned={contractSigned} paid={paid}/>} */}
     
-      {userRole === 'admin' &&  <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth}/>}
+      {userRole === 'admin' &&  <AdminTable customers={customers} thisMonth={thisMonth} onDelete={filterList} onFilterByMonth={filterByMonth} onNewComment={filterVerifList}/>}
     
        {/* {userRole === 'admin' && <Histogram repsWithCustomer={repsWithCustomer} customers={customers}/>} */}
            

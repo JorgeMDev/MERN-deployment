@@ -178,7 +178,6 @@ const TestTable = (props) => {
      <TableHead>
       <TableRow>
         <TableCell sx={{minWidth: 70}}>Date of Sale</TableCell>
-        <TableCell>Status</TableCell>
         <TableCell>Office</TableCell>   
         <TableCell>Rep</TableCell>
         <TableCell>Customer name</TableCell>
@@ -193,6 +192,7 @@ const TestTable = (props) => {
         <TableCell>Payments / Interest</TableCell>
         <TableCell>DOI</TableCell> 
         <TableCell>Installer</TableCell> */}
+        <TableCell>Status</TableCell>
         <TableCell>Actions</TableCell>
         <TableCell>Latest Comment</TableCell>
         <TableCell>Updated at</TableCell>
@@ -206,16 +206,15 @@ const TestTable = (props) => {
           return (
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
-              <TableCell>{eachCust.status}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
               <TableCell>
   {eachCust.user ? (
-    <span style={{ color: eachCust.user.lastName ? 'black' : 'red' }}>
+    <Typography style={{ color: eachCust.user.lastName ? 'black' : 'red' }}>
       {eachCust.user.firstName ? eachCust.user.firstName : 'no user assigned'}{' '}
       {eachCust.user.lastName ? eachCust.user.lastName : ''}
-    </span>
+    </Typography>
   ) : (
-    <span style={{ color: 'red' }}>no user assigned</span>
+    <Typography style={{ color: 'red' }}>no user assigned</Typography>
   )}
               </TableCell>
 
@@ -231,7 +230,7 @@ const TestTable = (props) => {
               <TableCell>{eachCust.paymentPlan}</TableCell>
               <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>    */}
-            
+              <TableCell>{eachCust.status}</TableCell>
               <TableCell><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id)}>Add Comment</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
@@ -263,7 +262,7 @@ const TestTable = (props) => {
               
                   comments.map((comment, i) =>(
 
-                    <DialogContentText key={i}><span style={{fontWeight: 'bold'}}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}</span>, {comment.text} </DialogContentText>
+                    <DialogContentText key={i}><Typography style={{fontWeight: 'bold'}}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}</Typography>, {comment.text} </DialogContentText>
            
 
                   ))

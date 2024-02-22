@@ -11,6 +11,8 @@ const RepSalesTable = (props) => {
   const [statusFilter, setStatusFilter] = useState('');
   const [addressFilter, setAddressFilter] = useState('');
 
+  
+
   const applyFilters = () => {
     // Filter data based on criteria
     const filtered = props.customersRep.filter((customer) => {

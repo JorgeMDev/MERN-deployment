@@ -21,19 +21,30 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-
-
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField';
+import { useMediaQuery } from '@mui/material';
+import Textarea from '@mui/joy/Textarea';
 
 
 
 const AdminTable = (props) => {
 
+
+  const isMobile = useMediaQuery('(max-width:600px)');
+  
+
   //modal variables
   const [open, setOpen] = useState(false);
+  const [openComment, setOpenComment] = useState(false);
   const [deleteId, setDeleteId] = useState('')
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
+  const [custId, setCustId] = useState('');
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -80,33 +91,31 @@ const AdminTable = (props) => {
     navigate('/all/reps')
   }
 
-  
-    const [filters, setFilters] = useState({ rep: '', status: '', office: '' });
-    const [filteredData, setFilteredData] = useState(props.customers);
+
+    const filteredData = props.customers
+
+    let newComment = ''
+ 
 
   
-  
-    const handleFilterChange = (key, value) => {
-      setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
-    };
-  
-    const applyFilters = () => {
-      const filtered = searchList.filter((item) => {
-        return Object.keys(filters).every((key) => {
-          const filterValue = filters[key].toLowerCase();
 
-          return (
-            (key === 'rep' &&
-              item.user &&
-              (String(item.user.firstName).toLowerCase().includes(filterValue) ||
-                String(item.user.lastName).toLowerCase().includes(filterValue))) ||
-            (key === 'office' && String(item[key]).toLowerCase().includes(filterValue)) ||
-            (key !== 'rep' && key !== 'office' && String(item[key]).toLowerCase().includes(filterValue))
-          );
-        });
-      });
-      setFilteredData(filtered);
-    };
+    const [filterRep, setFilterRep] = useState('');
+    const [filterOffice, setFilterOffice] = useState('');
+    const [filterStatus, setFilterStatus] = useState('');
+ 
+
+
+    const filteredList = filteredData 
+    .filter((cust) => (!filterRep || (cust.user && `${cust.user.firstName} ${cust.user.lastName}`.toLowerCase().includes(filterRep.toLowerCase()))))
+    .filter((cust) => (!filterOffice || cust.office === filterOffice))
+    .filter((cust) => (!filterStatus || cust.status === filterStatus))
+   
+    .filter((cust) => {
+      const searchKeys = ['firstName', 'lastName', 'office', 'user.firstName', 'user.lastName'];
+      return searchKeys.some(
+        (key) => cust[key]?.toLowerCase().includes(searchInput.toLowerCase()) || filterRep === searchInput
+      );
+    });
 
 
     const handleRequestSort = (property) => {
@@ -121,43 +130,66 @@ const AdminTable = (props) => {
       return order === 'asc' ? dateA - dateB : dateB - dateA;
     };
 
-    const sortedData = filteredData.sort(sortByDate);
+    const sortedData = filteredList.sort(sortByDate);
 
- 
     
+    const handleNewComment = (e) => {
+      e.preventDefault()
+     
 
-  //SEARCH FUNCTION block of code to filter by name, lastname, email. status, office
-  const keys = ['firstName', 'lastName','email', 'status','office'];
+      newComment = props.userRole + ': '+ commentText
+     
 
-  const search = (customersData) => {
-    
-    return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
+      axios.post(process.env.REACT_APP_API_URL + `/api/${custId}/comment`, {newComment}, {withCredentials:true})
+      .then(response=>{
+        console.log(response.data)
+        setOpen(false);
+        props.onNewComment()
+     
+      })
+      .catch(err=>console.log(err))
   }
-  const searchList = search(props.customers)
+
+
+  const handleChange = (event) => {
+    
+      setCommentText(event.target.value)
+
+  }
 
 
 //open modal
-  const handleOpen = (id) => {
+  const handleOpen = (id, word) => {
     axios.get(process.env.REACT_APP_API_URL+`/api/customer/${id}`, {withCredentials: true})
         .then(response=>{
 
         setFirstName(response.data.firstName)
         setLastName(response.data.lastName)
         setOffice(response.data.office)
+        setComments(response.data.comments)
         setDeleteId(id)
+        setCustId(id)
+        
     
       })
       .catch(err=>{
         console.log(err.response)
       })
 
-  
+  if (word === 'comment') {
+    console.log('comment abre')
+    setOpenComment(true);
+  }else{
+    setOpen(true);
+  }
 
-  setOpen(true);
+
+  
 };
 
 const handleClose = () => {
   setOpen(false);
+  setOpenComment(false);
 };
   
 
@@ -165,7 +197,7 @@ const handleClose = () => {
 let officeRevenueMap = {};
 
 // Iterate through customers and calculate total revenue per office
-filteredData.forEach((eachCust) => {
+filteredList.forEach((eachCust) => {
   const office = eachCust.office;
   const revenue = eachCust.price;
 
@@ -179,11 +211,18 @@ filteredData.forEach((eachCust) => {
 });
 
 // Now, officeRevenueMap contains the total revenue for each office
-
+ 
 
 
   return (
    <div>
+    <h1>Quicklinks</h1>
+    <Button sx={{marginRight: 2}} size="small" onClick={handleNewCustomer} variant='outlined'>Verified Customers</Button>
+    <Button size="small" onClick={handleNewCustomer} variant='outlined'>Sales Performance (by rep)</Button>
+
+    
+
+
      <h1 style={{textAlign: 'center'}}>Sales Report</h1>
     
     <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5}}>
@@ -217,31 +256,75 @@ filteredData.forEach((eachCust) => {
     
      
     </Box>
-    <TextField
-        label="Rep"
-        value={filters.rep}
-        onChange={(e) => handleFilterChange('rep', e.target.value)}
-        sx={{marginRight: 2}}
+    <Box style={{justifyContent: "space-around", alignItems:'center', display: 'flex', margin: 5, gap: 5, flexDirection: isMobile ? 'column' : 'row'}}>
+    <InputLabel>Filter by Office</InputLabel>
+     <Select
+    margin="dense"
+    label="Filter by Office"
+    size="small"
+    placeholder='Office'
+    onChange={(e) => setFilterOffice(e.target.value)}
+    value={filterOffice}
+    sx={{marginRight: 5, width: 100}}
+>
+    <MenuItem value="">All</MenuItem>
+    <MenuItem value="MD">MD</MenuItem>
+    <MenuItem value="VA">VA</MenuItem>
+      </Select>
+
+      <TextField
+        margin="dense"
+        type="text"
+        label="Search Customer"
+        placeholder="Customer Name"
+        size="small"
+        onChange={(e) => setSearchInput(e.target.value)}
+        value={searchInput}
+        sx={{margin: 1}}
       />
       <TextField
-        label="Status"
-        value={filters.status}
-        onChange={(e) => handleFilterChange('status', e.target.value)}
-        sx={{marginRight: 2}}
+        margin="dense"
+        type="text"
+        label="Filter by Rep"
+        placeholder="Rep Name"
+        size="small"
+        onChange={(e) => setFilterRep(e.target.value)}
+        value={filterRep}
+        sx={{margin: 1}}
       />
-      <TextField
-        label="Office"
-        value={filters.office}
-        onChange={(e) => handleFilterChange('office', e.target.value)}
-        sx={{marginRight: 2, maxWidth: 100}}
-      />
-      <Button onClick={applyFilters}>Apply Filters</Button>
+      <InputLabel>Filter by Status</InputLabel>
+     <Select
+    margin="dense"
+    label="Filter by Status"
+    size="small"
+    placeholder='Status'
+    onChange={(e) => setFilterStatus(e.target.value)}
+    value={filterStatus}
+    sx={{marginRight: 5, width: 200}}
+    
+>
+          <MenuItem value="">All</MenuItem>
+          <MenuItem value='Pending approval'>Pending Approval</MenuItem>
+          <MenuItem value='Pending install'>Pending Install</MenuItem>
+          <MenuItem value='Pending contract'>Pending contract</MenuItem>
+          <MenuItem value='Signing'>Signing</MenuItem>
+          <MenuItem value='In verification'>Verification</MenuItem>
+          <MenuItem value='Verified'>Verified</MenuItem>
+          <MenuItem value='Paid'>Paid</MenuItem>
+          <MenuItem value='Cancelled'>Cancelled</MenuItem>
+          <MenuItem value='Declined'>Declined</MenuItem>
+      </Select>
+      </Box>
+
+
+
    
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
     <TableContainer sx={{ maxHeight: 840 }} >
     <Table sx={{ minWidth: 650}} stickyHeader aria-label="sticky table" >
      <TableHead>
       <TableRow>
+      <TableCell>
       <TableSortLabel
             sx={{ padding: 3, borderBottom: '1px solid gray', minHeight: 81 }}
                 active={orderBy === 'dos'}
@@ -250,6 +333,8 @@ filteredData.forEach((eachCust) => {
               >
                 DOS
         </TableSortLabel>
+        </TableCell>
+        <TableCell>Status</TableCell>
         <TableCell>Office</TableCell>   
         <TableCell>Rep</TableCell>
         <TableCell>Customer name</TableCell>
@@ -263,8 +348,7 @@ filteredData.forEach((eachCust) => {
         <TableCell>Bank</TableCell>
         <TableCell>Payments / Interest</TableCell>
         <TableCell>DOI</TableCell> 
-        <TableCell>Installer</TableCell>
-        <TableCell>Status</TableCell>
+        <TableCell>Installer</TableCell>   
         <TableCell>Actions</TableCell>
         <TableCell>Comments</TableCell>
         <TableCell>Updated at</TableCell>
@@ -276,13 +360,16 @@ filteredData.forEach((eachCust) => {
     
       
       {
-        filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((eachCust, i) =>{
+        filteredList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((eachCust, i) =>{
           return (
         
             <TableRow key={i}>
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
+              <TableCell>{eachCust.status}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell> <span style={{ color: eachCust.user ? 'black' : 'red' }}>{eachCust.user ? eachCust.user.firstName ? eachCust.user.firstName : 'no usar assigend' : 'no user assigned'} {eachCust.user && eachCust.user.lastName ? eachCust.user.lastName : ''}</span></TableCell>
+              <TableCell>{eachCust.user ? (<Typography style={{ color: eachCust.user.lastName ? 'black' : 'red' }}> {eachCust.user.firstName ? eachCust.user.firstName 
+              : 'no user assigned'}{' '} {eachCust.user.lastName ? eachCust.user.lastName : ''}  </Typography> ) 
+              : (<Typography style={{ color: 'red' }}>no user assigned</Typography> )}</TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>
@@ -295,8 +382,7 @@ filteredData.forEach((eachCust) => {
               <TableCell>{eachCust.paymentPlan}</TableCell>
               <TableCell>{eachCust.doi ? moment(eachCust.doi).format('MMM DD, YY') : 'Pending'}</TableCell>
               <TableCell>{eachCust.installer}</TableCell>   
-              <TableCell>{eachCust.status}</TableCell>
-              <TableCell><Button size="small" variant='contained' color="error" onClick={()=>handleOpen(eachCust._id)}>delete</Button></TableCell>
+              <TableCell><Button sx={{marginBottom: 1}} size="small" variant='contained' color="error" onClick={()=>handleOpen(eachCust._id)}>delete</Button><Button size="small" variant='contained' color="info" onClick={()=>handleOpen(eachCust._id, 'comment')}>Comments</Button></TableCell>
               <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length -1].text : 'No comments'}</TableCell>
               <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
             </TableRow>
@@ -308,7 +394,7 @@ filteredData.forEach((eachCust) => {
     <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={filteredData.length}
+        count={filteredList.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -316,7 +402,7 @@ filteredData.forEach((eachCust) => {
       />
    </TableContainer>
    </Paper>
-
+      {/* Modal for deletion */}
    <Box >
       <Dialog open={open} onClose={handleClose}  >
         <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
@@ -332,6 +418,42 @@ filteredData.forEach((eachCust) => {
         </Button>
         <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={()=>handleClose()}>
         No
+        </Button>
+        </Box>
+
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Box>
+
+
+      {/* Modal for comments */}
+      <Box >
+      <Dialog open={openComment} onClose={handleClose}  >
+        <DialogTitle>Customer: {firstName} {lastName} - Office:{office} </DialogTitle>
+        <DialogContent>
+
+                 {
+              
+                  comments.map((comment, i) =>(
+
+                    <DialogContentText key={i}><span style={{fontWeight: 'bold'}}>{moment(comment.timestamp).format('MMM DD, YY, hh:mm a')}</span>, {comment.text} </DialogContentText>
+           
+
+                  ))
+                  
+                }   
+        
+        </DialogContent>
+
+        <Textarea sx={{minWidth: 400, margin: 2}} minRows={2} onChange={handleChange} placeholder="Add comment here.."/>
+        
+        <Box sx={{maxWidth: 200}}>
+        <Button sx={{ margin: 2}} size='small' variant="outlined" onClick={handleNewComment}>
+        Add Comment
         </Button>
         </Box>
 
