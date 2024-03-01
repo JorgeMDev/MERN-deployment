@@ -126,6 +126,7 @@ const RepSalesTable = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>Date of Sale</TableCell>
+                <TableCell>Status</TableCell>
                 <TableCell>Office</TableCell>
                 <TableCell>Rep</TableCell>
                 <TableCell>Customer name</TableCell>
@@ -140,7 +141,6 @@ const RepSalesTable = (props) => {
                 <TableCell>Payments / Interest</TableCell>
                 <TableCell>DOI</TableCell>
                 <TableCell>Installer</TableCell>
-                <TableCell>Status</TableCell>
                 <TableCell>Comments</TableCell>
                 <TableCell>Updated at</TableCell>
               </TableRow>
@@ -149,6 +149,7 @@ const RepSalesTable = (props) => {
               {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((eachCust, i) => (
                 <TableRow key={i}>
                   <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
+                  <TableCell>{eachCust.status}</TableCell>
                   <TableCell>{eachCust.office}</TableCell>
                   <TableCell>
                     <span style={{ color: eachCust.user ? 'black' : 'red' }}>
@@ -167,7 +168,6 @@ const RepSalesTable = (props) => {
                   <TableCell>{eachCust.paymentPlan}</TableCell>
                   <TableCell>{moment(eachCust.doi).format('MMM DD, YY')}</TableCell>
                   <TableCell>{eachCust.installer}</TableCell>
-                  <TableCell>{eachCust.status}</TableCell>
                   <TableCell>{eachCust.comments.length !== 0 ? eachCust.comments[eachCust.comments.length - 1].text : 'No comments'}</TableCell>
                   <TableCell>{moment(eachCust.updatedAt).format('dddd LT MM/DD/YY')}</TableCell>
                 </TableRow>
