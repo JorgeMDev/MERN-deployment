@@ -376,9 +376,9 @@ filteredList.forEach((eachCust) => {
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.status}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>{eachCust.user ? (<Typography style={{ color: eachCust.user.lastName ? 'black' : 'red' }}> {eachCust.user.firstName ? eachCust.user.firstName 
-              : 'no user assigned'}{' '} {eachCust.user.lastName ? eachCust.user.lastName : ''}  </Typography> ) 
-              : (<Typography style={{ color: 'red' }}>no user assigned</Typography> )}</TableCell>
+              <TableCell>{eachCust.user ? (<span style={{ color: eachCust.user.lastName ? 'black' : 'red' }}> {eachCust.user.firstName ? eachCust.user.firstName 
+              : 'no user assigned'}{' '} {eachCust.user.lastName ? eachCust.user.lastName : ''}  </span> ) 
+              : (<span style={{ color: 'red' }}>no user assigned</span> )}</TableCell>
               <TableCell><Link to={`customer/${eachCust._id}`}>{eachCust.firstName} {eachCust.lastName}</Link></TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               <TableCell>${eachCust.price}</TableCell>
