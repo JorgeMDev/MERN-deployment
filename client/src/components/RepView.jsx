@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
@@ -29,15 +29,27 @@ const RepView = (props) => {
     const [custId, setCustId] = useState('')
     const [userEmail, SetUserEmail] = useState('')
     const [searchInput, setSearchInput] = useState('');
+    const [repList, setRepList] = useState([])
+    const [userName, setUserName] = useState(props.userFirstName + ' ' + props.userLastName)
 
     const navigate = useNavigate()
 
     let newComment = ''
 
-    console.log(props.customers)
 
-    //Customers filtered by Rep
-    const repList = props.customers.filter((eachCust)=>eachCust.user._id == props.userId && eachCust.status == 'In verification')
+
+    //Create use effect to get user data
+    useEffect(()=>{
+
+        axios.get(process.env.REACT_APP_API_URL+`/api/customers/${props.userId}`, {withCredentials: true})
+        .then(response=>{
+          console.log('RESPUESTA', response.data)
+          setRepList(response.data.filter((eachCust)=>eachCust.status == 'In verification'))
+       
+        })
+        .catch(err=>console.log(err))
+
+    },[])
 
     const [open, setOpen] = useState(false);
 
@@ -98,31 +110,6 @@ const RepView = (props) => {
 
 
 
- 
-   // Function to filter data by month
-
-   const handleFilterByMonth = (customers) => {
-    props.onFilterByMonth(customers)
-
-   }
-   
-
-  //block of code to filter by name, lastname, email. status, office
-  const keys = ['firstName', 'lastName','email', 'status','office'];
-
-  const search = (customersData) => {
-    
-    return customersData.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchInput.toLocaleLowerCase())))
-  }
-  const searchList = search(repList)
-
-  let totalRevenue = 0
-  repList.map((eachCust, i)=> totalRevenue+= eachCust.price)
-  let totalRev = totalRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-
-
-
-
   return (
     <div>
       <h1>Customers in verification</h1>
@@ -169,7 +156,7 @@ const RepView = (props) => {
               <TableCell>{moment(eachCust.dos).format('MMM DD, YY')}</TableCell>
               <TableCell>{eachCust.status}</TableCell>
               <TableCell>{eachCust.office}</TableCell>
-              <TableCell>{eachCust.user.firstName} {eachCust.user.lastName}</TableCell>
+              <TableCell>{userName}</TableCell>
               <TableCell>{eachCust.firstName} {eachCust.lastName}</TableCell>
               <TableCell>{eachCust.phone}</TableCell>
               {/* <TableCell>${eachCust.price}</TableCell>

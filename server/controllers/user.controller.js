@@ -167,6 +167,7 @@ module.exports.deleteUser= (req, res) => {
 module.exports.oneUser = (req, res) => {
     const paramsId = req.params.id
     User.findOne({ _id: paramsId })
+        .populate('totalCustomers') // Populate the customers field
         .then(User => res.json(User))
         .catch(err => res.status(400).json(err))
 }

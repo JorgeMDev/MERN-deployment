@@ -18,11 +18,13 @@ module.exports.allCust = (req, res) => {
         .catch(err => res.status(400).json(err))
 }
 
-//get all customer of one rep
+//get all customer of one user
 module.exports.customersOfOneRep = (req, res) => {
-    Customer.find({rep: req.params.repId})
+    Customer.find({user: req.params.repId})
         .then(customers=>res.json(customers))
         .catch(err=>res.status(400).json(err))
+        
+     
 }
 
 

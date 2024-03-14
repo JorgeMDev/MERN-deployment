@@ -57,6 +57,7 @@ const Main = () => {
       axios.get(process.env.REACT_APP_API_URL+'/api/getUser', {withCredentials: true})
       .then(response=>{
        
+       
 
         setUserId(response.data._id)
      
@@ -154,7 +155,7 @@ const customersRep = customers.filter(eachCust => eachCust.user && eachCust.user
 
       {userRole === 'sales' && <RepSalesTable  userId={userId} customersRep={customersRep} userRole={userRole}  userFirstName={userFirstName} />} 
 
-      {userRole === 'sales' && <RepView  userId={userId} customers={customers} userRole={userRole}  userFirstName={userFirstName} onNewComment={filterVerifList}/>} 
+      {userRole === 'sales' && <RepView  userId={userId} userRole={userRole}  userFirstName={userFirstName} userLastName={userLastName} onNewComment={filterVerifList}/>} 
 
 
     
